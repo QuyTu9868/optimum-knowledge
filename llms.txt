@@ -23,7 +23,7 @@ Rules for agents using this repo:
 - [Provably optimal](technology/provably-optimal.md): the optimality claim and its conditions
 
 ## Team and history
-- [People](team/people.md): founders, advisors, photo links
+- [People](team/people.md): founders, advisors, with photo URLs you can show as Markdown images
 - [Funding](team/funding.md): seed round and investors
 - [Research history](team/research-history.md): papers and awards
 - [Timeline](team/timeline.md): milestones, mainnet status

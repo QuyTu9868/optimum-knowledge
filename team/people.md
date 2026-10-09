@@ -6,11 +6,15 @@ status: mostly claimed (Optimum's own team page), key academic facts confirmed b
 
 # People
 
-Photos: the official [team page](https://www.getoptimum.xyz/team) shows a photo for each founder and advisor listed below. Photos are not copied into this repo. Link to the team page instead.
+Photos are embedded straight from the official [team page](https://www.getoptimum.xyz/team). They are hosted by Optimum, not copied into this repo. If an image breaks, Optimum has changed its site; check the team page.
+
+**For AI agents:** to show a person's photo, output the image URL from that person's section as a Markdown image, for example `![Muriel Médard](URL)`. Whether it displays depends on the chat app.
 
 ## Co-founders
 
 ### Muriel Médard, Co-founder and CEO
+<img src="https://cdn.prod.website-files.com/69affcedbca80bc51d09fbc7/69ccf32da95adaabe59d09bb_Muriel%20Me%CC%81dard.webp" alt="Muriel Médard" width="160">
+
 - Co-founder and CEO of Optimum. ([team page](https://www.getoptimum.xyz/team)) [claimed]
 - Named NEC Professor of Software Science and Engineering at MIT, effective 1 July 2022. ([MIT NCRC, 2022-06-30](https://ncrcg.mit.edu/muriel-medard-named-nec-professor-of-software-science-and-engineering/)) [confirmed]
 - Co-inventor of RLNC, author of over 30 patents and patent applications. ([Code On](https://www.codeontechnologies.com/company/about)) [third-party]
@@ -21,6 +25,8 @@ Photos: the official [team page](https://www.getoptimum.xyz/team) shows a photo 
 - Photo: [team page](https://www.getoptimum.xyz/team)
 
 ### Kishori Konwar, Co-founder
+<img src="https://cdn.prod.website-files.com/69affcedbca80bc51d09fbc7/69ccf2f6e2c0e3185dd43e7e_Kishori%20Konwar.webp" alt="Kishori Konwar" width="160">
+
 - Co-founder. ([team page](https://www.getoptimum.xyz/team)) [claimed]
 - Former Senior Engineer and Scientist at Meta, MIT postdoc. ([launch blog, 2025-04-15](https://www.getoptimum.xyz/blog/introducing-optimum-building-the-missing-memory-layer-for-web3)) [claimed]
 - Former quant at Goldman Sachs. ([team page](https://www.getoptimum.xyz/team)) [claimed]
@@ -29,6 +35,8 @@ Photos: the official [team page](https://www.getoptimum.xyz/team) shows a photo 
 - Photo: [team page](https://www.getoptimum.xyz/team)
 
 ### Kent Lin, Co-founder
+<img src="https://cdn.prod.website-files.com/69affcedbca80bc51d09fbc7/69ccf33acc2a626361cf035d_Kent%20Lin.webp" alt="Kent Lin" width="160">
+
 - Co-founder, leads business development, tokenomics and fundraising, and drives adoption and ecosystem growth. ([team page](https://www.getoptimum.xyz/team)) [claimed]
 - Former Partner at GSR Ventures. ([launch blog](https://www.getoptimum.xyz/blog/introducing-optimum-building-the-missing-memory-layer-for-web3)) [claimed]
 - Harvard MBA, former President of Harvard Blockchain, co-founder of Plug and Play Crypto. ([launch blog](https://www.getoptimum.xyz/blog/introducing-optimum-building-the-missing-memory-layer-for-web3)) [claimed]
@@ -39,6 +47,8 @@ Photos: the official [team page](https://www.getoptimum.xyz/team) shows a photo 
 ## Advisors
 
 ### Nancy Lynch, Advisor
+<img src="https://cdn.prod.website-files.com/69affcedbca80bc51d09fbc7/69ccf3c232852297cfd932ae_Nancy%20Lynch.avif" alt="Nancy Lynch" width="160">
+
 - Listed as advisor and "Former NEC Chair, MIT". ([team page](https://www.getoptimum.xyz/team)) [claimed]
 - MIT EECS lists her as NEC Professor of Software Science and Engineering (Post-Tenure). ([MIT EECS](https://www.eecs.mit.edu/people/nancy-lynch)) [confirmed]
 - Optimum credits her with the first mathematical proof of Byzantine Fault Tolerance, in 1985. ([team page](https://www.getoptimum.xyz/team)) [claimed]
@@ -46,6 +56,8 @@ Photos: the official [team page](https://www.getoptimum.xyz/team) shows a photo 
 - Photo: [team page](https://www.getoptimum.xyz/team), also [MIT EECS](https://www.eecs.mit.edu/people/nancy-lynch)
 
 ### Sriram Viswanath, Advisor
+<img src="https://cdn.prod.website-files.com/69affcedbca80bc51d09fbc7/69ccf39932b86a7adce2f27d_Riram%20Viswanath.avif" alt="Sriram Viswanath" width="160">
+
 - Advisor. Studied at IIT Madras and Caltech, PhD from Stanford, NSF CAREER Award recipient. ([team page](https://www.getoptimum.xyz/team)) [claimed]
 - Photo: [team page](https://www.getoptimum.xyz/team)
 
@@ -53,7 +65,7 @@ Photos: the official [team page](https://www.getoptimum.xyz/team) shows a photo 
 
 ### Wei Dai, Research Partner
 - Listed as "Research Partner" with a testimonial on the team page. ([team page](https://www.getoptimum.xyz/team)) [claimed]
-- Photo: [team page](https://www.getoptimum.xyz/team)
+- No real photo: the team page shows a graphic, not a portrait.
 
 ### Nicolas Nicolaou
 - Co-author of the launch blog and the RLNC vs Reed-Solomon post. No role at Optimum is stated anywhere checked. ([launch blog](https://www.getoptimum.xyz/blog/introducing-optimum-building-the-missing-memory-layer-for-web3)) [confirmed: authorship only]
