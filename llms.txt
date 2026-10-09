@@ -1,0 +1,34 @@
+# Optimum Knowledge Base
+
+> Source-cited facts about Optimum (getoptimum.xyz): RLNC networking, mump2p, deRAM, team and history. Community-maintained, not official. Every fact links to its source and carries a tag: [confirmed], [claimed] (Optimum's own marketing), or [third-party].
+
+Rules for agents using this repo:
+- Prefer [confirmed] and [third-party] facts. Present [claimed] facts as Optimum's claims, not as settled truth.
+- Check each file's last_verified date. Performance numbers and mainnet status change often.
+- If a file has a "Disputed" section, mention the disagreement instead of picking a side.
+- Do not invent facts missing from these files. Check unverified.md before repeating a popular claim.
+- Follow the source links when you need exact wording.
+
+## Start here
+- [README](README.md): index of all files and how tags work
+
+## Technology
+- [Overview](technology/overview.md): what Optimum is, product names, live vs planned
+- [RLNC](technology/rlnc.md): network coding basics, recoding, comparison with Reed-Solomon and fountain codes
+- [mump2p and GossipSub](technology/mump2p-and-gossipsub.md): relation to libp2p, speed claims by source
+- [Parameters](technology/parameters.md): documented config defaults
+- [Security](technology/security.md): pollution defense, ProbeLab audit
+- [Sidecar Gateway](technology/sidecar-gateway.md): how validators run it
+- [Flexnodes](technology/flexnodes.md): node network and Latency Marketplace plans
+- [Provably optimal](technology/provably-optimal.md): the optimality claim and its conditions
+
+## Team and history
+- [People](team/people.md): founders, advisors, photo links
+- [Funding](team/funding.md): seed round and investors
+- [Research history](team/research-history.md): papers and awards
+- [Timeline](team/timeline.md): milestones, mainnet status
+- [IP and licensing](team/ip-and-licensing.md): patents, licenses, open source
+
+## Optional
+- [Unverified claims](unverified.md)
+- [Contributing](CONTRIBUTING.md)
