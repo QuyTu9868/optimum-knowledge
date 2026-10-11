@@ -1,6 +1,6 @@
 ---
 title: mump2p and libp2p GossipSub
-last_verified: 2026-10-09
+last_verified: 2026-10-11
 status: relationship confirmed, speed numbers disputed
 ---
 
@@ -37,4 +37,6 @@ These numbers come from different setups and dates. Do not compare them as if th
 
 ## Not yet covered
 
-How mump2p handles GRAFT/PRUNE and the IHAVE / IWANT / IDONTWANT control messages is not described on any public docs page checked so far. The only hint is the parameter description for mesh max ("max peers before pruning"). See [../unverified.md](../unverified.md).
+The docs do not describe GRAFT/PRUNE or IHAVE / IWANT / IDONTWANT. The Gateway code does set GossipSub parameters (700 ms heartbeat, IWANT cache of 6 windows, GRAFT/PRUNE tracing); see [../code/known-issues.md](../code/known-issues.md). IDONTWANT handling was not found.
+
+Full results, methods and the independent test are in [../results/performance.md](../results/performance.md).

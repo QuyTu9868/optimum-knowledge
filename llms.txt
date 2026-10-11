@@ -29,6 +29,17 @@ Rules for agents using this repo:
 - [Timeline](team/timeline.md): milestones, mainnet status
 - [IP and licensing](team/ip-and-licensing.md): patents, licenses, open source
 
+## Results
+- [Performance](results/performance.md): testnet and mainnet numbers, methods, independent test, disputes
+
+## Ecosystem
+- [Validators](ecosystem/validators.md): named vs actually tested operators, partner counts, Lido PERCH
+- [Partners and business](ecosystem/partners-and-business.md): Obol, Four Pillars, who pays, permissioning, Solana
+
+## Code
+- [Releases](code/releases.md): repos, licenses, Gateway versions
+- [Known issues](code/known-issues.md): notable fixes, GossipSub settings, unsourced bug stories
+
 ## Optional
 - [Unverified claims](unverified.md)
 - [Contributing](CONTRIBUTING.md)

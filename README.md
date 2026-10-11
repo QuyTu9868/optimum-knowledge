@@ -41,15 +41,28 @@ When two sources disagree, the file says so under **Disputed** and lists both si
 | [team/timeline.md](team/timeline.md) | Company milestones and the mainnet status question |
 | [team/ip-and-licensing.md](team/ip-and-licensing.md) | What is known about patents, licenses and open source |
 
+### Results
+| File | What's in it |
+|---|---|
+| [results/performance.md](results/performance.md) | Testnet and mainnet speed claims, how each was measured, the independent mainnet test, modeled economics |
+
+### Ecosystem
+| File | What's in it |
+|---|---|
+| [ecosystem/validators.md](ecosystem/validators.md) | Which operators are named vs actually reported testing, partner counts, Lido PERCH |
+| [ecosystem/partners-and-business.md](ecosystem/partners-and-business.md) | Obol, Four Pillars, who pays, permissioned vs permissionless, Solana |
+
+### Code
+| File | What's in it |
+|---|---|
+| [code/releases.md](code/releases.md) | Public repos, licenses, Gateway release timeline |
+| [code/known-issues.md](code/known-issues.md) | Notable fixes, GossipSub settings in code, stories with no source |
+
 ### Meta
 | File | What's in it |
 |---|---|
 | [unverified.md](unverified.md) | Claims people repeat that no source in this repo supports yet. Help wanted |
 | [CONTRIBUTING.md](CONTRIBUTING.md) | How to add or fix a fact |
-
-## Coming later
-
-Mainnet results, validators and ecosystem, GitHub releases and real bugs. Pull requests welcome.
 
 ## Official links
 

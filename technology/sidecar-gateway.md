@@ -17,4 +17,4 @@ A sidecar is a separate program that runs next to the main software and adds a f
 
 - Public code lives in the getoptimum GitHub org, including `optimum-gateway` (MIT license). ([GitHub](https://github.com/getoptimum)) [confirmed]
 
-Release history, known bugs and client compatibility will be covered in a later file.
+Release history and fixes: [../code/releases.md](../code/releases.md), [../code/known-issues.md](../code/known-issues.md).

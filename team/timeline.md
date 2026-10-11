@@ -14,12 +14,16 @@ status: mixed, mainnet status disputed
 | 2025 | Tests on Ethereum's Hoodi testnet | [homepage](https://www.getoptimum.xyz/) | [claimed] |
 | 2025-09-23 | Blockworks reports Hoodi tests, and Everstake's estimate of moving to mainnet within about three months | [Blockworks](https://blockworks.com/news/ethereum-networking-bottleneck) | [third-party] |
 | 2026-07 | ProbeLab audit phase 2 of the Gateway | [ProbeLab](https://probelab.io/blog/security-audit-report-optimum-gateway/) | [third-party] |
+| 2026-07-20 | Gateway source made public (initial snapshot, v1.1.0) | [GitHub](https://github.com/getoptimum/optimum-gateway) | [confirmed] |
+| 2026-08 | Mainnet rollout post: 40+ validators, access permissioned by API key, free for validators | [blog](https://www.getoptimum.xyz/blog/free-and-faster-ethereum-beacon-block-propagation) | [claimed] |
 | 2026-08-10 | Lido PERCH post asks node operators to run and test mump2p on mainnet | [Lido forum](https://research.lido.fi/t/perch-request-for-node-operators-to-run-and-test-optimum-mump2p/11786) | [confirmed] |
 | 2026-08-18 | ProbeLab audit report published | [ProbeLab](https://probelab.io/blog/security-audit-report-optimum-gateway/) | [third-party] |
 | 2026-09-09 | Independent operator reports no significant effect on an early build | [Lido forum](https://research.lido.fi/t/perch-request-for-node-operators-to-run-and-test-optimum-mump2p/11786) | [third-party] |
+| 2026-09-14 | Gateway v1.3.1 adds self-enrollment with an org-wide join key | [CHANGELOG](https://github.com/getoptimum/optimum-gateway/blob/main/docs/CHANGELOG.md) | [confirmed] |
+| 2026-09-17 | Gateway v1.3.2, now the only supported version | [CHANGELOG](https://github.com/getoptimum/optimum-gateway/blob/main/docs/CHANGELOG.md) | [confirmed] |
 | 2026 | "Optimum Mainnet" listed as coming soon | [team page](https://www.getoptimum.xyz/team) | [claimed] |
 
-Other numbers on the team page: 40 validator partners and over $24B in staked ETH. ([team page](https://www.getoptimum.xyz/team)) [claimed]. These will be checked in the upcoming validators file.
+Other numbers on the team page: 40 validator partners and over $24B in staked ETH. ([team page](https://www.getoptimum.xyz/team)) [claimed]. See [../ecosystem/validators.md](../ecosystem/validators.md).
 
 ## Disputed
 
