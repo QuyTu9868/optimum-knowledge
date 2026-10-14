@@ -1,6 +1,6 @@
 ---
 title: Timeline
-last_verified: 2026-10-09
+last_verified: 2026-10-14
 status: mixed, mainnet status disputed
 ---
 
@@ -15,12 +15,17 @@ status: mixed, mainnet status disputed
 | 2025-09-23 | Blockworks reports Hoodi tests, and Everstake's estimate of moving to mainnet within about three months | [Blockworks](https://blockworks.com/news/ethereum-networking-bottleneck) | [third-party] |
 | 2026-07 | ProbeLab audit phase 2 of the Gateway | [ProbeLab](https://probelab.io/blog/security-audit-report-optimum-gateway/) | [third-party] |
 | 2026-07-20 | Gateway source made public (initial snapshot, v1.1.0) | [GitHub](https://github.com/getoptimum/optimum-gateway) | [confirmed] |
+| 2026-07-30 | Médard presents mump2p at the Flashbots MEV-SBC workshop | [@MurielMedard post, 2026-07-31](https://x.com/MurielMedard/status/2083306781821038829) | [claimed] |
 | 2026-08 | Mainnet rollout post: 40+ validators, access permissioned by API key, free for validators | [blog](https://www.getoptimum.xyz/blog/free-and-faster-ethereum-beacon-block-propagation) | [claimed] |
+| 2026-08-04 | Kent Lin says Optimum is about to go live on Ethereum mainnet with 40+ operators lined up | [@kentlinyy post](https://x.com/kentlinyy/status/2084655348456321157) | [claimed] |
 | 2026-08-10 | Lido PERCH post asks node operators to run and test mump2p on mainnet | [Lido forum](https://research.lido.fi/t/perch-request-for-node-operators-to-run-and-test-optimum-mump2p/11786) | [confirmed] |
 | 2026-08-18 | ProbeLab audit report published | [ProbeLab](https://probelab.io/blog/security-audit-report-optimum-gateway/) | [third-party] |
+| 2026-08-20 | Optimum announces it joined the Ethereum Korea Consortium | [@get_optimum post](https://x.com/get_optimum/status/2090239160208764986) | [claimed] |
+| 2026-08-21 | Médard presents at the Nanyang Blockchain Conference, Singapore | [@get_optimum, 2026-08-17](https://x.com/get_optimum/status/2089392492626280941); [@MurielMedard, 2026-08-26](https://x.com/MurielMedard/status/2092639088943956374) | [claimed] |
 | 2026-09-09 | Independent operator reports no significant effect on an early build | [Lido forum](https://research.lido.fi/t/perch-request-for-node-operators-to-run-and-test-optimum-mump2p/11786) | [third-party] |
 | 2026-09-14 | Gateway v1.3.1 adds self-enrollment with an org-wide join key | [CHANGELOG](https://github.com/getoptimum/optimum-gateway/blob/main/docs/CHANGELOG.md) | [confirmed] |
 | 2026-09-17 | Gateway v1.3.2, now the only supported version | [CHANGELOG](https://github.com/getoptimum/optimum-gateway/blob/main/docs/CHANGELOG.md) | [confirmed] |
+| 2026-09-29 | CODED event at Korea Blockchain Week, co-hosted with Google Cloud, Four Pillars, LINE NEXT and Auros | [@get_optimum post, 2026-09-17](https://x.com/get_optimum/status/2100671701965271457) | [claimed] |
 | 2026 | "Optimum Mainnet" listed as coming soon | [team page](https://www.getoptimum.xyz/team) | [claimed] |
 
 Other numbers on the team page: 40 validator partners and over $24B in staked ETH. ([team page](https://www.getoptimum.xyz/team)) [claimed]. See [../ecosystem/validators.md](../ecosystem/validators.md).
@@ -30,6 +35,7 @@ Other numbers on the team page: 40 validator partners and over $24B in staked ET
 **Is Optimum on mainnet?** Sources as of 2026-10-09:
 
 - Product page: mump2p "Live now". [claimed]
+- Kent Lin, 2026-08-04: Optimum is "about to go live on Ethereum mainnet", with 40+ operators lined up. Future tense, before the launch post. [claimed]
 - Homepage: mainnet benchmarks are ongoing; headline speed numbers are from Hoodi testnet. [claimed]
 - Lido PERCH post: mump2p propagating on Ethereum mainnet. [claimed]
 - Independent operator: 36 mainnet full nodes running the Gateway. [third-party]

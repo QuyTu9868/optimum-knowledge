@@ -1,6 +1,6 @@
 ---
 title: RLNC (Random Linear Network Coding)
-last_verified: 2026-10-09
+last_verified: 2026-10-14
 status: confirmed for mechanism, claimed for advantages
 ---
 
@@ -44,6 +44,10 @@ These are Optimum's descriptions, not independent analysis.
 - Turbine assumes a tree depth of two to three. ([pt II](https://www.getoptimum.xyz/blog/battle-of-the-codes-pt-ii-rlnc-speedup)) [claimed]
 - Monad's RaptorCast targets propagation within 2x the worst-case one-way latency. ([pt II](https://www.getoptimum.xyz/blog/battle-of-the-codes-pt-ii-rlnc-speedup)) [claimed]
 - The speedup in Part II is shown with one simple illustrative example, not a measured benchmark. ([pt II](https://www.getoptimum.xyz/blog/battle-of-the-codes-pt-ii-rlnc-speedup)) [confirmed]
+
+## Simulator
+
+- Optimum links an interactive network simulator that compares RLNC with other ways of delivering data. The page says it is illustrative, not measured network performance. The domain is gmum.cc, not getoptimum.xyz. ([simulator](https://gmum.cc/simulation-mesh/); linked by [@get_optimum, 2026-07-29](https://x.com/get_optimum/status/2082514252737474686)) [claimed]
 
 ## Academic roots
 

@@ -1,6 +1,6 @@
 ---
 title: Performance results, testnet and mainnet
-last_verified: 2026-10-11
+last_verified: 2026-10-14
 status: mostly Optimum's own claims; one independent mainnet test disagrees; mainnet benchmarks ongoing
 ---
 
@@ -59,6 +59,7 @@ These come from Optimum's own economic models, not from running the network.
 - A 50-150 ms latency cut would raise head vote accuracy from about 98.6% to 98.8-99.1%, worth 1,000-2,000 ETH per year. Data window Feb-Mar 2026. ([blog, 2026-03-26](https://www.getoptimum.xyz/blog/optimizing-a-100b-market-effects-of-latency-reduction-on-eth-staking-revenue)) [claimed]
 - The same model puts the APR gain at roughly 0.66-1.97% for major operators. ([same](https://www.getoptimum.xyz/blog/optimizing-a-100b-market-effects-of-latency-reduction-on-eth-staking-revenue)) [claimed]
 - A 150 ms later bid cutoff adds about 16% to the average MEV bid. ([PBS blog, 2026-05-19](https://www.getoptimum.xyz/blog/the-cost-of-uncertainty-in-ethereums-pbs-hot-path)) [claimed]
+- Optimum's research team says a study found that MEV missed in one slot's selected bid is not always fully captured in the next slot (cross-slot MEV). The post gives no figures. ([@get_optimum post, 2026-07-27](https://x.com/get_optimum/status/2081835782785159418)) [claimed]
 - The Solana post cites up to 4x lower latency at 1-5% loss from benchmark models; no Solana tests reported. ([blog, 2025-12-09](https://www.getoptimum.xyz/blog/why-solana-needs-faster-data-propagation)) [claimed]
 
 ## Disputed

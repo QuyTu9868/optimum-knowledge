@@ -1,6 +1,6 @@
 ---
 title: Security, pollution attacks and audits
-last_verified: 2026-10-09
+last_verified: 2026-10-14
 status: confirmed
 ---
 
@@ -22,3 +22,7 @@ In network coding, a malicious node can send a bad coded packet. Because relays 
 - The audit says the Gateway does not change validator signing logic, beacon state or attestation duties. ([ProbeLab](https://probelab.io/blog/security-audit-report-optimum-gateway/)) [third-party]
 
 See also [sidecar-gateway.md](sidecar-gateway.md).
+
+## Quantum security opinion
+
+- Médard argues in a CoinDesk opinion column that RLNC could support quantum-safe data storage, because encrypting only a fraction of the coded pieces (she gives one in ten as an example) would protect the whole dataset. It is her opinion, and the column cites no independent test. ([CoinDesk, 2026-09-13](https://www.coindesk.com/opinion/2026/09/13/quantum-proof-blockchain-why-math-not-machines-holds-the-key)) [claimed]

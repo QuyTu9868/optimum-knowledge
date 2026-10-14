@@ -1,6 +1,6 @@
 ---
 title: Unverified claims
-last_verified: 2026-10-11
+last_verified: 2026-10-14
 ---
 
 # Unverified claims
@@ -21,7 +21,6 @@ Things people repeat about Optimum that no source in this repo supports yet. Do 
 | Mainnet propagation is "sub-200ms" | Community posts | Any source; ~150 ms is a Hoodi testnet figure |
 | Up to 95% bandwidth reduction on mainnet | Community posts | A measured mainnet figure; the homepage gives 90-95% with no method or network |
 | KuCoin research reported 2.42x / 7.88x | Community posts | The KuCoin piece found only has testnet numbers |
-| Optimum works with the Ethereum Korea Consortium | Community posts | Any source |
 
 ## Pages that could not be checked
 

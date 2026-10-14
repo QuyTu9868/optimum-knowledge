@@ -1,6 +1,6 @@
 ---
 title: What Optimum is
-last_verified: 2026-10-09
+last_verified: 2026-10-14
 status: mostly confirmed, product status changes often
 ---
 
@@ -37,6 +37,10 @@ Sources:
 deRAM is said to guarantee three properties: Atomicity, Consistency, Durability. The launch blog labels this "ACD" in one place and "ACID" in another on the same page. Isolation, the "I" in ACID, is never named. ([launch blog](https://www.getoptimum.xyz/blog/introducing-optimum-building-the-missing-memory-layer-for-web3)) [confirmed: wording]
 
 Press coverage tends to repeat "ACID". If you write about it, the three named properties are the safe version.
+
+## Announced plans
+
+- Optimum said it is preparing to offer its services to the builder market once Ethereum's Glamsterdam upgrade (headline feature ePBS, EIP-7732) goes live. ([@get_optimum post, 2026-09-08](https://x.com/get_optimum/status/2097402261194547656)) [claimed]
 
 ## Disputed
 

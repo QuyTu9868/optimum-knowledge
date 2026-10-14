@@ -1,6 +1,6 @@
 ---
 title: People
-last_verified: 2026-10-09
+last_verified: 2026-10-14
 status: mostly claimed (Optimum's own team page), key academic facts confirmed by MIT
 ---
 
@@ -23,6 +23,8 @@ Photo URL: https://raw.githubusercontent.com/QuyTu9868/optimum-knowledge/main/te
 - Received the IEEE Koji Kobayashi Computers and Communications Award in 2022, for work on network coding and optical and wireless networks. This was a personal award. ([team page](https://www.getoptimum.xyz/team)) [claimed]
 - Elected to the Leopoldina (German National Academy of Sciences) in 2022. ([team page](https://www.getoptimum.xyz/team)) [claimed]
 - Optimum lists a 2026 IEEE Richard W. Hamming Medal for her. ([team page](https://www.getoptimum.xyz/team)) [claimed]
+- Wrote a CoinDesk opinion column titled "Quantum-proof blockchain: why math, not machines, holds the key", published 2026-09-13. ([CoinDesk](https://www.coindesk.com/opinion/2026/09/13/quantum-proof-blockchain-why-math-not-machines-holds-the-key)) [confirmed]. Its argument is summarised in [../technology/security.md](../technology/security.md).
+- Optimum says she gave an interview to Maeil Business Newspaper in Seoul during Korea Blockchain Week. The article itself was not read. ([@get_optimum post, 2026-09-30](https://x.com/get_optimum/status/2105339976540152132)) [claimed]
 - X: https://x.com/MurielMedard
 
 ### Kishori Konwar, Co-founder
@@ -45,6 +47,8 @@ Photo URL: https://raw.githubusercontent.com/QuyTu9868/optimum-knowledge/main/te
 - Former Partner at GSR Ventures. ([launch blog](https://www.getoptimum.xyz/blog/introducing-optimum-building-the-missing-memory-layer-for-web3)) [claimed]
 - Harvard MBA, former President of Harvard Blockchain, co-founder of Plug and Play Crypto. ([launch blog](https://www.getoptimum.xyz/blog/introducing-optimum-building-the-missing-memory-layer-for-web3)) [claimed]
 - Founded the McKinsey Crypto DAO. ([team page](https://www.getoptimum.xyz/team)) [claimed]
+- Ethereum Korea lists him as Optimum's COO and as a speaker on the Staking Infra panel at Ethereum Korea One, Seoul, 2026-09-28. Optimum's own team page calls him co-founder and gives no COO title. ([@ethereumkoreaio post, 2026-09-18](https://x.com/ethereumkoreaio/status/2100848959766024699)) [third-party]
+- He says he spoke on stage there with people from Lido APAC, Node Infra and DSRV. ([@kentlinyy post, 2026-09-29](https://x.com/kentlinyy/status/2104798791660626401)) [claimed]
 - X: https://x.com/kentlinyy
 
 ## Advisors
@@ -79,6 +83,9 @@ Photo URL: https://raw.githubusercontent.com/QuyTu9868/optimum-knowledge/main/te
 ## Staff
 
 - The team page's "Team" section lists no staff beyond founders and advisors. ([team page](https://www.getoptimum.xyz/team)) [confirmed]
+
+- David Song is named APAC Growth Lead in Optimum's APAC tour post. ([@get_optimum post, 2026-08-17](https://x.com/get_optimum/status/2089392492626280941)) [claimed]
+- Moritz Grundei is named Research Engineer leading Optimum's internal MEV research. ([@get_optimum post, 2026-07-27](https://x.com/get_optimum/status/2081835770743251235)) [claimed]
 
 ## Disputed
 
