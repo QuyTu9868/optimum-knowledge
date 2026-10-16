@@ -10,6 +10,9 @@ import { marked } from "marked";
 // Retrying the same model does: 3 tries at ~70% each is about 97%.
 const MODEL = "gemini-3.5-flash-lite"; // our constant
 const MAX_TRIES = 3; // our constant
+// Tokens the model may spend thinking. Measured 2026-10-16 on 6 test questions: 256 passed 6/6 in ~12 s, 1024 passed 5/6 and 6/6
+// in ~13-15 s, and 0 is rejected by this model (HTTP error). Omitting the setting earlier lost facts phrased differently from the question.
+const THINKING_BUDGET = Number(process.env.THINKING_BUDGET ?? 256); // can be overridden with the THINKING_BUDGET env var
 const TIMEOUT_MS = 30_000; // never leave the user waiting longer than this
 const CONTENT_ROOT = path.join(process.cwd(), "content");
 
@@ -196,8 +199,7 @@ async function callGemini(system: string, input: string): Promise<GeminiText> {
         body: JSON.stringify({
           systemInstruction: { parts: [{ text: system }] },
           contents: [{ role: "user", parts: [{ text: `${loadKnowledge()}\n\n${input}` }] }],
-          // Without thinking, Flash Lite missed facts phrased differently from the question (tested 2026-10-14).
-          generationConfig: { temperature: 0.2, thinkingConfig: { thinkingBudget: 1024 }, responseMimeType: "application/json", responseSchema: RESPONSE_SCHEMA },
+          generationConfig: { temperature: 0.2, thinkingConfig: { thinkingBudget: THINKING_BUDGET }, responseMimeType: "application/json", responseSchema: RESPONSE_SCHEMA },
         }),
       });
     } catch {
