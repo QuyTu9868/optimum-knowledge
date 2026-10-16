@@ -5,8 +5,11 @@ import { marked } from "marked";
 
 // Free tier for this key (checked 2026-10-14): 15 RPM, 250K TPM, 500 RPD. Flash models only allow 20 RPD.
 // Measured: one question with the whole repo + thinking = ~22K tokens, 3-5 s, so TPM caps us at ~11 questions a minute.
-// Second model is used when the first is overloaded (HTTP 503). Quota is counted per model, so it also adds 500 requests/day.
-const MODELS = ["gemini-3.5-flash-lite", "gemini-3.1-flash-lite"]; // our constant
+// Measured 2026-10-16 on this key: this model answers 503 (overloaded) in about 3 of 10 calls. Every other current model
+// was worse (3.1, 3.7, 3.8, flash-latest: almost always 503) or gone (2.5 models: 404), so a fallback model does not help.
+// Retrying the same model does: 3 tries at ~70% each is about 97%.
+const MODEL = "gemini-3.5-flash-lite"; // our constant
+const MAX_TRIES = 3; // our constant
 const TIMEOUT_MS = 30_000; // never leave the user waiting longer than this
 const CONTENT_ROOT = path.join(process.cwd(), "content");
 
@@ -181,12 +184,12 @@ async function callGemini(system: string, input: string): Promise<GeminiText> {
   const key = process.env.GEMINI_API_KEY;
   if (!key) return { ok: false, status: 500, error: "The AI assistant is not configured on this server (missing GEMINI_API_KEY)." };
 
-  // 503 means this model is overloaded: try the next model right away. Never retry 429 (quota) or other errors.
+  // 503 means Google is overloaded right now and waiting helps: retry. Never retry 429 (quota) or other errors.
   const started = Date.now();
   let res: Response | undefined;
-  for (let attempt = 1; attempt <= MODELS.length; attempt++) {
+  for (let attempt = 1; attempt <= MAX_TRIES; attempt++) {
     try {
-      res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${MODELS[attempt - 1]}:generateContent`, {
+      res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`, {
         method: "POST",
         headers: { "content-type": "application/json", "x-goog-api-key": key },
         signal: AbortSignal.timeout(Math.max(5_000, TIMEOUT_MS - (Date.now() - started))), // one shared time budget
@@ -200,7 +203,8 @@ async function callGemini(system: string, input: string): Promise<GeminiText> {
     } catch {
       return { ok: false, status: 504, error: "Gemini did not answer within 30 seconds. Try again, or ask a shorter question." };
     }
-    if (res.status !== 503 || Date.now() - started > 12_000) break;
+    if (res.status !== 503 || attempt === MAX_TRIES || Date.now() - started > 14_000) break; // keep room for a slow answer inside the 30 s budget
+    await new Promise((r) => setTimeout(r, 1_500 * attempt));
   }
   if (!res) return { ok: false, status: 502, error: "No answer from Gemini. Try again in a moment." };
 
