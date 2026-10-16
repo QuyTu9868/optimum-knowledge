@@ -1,6 +1,6 @@
 ---
 title: Partners, research coverage and business model
-last_verified: 2026-10-14
+last_verified: 2026-10-16
 status: mixed
 ---
 
@@ -42,10 +42,13 @@ status: mixed
 
 ## Events
 
-- Optimum hosted its CODED event on 2026-09-29 during Korea Blockchain Week, co-hosted with Google Cloud, Four Pillars, LINE NEXT and Auros. ([@get_optimum post, 2026-09-17](https://x.com/get_optimum/status/2100671701965271457)) [claimed]
-- Four Pillars also announced CODED@KBW, saying its validator brand FP Validated hosts it with Google Cloud, LINE NEXT, Optimum and Auros. ([@FourPillarsFP post, 2026-09-17](https://x.com/FourPillarsFP/status/2100470989926654170)) [third-party]
+- Optimum hosted its CODED event on 2026-09-29 during Korea Blockchain Week, co-hosted with Google Cloud, Four Pillars, LINE NEXT and Auros. ([@get_optimum post, 2026-09-17](https://x.com/get_optimum/status/2100671701965271457); [event page](https://luma.com/bkffotv7), which gives the venue as Google Startup Campus in Seoul, 15:00 to 20:00) [claimed]
+- Four Pillars also announced CODED@KBW, saying its validator brand FP Validated hosts it with Google Cloud, LINE NEXT, Optimum and Auros. ([@FourPillarsFP post, 2026-09-17](https://x.com/FourPillarsFP/status/2100470989926654170)) FP Validated's own post of the same day repeats the host list and gives the venue as Google for Startups Campus in Seoul. ([@FPvalidated post, 2026-09-17](https://x.com/FPvalidated/status/2100462173436965321)) [third-party]
+- P2P.org posted that its Korea representative joined an institutions panel at CODED@KBW with Muriel Medard of Optimum. The event page lists P2P, Four Pillars, Lido, Auros and Optimum on that panel (Panel #2). ([@P2Pvalidator post, 2026-10-14](https://x.com/P2Pvalidator/status/2110323311473504382); [event page](https://luma.com/bkffotv7)) [third-party]
 - Optimum said it co-hosted an afternoon on agentic trading with AMBR at AMBR's Singapore offices on 2026-10-06. ([@get_optimum post, 2026-10-02](https://x.com/get_optimum/status/2106167385522880702); [recap, 2026-10-07](https://x.com/get_optimum/status/2107874916330877387)) [claimed]
+- AMBR listed a session on agentic trading, AI agents and financial infrastructure with Optimum on 6 Oct during Token2049 Singapore week. The post gives no venue and does not call Optimum a co-host. ([@ambr_io post, 2026-09-29](https://x.com/ambr_io/status/2104862584650518757)) [third-party]
 
 ## Disputed
 
 - **Permissionless:** marketing copy says permissionless; the running system requires an Optimum-issued key or join key.
+- **CODED@KBW panel details:** P2P.org's post says its Head of Korea spoke, a Four Pillars moderator led the panel and Nethermind was on it. The event page names P2P's speaker as "Justin, APAC BD", names no moderator and lists Nethermind's speaker without a panel. ([@P2Pvalidator post](https://x.com/P2Pvalidator/status/2110323311473504382); [event page](https://luma.com/bkffotv7))

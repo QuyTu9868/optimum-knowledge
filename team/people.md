@@ -1,6 +1,6 @@
 ---
 title: People
-last_verified: 2026-10-14
+last_verified: 2026-10-16
 status: mostly claimed (Optimum's own team page), key academic facts confirmed by MIT
 ---
 
@@ -47,7 +47,8 @@ Photo URL: https://raw.githubusercontent.com/QuyTu9868/optimum-knowledge/main/te
 - Former Partner at GSR Ventures. ([launch blog](https://www.getoptimum.xyz/blog/introducing-optimum-building-the-missing-memory-layer-for-web3)) [claimed]
 - Harvard MBA, former President of Harvard Blockchain, co-founder of Plug and Play Crypto. ([launch blog](https://www.getoptimum.xyz/blog/introducing-optimum-building-the-missing-memory-layer-for-web3)) [claimed]
 - Founded the McKinsey Crypto DAO. ([team page](https://www.getoptimum.xyz/team)) [claimed]
-- Ethereum Korea lists him as Optimum's COO and as a speaker on the Staking Infra panel at Ethereum Korea One, Seoul, 2026-09-28. Optimum's own team page calls him co-founder and gives no COO title. ([@ethereumkoreaio post, 2026-09-18](https://x.com/ethereumkoreaio/status/2100848959766024699)) [third-party]
+- Ethereum Korea lists him as Optimum's COO and as a speaker on the Staking Infra panel at Ethereum Korea One, Seoul, 2026-09-28. Optimum's team page calls him co-founder and gives no COO title. ([@ethereumkoreaio post, 2026-09-18](https://x.com/ethereumkoreaio/status/2100848959766024699)) [third-party]
+- Optimum's own CODED@KBW event page (29 Sep) lists him as "Cofounder COO", and Muriel Medard as "Cofounder CEO". ([event page](https://luma.com/bkffotv7)) [claimed]
 - He says he spoke on stage there with people from Lido APAC, Node Infra and DSRV. ([@kentlinyy post, 2026-09-29](https://x.com/kentlinyy/status/2104798791660626401)) [claimed]
 - X: https://x.com/kentlinyy
 

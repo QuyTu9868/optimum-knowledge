@@ -1,6 +1,6 @@
 ---
 title: Validators and operators
-last_verified: 2026-10-14
+last_verified: 2026-10-16
 status: names mostly claimed by Optimum; a few self-reported tests
 ---
 
@@ -21,8 +21,8 @@ Being named by Optimum is not the same as running it. Each operator below is che
 | Luganodes | Testimonial on Optimum's site only | [homepage](https://www.getoptimum.xyz/) | [claimed] |
 | FP Validated | Optimum says it is testing mump2p; FP Validated says it joined as a validator partner. No test data | [@get_optimum, 2026-08-04](https://x.com/get_optimum/status/2084681995741995255); [@FPvalidated, 2026-08-05](https://x.com/FPvalidated/status/2084816155177537577) | [claimed] |
 | DSRV | Named by Optimum as a testing partner, a Korean operator it says stakes over 300k ETH. No test data | [@get_optimum, 2026-09-10](https://x.com/get_optimum/status/2098033786915287228) | [claimed] |
-| Twinstake | Named as a testing partner. Optimum adds that Twinstake's own MEV APR was about 35% above the Ethereum average over 12 months; that is not a mump2p result and no source is given | [@get_optimum, 2026-09-15](https://x.com/get_optimum/status/2099900356671295884) | [claimed] |
-| Finoa Consensus Services | Named as a new partner; the post does not say it is testing or running mump2p | [@get_optimum, 2026-08-31](https://x.com/get_optimum/status/2094450916095361404) | [claimed] |
+| Twinstake | Named as a testing partner. Optimum adds that Twinstake's own MEV APR was about 35% above the Ethereum average over 12 months; that is not a mump2p result and no source is given. Twinstake itself posted that it is testing mump2p alongside its Ethereum infrastructure, with no results yet | [@get_optimum, 2026-09-15](https://x.com/get_optimum/status/2099900356671295884); [@twinstake_io, 2026-09-15](https://x.com/twinstake_io/status/2099967006338359471) | [claimed], [third-party] |
+| Finoa Consensus Services | Named as a new partner; the post does not say it is testing or running mump2p. Finoa itself posted that it is excited to partner with Optimum, also without mentioning testing | [@get_optimum, 2026-08-31](https://x.com/get_optimum/status/2094450916095361404); [@FinoaConsensus, 2026-09-01](https://x.com/FinoaConsensus/status/2094817254609211903) | [claimed], [third-party] |
 | Nodemonster | Self-reports several months on testnet, about 150 ms average block propagation, roughly 6x faster than the GossipSub baseline, no method given. Optimum quoted it | [@Nodemonste post](https://x.com/Nodemonste/status/2095105880807051525); [quoted by @get_optimum, 2026-09-02](https://x.com/get_optimum/status/2095189075892531257) | [third-party] |
 
 Other operators reporting in the Lido thread: HashKey Cloud (Hoodi, about 200 ms lower attestation propagation), Stakely (Hoodi, zero incidents), FP Validated (Hoodi, still measuring). stakefish and SenseiNode only signed up or showed interest. StereumLabs ran the only independent mainnet measurement, see [../results/performance.md](../results/performance.md). [third-party]
