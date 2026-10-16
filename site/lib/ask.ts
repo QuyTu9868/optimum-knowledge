@@ -5,7 +5,8 @@ import { marked } from "marked";
 
 // Free tier for this key (checked 2026-10-14): 15 RPM, 250K TPM, 500 RPD. Flash models only allow 20 RPD.
 // Measured: one question with the whole repo + thinking = ~22K tokens, 3-5 s, so TPM caps us at ~11 questions a minute.
-const MODEL = "gemini-3.5-flash-lite"; // our constant
+// Second model is used when the first is overloaded (HTTP 503). Quota is counted per model, so it also adds 500 requests/day.
+const MODELS = ["gemini-3.5-flash-lite", "gemini-3.1-flash-lite"]; // our constant
 const TIMEOUT_MS = 30_000; // never leave the user waiting longer than this
 const CONTENT_ROOT = path.join(process.cwd(), "content");
 
@@ -17,7 +18,8 @@ Rules:
 - Keep each fact's tag exactly as the file has it: [confirmed], [claimed] or [third-party]. Never upgrade a [claimed] fact to a plain statement.
 - Only put a tag on a fact if that same line or table row in the file carries that tag. Lines without a tag (summaries, "Most likely reading", notes) get no tag; say "the knowledge base notes" instead, translated into the answer language.
 - Claims listed in unverified.md get no tag: say they have no supporting source yet.
-- After each fact, cite the file path in backticks, e.g. \`technology/rlnc.md\`.
+- Do not write file paths in the answer. Put a marker such as [1], [2] right after each fact (after its tag, if it has one) and describe every marker in "sources": the file path and a quote that is ONE line, or part of one line, copied character for character from that file (max 40 words). Quote the line that states the fact itself, never a heading or a list title. Never paraphrase or invent a quote. Several facts may share one marker.
+- Reply as JSON only: {"answer": "text with markers", "sources": [{"n": 1, "file": "technology/rlnc.md", "quote": "..."}]}. The answer itself must contain no JSON.
 - If a file lists the topic under "Disputed", give both sides and say it is disputed.
 - If the topic appears in unverified.md, say it has no supporting source yet.
 - Short: at most about 150 words, bullet points welcome.
@@ -88,21 +90,103 @@ function toHtml(markdown: string): string {
     });
 }
 
-export function ask(question: string): Promise<AskResult> {
-  return callGemini(SYSTEM_PROMPT, `=== QUESTION ===\n${question}`);
+// Lowercase text without markdown links, tags and symbols, so a quote can be matched against a repo line. Our helper.
+const norm = (s: string) =>
+  s
+    .replace(/\[([^\]]*)\]\([^)]*\)/g, "$1")
+    .replace(/\[(confirmed|claimed|third-party)\]/g, " ")
+    .replace(/[*`_|>#]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim()
+    .toLowerCase();
+
+// One repo line as HTML: bullet or table row turned into text, links kept only if external, tags as badges. Our helper.
+function lineToHtml(line: string): string {
+  let text = line.trim();
+  if (text.startsWith("|")) text = text.split("|").map((c) => c.trim()).filter(Boolean).join("  /  "); // table row
+  text = text.replace(/^[-*]\s+/, "");
+  return (marked.parseInline(text, { async: false }) as string)
+    .replace(/<a href="(?!https?:)[^"]*">(.*?)<\/a>/g, "$1") // relative links would break here, keep the text
+    .replace(/<a href="(https?:[^"]*)">/g, '<a href="$1" target="_blank" rel="noreferrer">')
+    .replace(/\[(confirmed|claimed|third-party)\]/g, (_, t: string) => `<span class="tag tag-${t === "third-party" ? "third" : t}">${t}</span>`);
 }
 
+type Source = { n: number; file: string; quote: string }; // our type: one numbered source the model cites
+
+// "Sources" list under the answer: for each marker, the real repo line that contains the model's quote.
+// A quote that is not really in the file is never shown as if it were. Our helper.
+function sourcesHtml(sources: Source[], id: string): string {
+  const seen = new Set<number>();
+  const items: string[] = [];
+  for (const s of sources) {
+    if (!Number.isInteger(s.n) || seen.has(s.n) || typeof s.file !== "string" || typeof s.quote !== "string") continue;
+    seen.add(s.n);
+    const rel = path.posix.normalize(s.file.replace(/\\/g, "/"));
+    const okPath = !rel.startsWith("..") && !path.posix.isAbsolute(rel) && (rel.endsWith(".md") || rel === "llms.txt");
+    const full = path.join(CONTENT_ROOT, rel);
+    let match = "";
+    if (okPath && fs.existsSync(full)) {
+      const quote = norm(s.quote);
+      match = (fs.readFileSync(full, "utf8").split("\n").find((l) => quote.length >= 12 && norm(l).includes(quote)) ?? "");
+    }
+    const href = rel === "README.md" ? "/" : "/" + rel.replace(/\.md$/, "");
+    const shown = okPath ? rel : "unknown file";
+    items.push(
+      `<li id="src-${id}-${s.n}"><span class="src-n">${s.n}</span><div>` +
+        (match
+          ? `<div class="src-line">${lineToHtml(match)}</div>`
+          : `<div class="src-line src-unmatched">Could not match the quote to this file. Open the file to check.</div>`) +
+        (okPath ? `<a class="src-file" href="${href}">${shown}</a>` : `<span class="src-file">${shown}</span>`) +
+        `</div></li>`,
+    );
+  }
+  return items.length ? `<p class="src-title">Sources</p><ol class="sources">${items.join("")}</ol>` : "";
+}
+
+// Reads the model's JSON reply; returns null when it is not the shape we asked for. Our helper.
+function parseAnswer(text: string): { answer: string; sources: Source[] } | null {
+  try {
+    const j = JSON.parse(text);
+    if (typeof j?.answer !== "string" || !Array.isArray(j?.sources)) return null;
+    return { answer: j.answer, sources: j.sources };
+  } catch {
+    return null;
+  }
+}
+
+export async function ask(question: string): Promise<AskResult> {
+  const r = await callGemini(SYSTEM_PROMPT, `=== QUESTION ===\n${question}`);
+  if (!r.ok) return r;
+  const parsed = parseAnswer(r.text);
+  if (!parsed) return { ok: true, html: toHtml(r.text) + peopleStrip(r.text), usage: r.usage }; // not JSON: show the plain text, no source list
+  const id = Math.random().toString(36).slice(2, 8); // makes the marker links unique when several answers are on the page
+  const body = toHtml(parsed.answer).replace(/\[(\d{1,2})\]/g, (_, n: string) => `<a class="srcref" href="#src-${id}-${n}">${n}</a>`);
+  return { ok: true, html: body + sourcesHtml(parsed.sources, id) + peopleStrip(parsed.answer), usage: r.usage };
+}
+
+type GeminiText = { ok: true; text: string; usage?: { promptTokens?: number; outputTokens?: number; totalTokens?: number } } | { ok: false; status: number; error: string };
+
+// JSON shape we ask Gemini to return, so the answer and its numbered sources arrive separately.
+const RESPONSE_SCHEMA = {
+  type: "OBJECT",
+  properties: {
+    answer: { type: "STRING" },
+    sources: { type: "ARRAY", items: { type: "OBJECT", properties: { n: { type: "INTEGER" }, file: { type: "STRING" }, quote: { type: "STRING" } }, required: ["n", "file", "quote"] } },
+  },
+  required: ["answer", "sources"],
+};
+
 // One Gemini call with the whole knowledge base in front of the given input. Our helper.
-async function callGemini(system: string, input: string): Promise<AskResult> {
+async function callGemini(system: string, input: string): Promise<GeminiText> {
   const key = process.env.GEMINI_API_KEY;
   if (!key) return { ok: false, status: 500, error: "The AI assistant is not configured on this server (missing GEMINI_API_KEY)." };
 
-  // 503 means Gemini is briefly overloaded: waiting helps, so retry once. Never retry 429 (quota) or other errors.
+  // 503 means this model is overloaded: try the next model right away. Never retry 429 (quota) or other errors.
   const started = Date.now();
   let res: Response | undefined;
-  for (let attempt = 1; attempt <= 2; attempt++) {
+  for (let attempt = 1; attempt <= MODELS.length; attempt++) {
     try {
-      res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`, {
+      res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${MODELS[attempt - 1]}:generateContent`, {
         method: "POST",
         headers: { "content-type": "application/json", "x-goog-api-key": key },
         signal: AbortSignal.timeout(Math.max(5_000, TIMEOUT_MS - (Date.now() - started))), // one shared time budget
@@ -110,14 +194,13 @@ async function callGemini(system: string, input: string): Promise<AskResult> {
           systemInstruction: { parts: [{ text: system }] },
           contents: [{ role: "user", parts: [{ text: `${loadKnowledge()}\n\n${input}` }] }],
           // Without thinking, Flash Lite missed facts phrased differently from the question (tested 2026-10-14).
-          generationConfig: { temperature: 0.2, thinkingConfig: { thinkingBudget: 1024 } },
+          generationConfig: { temperature: 0.2, thinkingConfig: { thinkingBudget: 1024 }, responseMimeType: "application/json", responseSchema: RESPONSE_SCHEMA },
         }),
       });
     } catch {
       return { ok: false, status: 504, error: "Gemini did not answer within 30 seconds. Try again, or ask a shorter question." };
     }
-    if (res.status !== 503 || attempt === 2 || Date.now() - started > 12_000) break;
-    await new Promise((r) => setTimeout(r, 2_000));
+    if (res.status !== 503 || Date.now() - started > 12_000) break;
   }
   if (!res) return { ok: false, status: 502, error: "No answer from Gemini. Try again in a moment." };
 
@@ -141,5 +224,5 @@ async function callGemini(system: string, input: string): Promise<AskResult> {
   }
 
   const u = body?.usageMetadata;
-  return { ok: true, html: toHtml(text) + peopleStrip(text), usage: { promptTokens: u?.promptTokenCount, outputTokens: u?.candidatesTokenCount, totalTokens: u?.totalTokenCount } };
+  return { ok: true, text, usage: { promptTokens: u?.promptTokenCount, outputTokens: u?.candidatesTokenCount, totalTokens: u?.totalTokenCount } };
 }

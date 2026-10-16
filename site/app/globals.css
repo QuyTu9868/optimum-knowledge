@@ -243,3 +243,15 @@ kbd {
 .person strong { display: block; color: var(--heading); }
 .person span { color: var(--muted); }
 .people-note { margin: 8px 0 0; font-size: 12px; color: var(--muted); }
+
+/* Numbered sources under an AI answer */
+.srcref { display: inline-block; min-width: 18px; margin: 0 2px; padding: 0 5px; border-radius: 9999px; background: var(--surface-2); color: var(--heading); font-size: 11px; font-weight: 600; text-align: center; text-decoration: none; vertical-align: 1px; }
+.srcref:hover { background: var(--muted); color: var(--bg); }
+.src-title { margin: 18px 0 6px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+.sources { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.sources li { display: flex; gap: 10px; padding: 10px 12px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); scroll-margin-top: 80px; }
+.sources li:target { border-color: var(--muted); }
+.src-n { flex: none; width: 20px; height: 20px; border-radius: 9999px; background: var(--surface-2); color: var(--heading); font-size: 11px; font-weight: 600; display: grid; place-items: center; margin-top: 2px; }
+.src-line { font-size: 13.5px; line-height: 1.55; color: var(--text); }
+.src-unmatched { color: var(--muted); font-style: italic; }
+.src-file { display: inline-block; margin-top: 4px; font-family: var(--font-mono), monospace; font-size: 12px; color: var(--muted); }
