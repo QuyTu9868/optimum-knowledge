@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 420" font-family="Helvetica Neue, Arial, sans-serif">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#969698"/></marker>
+  </defs>
+  <rect width="960" height="420" fill="#282C35"/>
+
+  <!-- Source node -->
+  <rect x="24" y="110" width="230" height="200" rx="12" fill="none" stroke="#5B616D" stroke-dasharray="6 5"/>
+  <text x="40" y="134" fill="#969698" font-size="12" letter-spacing="1">SOURCE NODE</text>
+  <rect x="44" y="180" width="80" height="60" rx="8" fill="#30353F" stroke="#969698"/>
+  <text x="84" y="206" fill="#F2F2F3" font-size="13" text-anchor="middle">Original</text>
+  <text x="84" y="222" fill="#F2F2F3" font-size="13" text-anchor="middle">message</text>
+  <line x1="126" y1="210" x2="150" y2="210" stroke="#969698" stroke-width="1.5" marker-end="url(#a)"/>
+  <g font-size="11" fill="#D9DADC" text-anchor="middle">
+    <rect x="156" y="152" width="84" height="30" rx="6" fill="#3A3F4A" stroke="#969698"/><text x="198" y="171">random mix</text>
+    <rect x="156" y="195" width="84" height="30" rx="6" fill="#3A3F4A" stroke="#969698"/><text x="198" y="214">random mix</text>
+    <rect x="156" y="238" width="84" height="30" rx="6" fill="#3A3F4A" stroke="#969698"/><text x="198" y="257">random mix</text>
+  </g>
+  <text x="198" y="292" fill="#969698" font-size="12" text-anchor="middle">Coded shards</text>
+
+  <!-- Relays -->
+  <g>
+    <rect x="370" y="40" width="200" height="100" rx="12" fill="#30353F" stroke="#969698"/>
+    <text x="470" y="72" fill="#F2F2F3" font-size="15" font-weight="600" text-anchor="middle">Relay node</text>
+    <text x="470" y="92" fill="#969698" font-size="12" text-anchor="middle">Mixes without decoding</text>
+    <rect x="405" y="104" width="130" height="26" rx="6" fill="#D9DADC"/><text x="470" y="121" fill="#282C35" font-size="11" font-weight="600" text-anchor="middle">new coded shard</text>
+  </g>
+  <g>
+    <rect x="370" y="280" width="200" height="100" rx="12" fill="#30353F" stroke="#969698"/>
+    <text x="470" y="312" fill="#F2F2F3" font-size="15" font-weight="600" text-anchor="middle">Relay node</text>
+    <text x="470" y="332" fill="#969698" font-size="12" text-anchor="middle">Mixes without decoding</text>
+    <rect x="405" y="344" width="130" height="26" rx="6" fill="#D9DADC"/><text x="470" y="361" fill="#282C35" font-size="11" font-weight="600" text-anchor="middle">new coded shard</text>
+  </g>
+
+  <!-- Source to relays -->
+  <path d="M256 170 L366 100" stroke="#969698" stroke-width="1.5" fill="none" marker-end="url(#a)"/>
+  <path d="M256 250 L366 320" stroke="#969698" stroke-width="1.5" fill="none" marker-end="url(#a)"/>
+  <text x="250" y="104" fill="#969698" font-size="12">coded shards</text>
+  <text x="250" y="318" fill="#969698" font-size="12">coded shards</text>
+
+  <!-- relay to relay -->
+  <line x1="470" y1="142" x2="470" y2="276" stroke="#969698" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#a)"/>
+  <text x="480" y="214" fill="#969698" font-size="12">recoded shard</text>
+
+  <!-- Receiver -->
+  <rect x="680" y="150" width="140" height="120" rx="12" fill="#30353F" stroke="#969698"/>
+  <text x="750" y="190" fill="#F2F2F3" font-size="15" font-weight="600" text-anchor="middle">Receiver</text>
+  <rect x="692" y="210" width="116" height="44" rx="6" fill="#3A3F4A"/>
+  <text x="750" y="228" fill="#D9DADC" font-size="11" text-anchor="middle">any k independent</text>
+  <text x="750" y="244" fill="#D9DADC" font-size="11" text-anchor="middle">shards</text>
+  <path d="M572 100 L676 180" stroke="#969698" stroke-width="1.5" fill="none" marker-end="url(#a)"/>
+  <path d="M572 320 L676 240" stroke="#969698" stroke-width="1.5" fill="none" marker-end="url(#a)"/>
+  <text x="616" y="106" fill="#969698" font-size="11">forward before</text>
+  <text x="616" y="120" fill="#969698" font-size="11">full decode</text>
+
+  <!-- Decode -->
+  <line x1="822" y1="210" x2="858" y2="210" stroke="#969698" stroke-width="1.5" marker-end="url(#a)"/>
+  <text x="840" y="200" fill="#969698" font-size="11" text-anchor="middle">decode</text>
+  <rect x="862" y="180" width="80" height="60" rx="8" fill="#30353F" stroke="#969698"/>
+  <text x="902" y="206" fill="#F2F2F3" font-size="13" text-anchor="middle">Original</text>
+  <text x="902" y="222" fill="#F2F2F3" font-size="13" text-anchor="middle">message</text>
+</svg>

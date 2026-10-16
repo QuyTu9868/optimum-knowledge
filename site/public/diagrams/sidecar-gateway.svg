@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" font-family="Helvetica Neue, Arial, sans-serif">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#969698"/></marker>
+  </defs>
+  <rect width="960" height="500" fill="#282C35"/>
+
+  <!-- Existing mesh -->
+  <rect x="24" y="150" width="150" height="70" rx="10" fill="#30353F" stroke="#969698"/>
+  <text x="99" y="180" fill="#F2F2F3" font-size="14" font-weight="600" text-anchor="middle">Existing</text>
+  <text x="99" y="198" fill="#F2F2F3" font-size="14" font-weight="600" text-anchor="middle">gossip mesh</text>
+
+  <!-- Host frame -->
+  <rect x="220" y="40" width="716" height="290" rx="14" fill="none" stroke="#5B616D" stroke-dasharray="7 5"/>
+  <text x="240" y="66" fill="#969698" font-size="12" letter-spacing="1">VALIDATOR HOST</text>
+
+  <rect x="250" y="90" width="210" height="70" rx="10" fill="#30353F" stroke="#969698"/>
+  <text x="355" y="131" fill="#F2F2F3" font-size="15" font-weight="600" text-anchor="middle">Beacon node</text>
+  <rect x="250" y="168" width="210" height="52" rx="10" fill="#3A3F4A" stroke="#969698"/>
+  <text x="355" y="199" fill="#D9DADC" font-size="13" text-anchor="middle">Client libp2p stack</text>
+
+  <line x1="176" y1="194" x2="246" y2="194" stroke="#969698" stroke-width="1.5" marker-start="url(#a)" marker-end="url(#a)"/>
+  <text x="211" y="240" fill="#969698" font-size="12" text-anchor="middle">unchanged</text>
+
+  <rect x="640" y="110" width="260" height="90" rx="12" fill="#30353F" stroke="#D9DADC" stroke-width="2"/>
+  <text x="770" y="150" fill="#F2F2F3" font-size="16" font-weight="700" text-anchor="middle">Optimum Gateway</text>
+  <text x="770" y="172" fill="#969698" font-size="12" text-anchor="middle">sidecar</text>
+  <rect x="640" y="214" width="260" height="26" rx="13" fill="#3A3F4A"/>
+  <text x="770" y="231" fill="#D9DADC" font-size="11" text-anchor="middle">Stop it: mesh unaffected (ProbeLab)</text>
+  <rect x="640" y="248" width="260" height="26" rx="13" fill="#3A3F4A"/>
+  <text x="770" y="265" fill="#D9DADC" font-size="11" text-anchor="middle">No new slashing conditions (Optimum claim)</text>
+  <rect x="640" y="282" width="260" height="26" rx="13" fill="#3A3F4A"/>
+  <text x="770" y="299" fill="#D9DADC" font-size="11" text-anchor="middle">No validator software changes (Optimum claim)</text>
+
+  <line x1="636" y1="190" x2="464" y2="194" stroke="#969698" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <text x="550" y="182" fill="#969698" font-size="12" text-anchor="middle">runs in parallel</text>
+  <text x="550" y="214" fill="#969698" font-size="11" text-anchor="middle">(ProbeLab)</text>
+
+  <!-- Not touched -->
+  <text x="240" y="372" fill="#969698" font-size="12" letter-spacing="1">NOT TOUCHED BY THE GATEWAY</text>
+  <g font-size="13" fill="#D9DADC" text-anchor="middle">
+    <rect x="240" y="388" width="150" height="58" rx="8" fill="none" stroke="#5B616D"/><text x="315" y="413">Validator keys</text><text x="315" y="433" font-size="11" fill="#E3C27A">Optimum claim</text>
+    <rect x="410" y="388" width="150" height="58" rx="8" fill="none" stroke="#5B616D"/><text x="485" y="413">Signing logic</text><text x="485" y="433" font-size="11" fill="#93C3EA">ProbeLab</text>
+    <rect x="580" y="388" width="150" height="58" rx="8" fill="none" stroke="#5B616D"/><text x="655" y="413">Beacon state</text><text x="655" y="433" font-size="11" fill="#93C3EA">ProbeLab</text>
+    <rect x="750" y="388" width="170" height="58" rx="8" fill="none" stroke="#5B616D"/><text x="835" y="413">Attestation duties</text><text x="835" y="433" font-size="11" fill="#93C3EA">ProbeLab</text>
+  </g>
+</svg>

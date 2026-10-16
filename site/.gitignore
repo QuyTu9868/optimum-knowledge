@@ -1,0 +1,7 @@
+node_modules/
+.next/
+content/
+public/kb/
+.env*
+next-env.d.ts
+*.tsbuildinfo
