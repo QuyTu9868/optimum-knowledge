@@ -2,10 +2,10 @@
   "name": "optimum-docs-site",
   "private": true,
   "scripts": {
-    "fetch-content": "node scripts/fetch-content.mjs",
-    "predev": "node scripts/fetch-content.mjs",
+    "fetch-content": "node scripts/fetch-content.mjs && node scripts/build-embeddings.mjs",
+    "predev": "node scripts/fetch-content.mjs && node scripts/build-embeddings.mjs",
     "dev": "next dev",
-    "prebuild": "node scripts/fetch-content.mjs",
+    "prebuild": "node scripts/fetch-content.mjs && node scripts/build-embeddings.mjs",
     "build": "next build",
     "start": "next start"
   },

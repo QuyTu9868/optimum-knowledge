@@ -16,7 +16,7 @@ const THINKING_BUDGET = Number(process.env.THINKING_BUDGET ?? 256); // can be ov
 const TIMEOUT_MS = 30_000; // never leave the user waiting longer than this
 const CONTENT_ROOT = path.join(process.cwd(), "content");
 
-const SYSTEM_PROMPT = `You answer questions about Optimum (getoptimum.xyz) using ONLY the knowledge base files given below.
+const SYSTEM_PROMPT = `You answer questions about Optimum (getoptimum.xyz) using ONLY the knowledge base text given below. It may be excerpts: the sections that matched the question.
 This is a community project, not the Optimum team; never speak as Optimum.
 
 Rules:
@@ -24,11 +24,12 @@ Rules:
 - Keep each fact's tag exactly as the file has it: [confirmed], [claimed] or [third-party]. Never upgrade a [claimed] fact to a plain statement.
 - Only put a tag on a fact if that same line or table row in the file carries that tag. Lines without a tag (summaries, "Most likely reading", notes) get no tag; say "the knowledge base notes" instead, translated into the answer language.
 - Claims listed in unverified.md get no tag: say they have no supporting source yet.
-- Do not write file paths in the answer. Put a marker such as [1], [2] right after each fact (after its tag, if it has one) and describe every marker in "sources": the file path and a quote that is ONE line, or part of one line, copied character for character from that file (max 40 words). Quote the line that states the fact itself, never a heading or a list title. Never paraphrase or invent a quote. Several facts may share one marker.
-- Reply as JSON only: {"answer": "text with markers", "sources": [{"n": 1, "file": "technology/rlnc.md", "quote": "..."}]}. The answer itself must contain no JSON.
+- Do not write file paths in the answer. Put a marker such as [1], [2] right after each fact (after its tag, if it has one) and describe every marker in "sources": the file path and a short quote. The quote is the first 8 to 14 plain words of the one line that states the fact, copied exactly from that file, stopping before any link or tag. Never a heading or list title, never paraphrased. Several facts may share one marker. Use at most 4 sources.
+- Set "covered" to true if the text contains information relevant to the question, false if it does not.
+- Reply as JSON only: {"covered": true, "answer": "text with markers", "sources": [{"n": 1, "file": "technology/rlnc.md", "quote": "..."}]}. The answer itself must contain no JSON.
 - If a file lists the topic under "Disputed", give both sides and say it is disputed.
 - If the topic appears in unverified.md, say it has no supporting source yet.
-- Short: at most about 150 words, bullet points welcome.
+- Short: at most about 120 words, bullet points welcome.
 - Reply in the same language as the question: English question, English answer; Vietnamese question, Vietnamese answer.
 - Write normal text with full accents and diacritics for that language. Do not use LaTeX or $...$ math. No em dashes.`;
 
@@ -50,6 +51,63 @@ function loadKnowledge(): string {
   files.sort((a, b) => (a === "llms.txt" ? -1 : b === "llms.txt" ? 1 : a.localeCompare(b)));
   knowledge = files.map((f) => `=== FILE: ${f} ===\n${fs.readFileSync(path.join(CONTENT_ROOT, f), "utf8")}`).join("\n\n");
   return knowledge;
+}
+
+// ---- Retrieval: send Gemini only the sections that match the question (about 5x less text, so faster).
+// scripts/build-embeddings.mjs saves a meaning vector per section. Any problem here returns null and the caller sends the whole repo.
+type Chunk = { file: string; heading: string; text: string; vec: number[] }; // our type
+let chunkCache: Chunk[] | null | undefined; // undefined = not read yet, null = not available
+
+function loadChunks(): Chunk[] | null {
+  if (chunkCache !== undefined) return chunkCache;
+  try {
+    chunkCache = JSON.parse(fs.readFileSync(path.join(process.cwd(), "data", "embeddings.json"), "utf8")).chunks as Chunk[];
+  } catch {
+    chunkCache = null;
+  }
+  return chunkCache;
+}
+
+const TOP_SECTIONS = 10; // our constant: sections sent per question
+const MAX_CHARS = 16_000; // our constant: cap on the text sent
+
+const cosine = (a: number[], b: number[]) => {
+  let dot = 0, na = 0, nb = 0;
+  for (let i = 0; i < a.length; i++) { dot += a[i] * b[i]; na += a[i] * a[i]; nb += b[i] * b[i]; }
+  return dot / (Math.sqrt(na * nb) || 1);
+};
+
+// The matching sections as one text block, or null if retrieval is not possible. Our helper.
+async function retrieve(question: string, key: string): Promise<string | null> {
+  const chunks = loadChunks();
+  if (!chunks?.length) return null;
+  try {
+    const res = await fetch("https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:embedContent", {
+      method: "POST",
+      headers: { "content-type": "application/json", "x-goog-api-key": key },
+      signal: AbortSignal.timeout(6_000),
+      body: JSON.stringify({ content: { parts: [{ text: question }] }, taskType: "RETRIEVAL_QUERY", outputDimensionality: chunks[0].vec.length }),
+    });
+    if (!res.ok) return null;
+    const q: number[] = (await res.json()).embedding?.values;
+    if (!q?.length) return null;
+    const picked = new Set(
+      chunks.map((c, i) => ({ i, score: cosine(q, c.vec) })).sort((a, b) => b.score - a.score).slice(0, TOP_SECTIONS).map((x) => x.i),
+    );
+    // A fact and its "Disputed" section belong together, so add the Disputed section of every file we picked from.
+    const files = new Set([...picked].map((i) => chunks[i].file));
+    chunks.forEach((c, i) => { if (files.has(c.file) && /^Disputed/i.test(c.heading)) picked.add(i); });
+    let total = 0;
+    const byFile = new Map<string, string[]>();
+    for (const i of [...picked].sort((a, b) => a - b)) {
+      if (total + chunks[i].text.length > MAX_CHARS) continue;
+      total += chunks[i].text.length;
+      byFile.set(chunks[i].file, [...(byFile.get(chunks[i].file) ?? []), chunks[i].text]);
+    }
+    return [...byFile].map(([f, parts]) => `=== FILE (excerpts): ${f} ===\n${parts.join("\n\n")}`).join("\n\n");
+  } catch {
+    return null;
+  }
 }
 
 export type AskResult =
@@ -150,18 +208,23 @@ function sourcesHtml(sources: Source[], id: string): string {
 }
 
 // Reads the model's JSON reply; returns null when it is not the shape we asked for. Our helper.
-function parseAnswer(text: string): { answer: string; sources: Source[] } | null {
+function parseAnswer(text: string): { covered?: boolean; answer: string; sources: Source[] } | null {
   try {
     const j = JSON.parse(text);
     if (typeof j?.answer !== "string" || !Array.isArray(j?.sources)) return null;
-    return { answer: j.answer, sources: j.sources };
+    return { covered: typeof j.covered === "boolean" ? j.covered : undefined, answer: j.answer, sources: j.sources };
   } catch {
     return null;
   }
 }
 
 export async function ask(question: string): Promise<AskResult> {
-  const r = await callGemini(SYSTEM_PROMPT, `=== QUESTION ===\n${question}`);
+  const key = process.env.GEMINI_API_KEY ?? "";
+  const input = `=== QUESTION ===\n${question}`;
+  const excerpts = key ? await retrieve(question, key) : null;
+  let r = await callGemini(SYSTEM_PROMPT, excerpts ?? loadKnowledge(), input);
+  // The model says it found nothing relevant in the excerpts: look again in the whole repo before giving up.
+  if (r.ok && excerpts && parseAnswer(r.text)?.covered === false) r = await callGemini(SYSTEM_PROMPT, loadKnowledge(), input);
   if (!r.ok) return r;
   const parsed = parseAnswer(r.text);
   if (!parsed) return { ok: true, html: toHtml(r.text) + peopleStrip(r.text), usage: r.usage }; // not JSON: show the plain text, no source list
@@ -176,14 +239,15 @@ type GeminiText = { ok: true; text: string; usage?: { promptTokens?: number; out
 const RESPONSE_SCHEMA = {
   type: "OBJECT",
   properties: {
+    covered: { type: "BOOLEAN" },
     answer: { type: "STRING" },
     sources: { type: "ARRAY", items: { type: "OBJECT", properties: { n: { type: "INTEGER" }, file: { type: "STRING" }, quote: { type: "STRING" } }, required: ["n", "file", "quote"] } },
   },
-  required: ["answer", "sources"],
+  required: ["covered", "answer", "sources"],
 };
 
 // One Gemini call with the whole knowledge base in front of the given input. Our helper.
-async function callGemini(system: string, input: string): Promise<GeminiText> {
+async function callGemini(system: string, knowledgeText: string, input: string): Promise<GeminiText> {
   const key = process.env.GEMINI_API_KEY;
   if (!key) return { ok: false, status: 500, error: "The AI assistant is not configured on this server (missing GEMINI_API_KEY)." };
 
@@ -198,7 +262,7 @@ async function callGemini(system: string, input: string): Promise<GeminiText> {
         signal: AbortSignal.timeout(Math.max(5_000, TIMEOUT_MS - (Date.now() - started))), // one shared time budget
         body: JSON.stringify({
           systemInstruction: { parts: [{ text: system }] },
-          contents: [{ role: "user", parts: [{ text: `${loadKnowledge()}\n\n${input}` }] }],
+          contents: [{ role: "user", parts: [{ text: `${knowledgeText}\n\n${input}` }] }],
           generationConfig: { temperature: 0.2, thinkingConfig: { thinkingBudget: THINKING_BUDGET }, responseMimeType: "application/json", responseSchema: RESPONSE_SCHEMA },
         }),
       });
