@@ -165,7 +165,7 @@ a:hover { color: var(--heading); text-decoration-color: var(--muted); }
 .topbar-right { display: flex; align-items: center; gap: 14px; }
 .search-trigger {
   display: flex; align-items: center; justify-content: space-between; gap: 24px;
-  width: 240px; padding: 6px 8px 6px 12px; border-radius: 8px;
+  width: 300px; padding: 6px 8px 6px 12px; border-radius: 8px;
   background: var(--surface); border: 1px solid var(--border);
   color: var(--muted); font: inherit; font-size: 14px; cursor: pointer;
 }

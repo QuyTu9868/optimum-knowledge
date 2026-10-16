@@ -97,22 +97,29 @@ async function callGemini(system: string, input: string): Promise<AskResult> {
   const key = process.env.GEMINI_API_KEY;
   if (!key) return { ok: false, status: 500, error: "The AI assistant is not configured on this server (missing GEMINI_API_KEY)." };
 
-  let res: Response;
-  try {
-    res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`, {
-      method: "POST",
-      headers: { "content-type": "application/json", "x-goog-api-key": key },
-      signal: AbortSignal.timeout(TIMEOUT_MS),
-      body: JSON.stringify({
-        systemInstruction: { parts: [{ text: system }] },
-        contents: [{ role: "user", parts: [{ text: `${loadKnowledge()}\n\n${input}` }] }],
-        // Without thinking, Flash Lite missed facts phrased differently from the question (tested 2026-10-14).
-        generationConfig: { temperature: 0.2, thinkingConfig: { thinkingBudget: 1024 } },
-      }),
-    });
-  } catch {
-    return { ok: false, status: 504, error: "Gemini did not answer within 30 seconds. Try again, or ask a shorter question." };
+  // 503 means Gemini is briefly overloaded: waiting helps, so retry once. Never retry 429 (quota) or other errors.
+  const started = Date.now();
+  let res: Response | undefined;
+  for (let attempt = 1; attempt <= 2; attempt++) {
+    try {
+      res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`, {
+        method: "POST",
+        headers: { "content-type": "application/json", "x-goog-api-key": key },
+        signal: AbortSignal.timeout(Math.max(5_000, TIMEOUT_MS - (Date.now() - started))), // one shared time budget
+        body: JSON.stringify({
+          systemInstruction: { parts: [{ text: system }] },
+          contents: [{ role: "user", parts: [{ text: `${loadKnowledge()}\n\n${input}` }] }],
+          // Without thinking, Flash Lite missed facts phrased differently from the question (tested 2026-10-14).
+          generationConfig: { temperature: 0.2, thinkingConfig: { thinkingBudget: 1024 } },
+        }),
+      });
+    } catch {
+      return { ok: false, status: 504, error: "Gemini did not answer within 30 seconds. Try again, or ask a shorter question." };
+    }
+    if (res.status !== 503 || attempt === 2 || Date.now() - started > 12_000) break;
+    await new Promise((r) => setTimeout(r, 2_000));
   }
+  if (!res) return { ok: false, status: 502, error: "No answer from Gemini. Try again in a moment." };
 
   const body = await res.json().catch(() => null);
 

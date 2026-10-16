@@ -32,7 +32,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </Link>
           <div className="topbar-right">
             <Search />
-            <Link href="/ask" className="ask-link">Ask AI</Link>
             <span className="community-pill">Community project</span>
           </div>
         </header>

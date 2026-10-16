@@ -1,6 +1,6 @@
 "use client"; // needs typing, sending and showing answers in the browser
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 type Turn = { question: string; html?: string; error?: string }; // our type: one question and its answer
 
@@ -11,6 +11,16 @@ export default function AskPanel() {
   const [question, setQuestion] = useState("");
   const [turns, setTurns] = useState<Turn[]>([]);
   const [busy, setBusy] = useState(false);
+  const fromUrl = useRef(false); // guard so the question in the url is only asked once
+
+  // The search box sends questions here as /ask?q=...; ask it right away.
+  useEffect(() => {
+    if (fromUrl.current) return;
+    fromUrl.current = true;
+    const q = new URLSearchParams(window.location.search).get("q");
+    if (q) send(q.slice(0, 500));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   async function send(q: string) {
     const text = q.trim();
