@@ -14,7 +14,7 @@ status: mixed
 ## Four Pillars report
 
 - Four Pillars published "Optimum: Rethinking the Blockchain Network Layer" by c4lvin on 2026-08-18. It discloses that the research was sponsored and funded by Optimum. ([Four Pillars](https://research.4pillars.io/en/research/optimum-rethinking-the-blockchain-network-layer)) [confirmed]
-- FP Validated, a Four Pillars division, is also one of the operators testing in the Lido thread. [confirmed]
+- FP Validated, a Four Pillars division, is also one of the operators testing in the Lido thread. [third-party]
 - FP Validated posted on 2026-08-05 that it joined Optimum as a validator partner. ([@FPvalidated post](https://x.com/FPvalidated/status/2084816155177537577)) [third-party]
 
 ## Ethereum Korea
