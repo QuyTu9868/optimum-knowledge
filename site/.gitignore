@@ -6,3 +6,4 @@ public/kb/
 next-env.d.ts
 *.tsbuildinfo
 data/
+/characters/

@@ -1,6 +1,7 @@
 "use client"; // needs typing, sending and showing answers in the browser
 
 import { useEffect, useRef, useState } from "react";
+import { tellMascot } from "@/lib/mascot";
 
 type Turn = { question: string; html?: string; error?: string }; // our type: one question and its answer
 
@@ -28,6 +29,7 @@ export default function AskPanel() {
     setBusy(true);
     setQuestion("");
     setTurns((t) => [{ question: text }, ...t]);
+    tellMascot("thinking");
     let next: Turn;
     try {
       const res = await fetch("/api/ask", {
@@ -41,6 +43,7 @@ export default function AskPanel() {
       next = { question: text, error: "Could not reach the server. Check your connection, then ask again." };
     }
     setTurns((t) => [next, ...t.slice(1)]);
+    tellMascot(next.error ? "error" : "happy");
     setBusy(false);
   }
 

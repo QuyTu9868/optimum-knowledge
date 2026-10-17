@@ -4,6 +4,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { getNav } from "@/lib/content";
 import Sidebar from "./Sidebar";
 import Search from "./Search";
+import Mascot from "./Mascot";
 import "./globals.css";
 
 const sans = Geist({ subsets: ["latin", "latin-ext"], variable: "--font-sans" });
@@ -42,12 +43,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <main className="content">{children}</main>
         </div>
 
+        <Mascot />
+
         <footer className="footer">
           <p>
             This site is built and maintained by a community member. It is not made, run or endorsed by the Optimum team.
             Facts come from the{" "}
             <a href="https://github.com/QuyTu9868/optimum-knowledge">optimum-knowledge</a> repo, each with its source
-            link. For official information see <a href="https://www.getoptimum.xyz/">getoptimum.xyz</a>.
+            link. For official information see <a href="https://www.getoptimum.xyz/">getoptimum.xyz</a>. The mascot Op is a community creation, not an official Optimum character.
           </p>
         </footer>
       </body>

@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import type { SearchDoc } from "@/lib/content";
+import { tellMascot } from "@/lib/mascot";
 
 type Hit = SearchDoc & { snippet: string }; // our type
 type Item = { kind: "page"; hit: Hit } | { kind: "ask" }; // our type: a result row is a page or the "ask AI" row
@@ -47,6 +48,11 @@ export default function Search() {
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, []);
+
+  // The mascot looks up toward the box while it is open.
+  useEffect(() => {
+    tellMascot(open ? "look-up" : "calm");
+  }, [open]);
 
   // Load the index the first time the box opens.
   useEffect(() => {
