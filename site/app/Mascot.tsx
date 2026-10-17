@@ -5,7 +5,7 @@ import type { Mood } from "@/lib/mascot";
 
 // Two 3x3 sprite sheets in /public/mascots (made with scripts/process-mascot.py):
 //  directions: row 1 up-left, up, up-right / row 2 left, front, right / row 3 down-left, down, down-right
-//  reactions : 1 calm smile, 2 heart, 3 sparkles, 4 surprised, 5 starstruck, 6 blush, 7 sleeping, 8 dizzy, 9 grin
+//  reactions : 1 calm smile (not used yet), 2 heart, 3 sparkles, 4 surprised, 5 starstruck, 6 blush, 7 sleeping, 8 dizzy, 9 grin
 // The visor with the infinity icon never changes: faces show only through the mouth, the cheeks and symbols above the head.
 const DIRECTIONS = "/mascots/op-directions.webp";
 const REACTIONS = "/mascots/op-reactions.webp";
@@ -54,7 +54,7 @@ export default function Mascot() {
     if (!ready || hidden) return;
     const s = state.current;
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    let idleTimer = 0, smileTimer = 0;
+    let idleTimer = 0;
 
     const wake = () => {
       window.clearTimeout(idleTimer);
@@ -81,20 +81,11 @@ export default function Mascot() {
       else if (mood === "look-up") { s.hold = null; s.look = 2; render(); }
       else if (mood === "calm") { s.hold = null; s.look = 5; render(); }
     };
-    // A calm smile for a moment every ten seconds or so, only while it is just looking around.
-    const scheduleSmile = () => {
-      smileTimer = window.setTimeout(() => {
-        if (!s.hold && !s.sleeping && !reduce) react(R.smile, 1200);
-        scheduleSmile();
-      }, 9000 + Math.random() * 6000);
-    };
-
     window.addEventListener("pointermove", onMove);
     window.addEventListener("keydown", wake);
     window.addEventListener("scroll", wake, { passive: true });
     window.addEventListener("mascot", onMood);
     wake();
-    scheduleSmile();
     // Greeting once per browser session.
     try {
       if (sessionStorage.getItem("op-greeted") !== "1") { sessionStorage.setItem("op-greeted", "1"); s.timers.push(window.setTimeout(() => react(R.grin, 1400), 900)); }
@@ -104,7 +95,7 @@ export default function Mascot() {
       window.removeEventListener("keydown", wake);
       window.removeEventListener("scroll", wake);
       window.removeEventListener("mascot", onMood);
-      window.clearTimeout(idleTimer); window.clearTimeout(smileTimer);
+      window.clearTimeout(idleTimer);
       s.timers.forEach((t) => window.clearTimeout(t)); s.timers = [];
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
