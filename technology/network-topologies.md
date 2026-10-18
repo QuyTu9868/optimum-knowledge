@@ -11,7 +11,7 @@ These are Optimum's explanations from its Network Topology video series and its 
 ## Journey of a transaction
 
 - A transaction starts on a home device and crosses Wi-Fi, a neighborhood access point and shared fiber, passing many switches and routers. A switch is the machine that links inputs to outputs, and routing is the software that decides what it does with each packet. ([The real transaction lifecycle, 2025-10-22](https://www.youtube.com/watch?v=K_TYCGxfhr0)) [claimed]
-- Transactions reach a block builder over the public network, and the builder assembles a block from them. The block goes to a proposer, who must send it to many validators and gather enough agreement. ([The real transaction lifecycle, 2025-10-22](https://www.youtube.com/watch?v=K_TYCGxfhr0)) [claimed]
+- Transactions reach a block builder and the builder assembles a block from them. The block goes to a proposer, who must send it to many validators and gather enough agreement. ([The real transaction lifecycle, 2025-10-22](https://www.youtube.com/watch?v=K_TYCGxfhr0)) [claimed]
 - Direct lines from every proposer to every validator are infeasible: about 1,000 validators would need roughly a million dedicated lines. Real systems run over a shared switched network, so a truly dedicated link does not exist. ([The real transaction lifecycle, 2025-10-22](https://www.youtube.com/watch?v=K_TYCGxfhr0)) [claimed]
 
 ## Ways to reach many nodes

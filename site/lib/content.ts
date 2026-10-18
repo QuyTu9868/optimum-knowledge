@@ -156,7 +156,7 @@ const DIAGRAMS: Record<string, Diagram[]> = {
     {
       src: "rlnc-recoding.svg",
       after: "Recoding at relay nodes",
-      alt: "On a chain source, relay 1, relay 2, receiver with a loss on every link: with end-to-end coding the losses of all hops add up, with recoding each hop repairs its own loss. Optimum's chain example: 9 transmissions forward-only, 8 in 8 slots with decode and re-encode, 8 in 5 slots with recoding.",
+      alt: "On a chain source, relay 1, relay 2, receiver with a loss on every link: with end-to-end coding the losses of all hops add up, with recoding each hop repairs its own loss. Optimum's own shorter example (source, relay, receiver): 9 transmissions forward-only, 8 in 8 slots with decode and re-encode, 8 in 5 slots with recoding.",
       caption: "Recoding repairs loss hop by hop. The transmission counts are Optimum's own chain example.",
     },
   ],
@@ -164,13 +164,13 @@ const DIAGRAMS: Record<string, Diagram[]> = {
     {
       src: "why-gossip-slow.svg",
       after: "Why Optimum says gossip needs fixing",
-      alt: "An Ethereum slot lasts 12 seconds and the first 4 seconds are used by validators to agree on the head of the chain. Validators far from the block source see older information and suffer more from repeated copies, which creates a premium for colocation. Coded mixes make every incoming piece count.",
+      alt: "An Ethereum slot lasts 12 seconds and about 4 seconds go to validators agreeing on the head of the chain. Validators far from the block source see older information and suffer more from repeated copies, which creates a premium for colocation. Coded mixes make every incoming piece count.",
       caption: "Why repeated data hurts, according to Medard's argument. It is Optimum's reasoning, not a measurement.",
     },
     {
       src: "publish-path.svg",
       after: "How publishing and relaying work",
-      alt: "A publisher pads and splits a message into k fragments and creates ShredFactor times PublisherShardMultiplier coded shards, sending different shards to different mesh peers. A receiving node drops redundant shards, decodes at k unique shards, forwards publisher shards at once and recodes shards from peers after a threshold. Control messages: IDONTWANT, IHAVE, IWANT, GRAFT and PRUNE.",
+      alt: "A publisher pads and splits a message into k fragments and creates ShredFactor times PublisherShardMultiplier coded shards, sending different shards to different mesh peers. A receiving node drops redundant shards, decodes at k unique shards, follows one of two forwarding rules: publisher shards go out at once, and shards from peers are recoded after a threshold. Control messages: IDONTWANT, IHAVE, IWANT, GRAFT and PRUNE.",
       caption: "The publish and relay path as described on the docs p2p page.",
     },
   ],
@@ -184,7 +184,7 @@ const DIAGRAMS: Record<string, Diagram[]> = {
   "technology/flexnodes.md": [
     {
       src: "flexnodes.svg",
-      alt: "A proposer sends a block to Flexnodes, which regenerate new coded equations on the path and pass them to receivers such as validators and block builders. In the plan, receivers pay the Flexnodes. Today Flexnodes only help propagation and no slashing is planned.",
+      alt: "A proposer sends a block to Flexnodes, which regenerate new coded equations on the path and pass them to receivers such as validators and block builders. In the plan, receivers pay the Flexnodes. Flexnodes are described as helping propagation, and no slashing is planned.",
       caption: "Where Flexnodes sit in the topology, as Optimum's videos describe them. The payment loop is planned, not running.",
     },
   ],
@@ -192,14 +192,14 @@ const DIAGRAMS: Record<string, Diagram[]> = {
     {
       src: "tx-lifecycle.svg",
       after: "Journey of a transaction",
-      alt: "A transaction goes from a device over Wi-Fi, an access point, shared fiber, switches and routers to a block builder, then to a proposer who must reach many validators. About 1,000 validators would need roughly a million dedicated lines.",
+      alt: "A transaction goes from a device over Wi-Fi and an access point, then shared fiber, switches and routers, to a block builder, then to a proposer who must reach many validators. About 1,000 validators (the real number is higher) would need roughly a million dedicated lines.",
       caption: "The journey of a transaction, from Optimum's lifecycle video.",
     },
     {
       src: "topologies.svg",
       after: "Ways to reach many nodes",
-      alt: "Four ways to reach many receivers: one connection per receiver (star), multicast tree, gossip mesh and coded mesh where every connection can carry equations.",
-      caption: "Four ways to reach many nodes, as Optimum explains them. These are teaching models, not measurements.",
+      alt: "Four of the ways to reach many receivers: one connection per receiver (star), multicast tree, gossip mesh and coded mesh where every connection can carry equations.",
+      caption: "Four of the ways to reach many nodes, as Optimum explains them (the daisy chain is covered in the text). These are teaching models, not measurements.",
     },
   ],
   "team/timeline.md": [

@@ -6,7 +6,7 @@ status: confirmed, with internal inconsistencies on the docs page
 
 # Parameters
 
-All values from the docs parameters page: https://docs.getoptimum.xyz/docs/guides/03-parameters [confirmed]
+All values from the docs parameters page: https://docs.getoptimum.xyz/docs/guides/03-parameters (page returned 404 on 2026-10-18) [claimed]
 
 Defaults change between versions. Check the page before relying on a value.
 
@@ -21,7 +21,7 @@ Check on 2026-10-18: the parameters page above returned HTTP 404, so the values 
 | OPTIMUM_MESH_MAX | 12 | Max peers before pruning |
 | OPTIMUM_SHARD_FACTOR | 4 | Shards per message |
 | OPTIMUM_SHARD_MULT | 1.5 | Redundancy multiplier, extra shards |
-| OPTIMUM_THRESHOLD | 0.75 | Fraction of shards needed to forward or decode |
+| OPTIMUM_THRESHOLD | 0.75 | Fraction of shards needed to forward or decode (disputed, see below) |
 | OPTIMUM_PORT | 7070 | TCP port for RLNC gossip |
 | Max message size | 1048576 bytes (1 MB) | Max full payload, same in both modes |
 
@@ -39,7 +39,7 @@ Check on 2026-10-18: the parameters page above returned HTTP 404, so the values 
 | SIDECAR_PORT | 33212 | gRPC port between proxy and P2P node |
 | SUBSCRIBER_THRESHOLD | 0.1 | Share of connected subscribers needed to forward a message |
 
-- Deployment can go through a proxy, or clients can connect straight to P2P nodes over gRPC. ([guides overview](https://docs.getoptimum.xyz/docs/guides/overview)) [confirmed]
+- Deployment can go through a proxy, or clients can connect straight to P2P nodes over gRPC. ([guides overview](https://docs.getoptimum.xyz/docs/how-to-guides/overview)) [confirmed]
 
 ## Gateway ports
 

@@ -19,7 +19,7 @@ status: claimed, forward-looking, plans not final
 - Today Flexnodes run mump2p for propagation. DeRAM and other services come later, and operators will pick which services to offer. ([Flexnodes: a global network of data accelerators, 2026-01-20](https://www.youtube.com/watch?v=DguSwGFvftc)) [claimed]
 - Optimum says it does not plan to use slashing for Flexnodes. A Flexnode that goes offline simply earns nothing, while the coded mesh keeps working without it. ([Exploring Network Topologies: Flexnodes and slashing, 2026-02-24](https://www.youtube.com/watch?v=3BIGj-vso2I)) [claimed]
 - Deliberate misbehavior would be punished, but no mechanism for that is described. ([Flexnodes Explained, 2026-02-10](https://www.youtube.com/watch?v=mCCcJcAzXY0)) [claimed]
-- Resource needs are described as light: a laptop, with a smartphone as a goal. More bandwidth means more contribution and more reward. ([Flexnodes Explained, 2026-02-10](https://www.youtube.com/watch?v=mCCcJcAzXY0)) [claimed]
+- Resource needs are described as light: a laptop, with a smartphone as a goal. ([Flexnodes Explained, 2026-02-10](https://www.youtube.com/watch?v=mCCcJcAzXY0)) [claimed]
 
 ## Latency Marketplace (planned)
 

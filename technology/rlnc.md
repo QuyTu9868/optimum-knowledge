@@ -23,9 +23,9 @@ Instead of forwarding copies of a message, each node sends random mixes of the p
 
 ## A worked example
 
-These are Médard's teaching examples. The numbers are only for illustration, because real systems compute over a finite field.
+These are Médard's teaching examples. The numbers are only for illustration. Real systems compute over a finite field with random coefficients, where independent mixes are likely but not guaranteed, and small hand-picked numbers can fail there.
 
-- Take three pieces x1, x2 and x3. A far-away node gets one mix, for example 3x1 + 2x2 + x3. Another node gets x1 + x2 + 5x3 and a third gets 11x1 + 2x2 + 13x3. Any three independent mixes are enough to solve for x1, x2 and x3. ([Médard whiteboard video, 2026-07-01](https://www.youtube.com/watch?v=XGxZxzxAe0g)) [claimed]
+- Take three pieces x1, x2 and x3. A validator far from the source gets three different mixes, for example 3x1 + 2x2 + x3, x1 + x2 + 5x3 and 11x1 + 2x2 + 13x3. Any three independent mixes are enough for it to solve for x1, x2 and x3, whichever mixes arrive first. ([Médard whiteboard video, 2026-07-01](https://www.youtube.com/watch?v=XGxZxzxAe0g)) [claimed]
 - A repeated copy of x1 only protects against losing x1. It does not help if x2 is lost instead. ([erasure coding video, 2025-08-18](https://www.youtube.com/watch?v=KR6sMbBhizE)) [claimed]
 - The smallest repair example: send x1, x2, x3 and also x1 + x2 + x3. If any one piece is lost, the other three recover it. ([erasure coding video, 2025-08-18](https://www.youtube.com/watch?v=KR6sMbBhizE)) [claimed]
 - In RLNC every mix has its own coefficients, chosen at random from a large enough set of numbers (a field), so none are fixed ahead of time. ([erasure coding video, 2025-08-18](https://www.youtube.com/watch?v=KR6sMbBhizE)) [claimed]
@@ -36,11 +36,11 @@ These are Médard's teaching examples. The numbers are only for illustration, be
 This is the property Optimum leans on most.
 
 - Relays can mix the coded packets they already hold into new coded packets without decoding first. ([gossip problem blog](https://www.getoptimum.xyz/blog/the-gossip-protocol-problem---why-your-blockchain-transactions-are-slow)) [confirmed]
-- Any node that receives a shard can create a new coded shard right away. ([docs p2p](https://docs.getoptimum.xyz/docs/learn/overview/p2p)) [confirmed]
+- A node that holds several independent coded shards can create a new coded shard from them without decoding. ([docs p2p](https://docs.getoptimum.xyz/docs/learn/overview/p2p)) [confirmed]
 - A node can start forwarding shards before the full block is rebuilt. ([implementation blog, 2025-06-06](https://www.getoptimum.xyz/blog/introducing-optimump2p-implementation-and-benefits)) [confirmed]
 - Optimum argues relays can help generate missing coded packets at every hop. ([battle of the codes](https://www.getoptimum.xyz/blog/battle-of-the-codes-rlnc-vs-reed-solomon-fountain-codes)) [claimed]
 - With recoding, a receiver's losses reflect only the last hop, not losses piled up across all hops. ([battle of the codes pt II, 2025-05-16](https://www.getoptimum.xyz/blog/battle-of-the-codes-pt-ii-rlnc-speedup)) [claimed]
-- In mump2p, shards from the publisher are forwarded to mesh peers at once. Shards received from peers are recoded and forwarded only after a node holds more than ShredFactor times ForwardShardThreshold shards. ([docs p2p](https://docs.getoptimum.xyz/docs/learn/overview/p2p)) [confirmed]
+- In mump2p, shards from the publisher are forwarded to mesh peers at once. Shards received from peers are recoded and forwarded after a node holds enough shards. The docs state the threshold as ForwardShardThreshold in one place and as ShredFactor times ForwardShardThreshold in another, so the exact rule is unsettled. ([docs p2p](https://docs.getoptimum.xyz/docs/learn/overview/p2p)) [claimed]
 - Optimum's chain example has three nodes in a row and one loss per link. Forward-only relays need 9 transmissions. A middle node that decodes and re-encodes needs 8 transmissions in 8 time slots. A middle node that recodes without decoding needs 8 transmissions in 5 time slots, because both links work in a pipeline. ([RLNC encoding video, 2025-08-18](https://www.youtube.com/watch?v=S0ZtWWUKM_k)) [claimed]
 - With end-to-end coding the losses of every hop add up and must be covered in advance. With recoding each hop repairs its own loss, so quality follows the weakest link. ([RLNC vs Reed-Solomon video, 2026-03-25](https://www.youtube.com/watch?v=M1RCYMWJguo)) [claimed]
 
@@ -74,7 +74,7 @@ These are Optimum's descriptions, not independent analysis.
 
 ## Disputed
 
-- **Last hop or weakest link.** Optimum's blog says that with recoding a receiver's losses reflect only the last hop. The video above says quality follows the weakest link. The two agree only when the last link is the weakest. ([RLNC vs Reed-Solomon video, 2026-03-25](https://www.youtube.com/watch?v=M1RCYMWJguo))
+- **Last hop or weakest link.** Optimum's blog says that with recoding a receiver's losses reflect only the last hop. The March 2026 video says the overall quality is that of the weakest link on the path. These are stated for different setups and may not conflict, but the sources do not reconcile them. ([RLNC vs Reed-Solomon video, 2026-03-25](https://www.youtube.com/watch?v=M1RCYMWJguo))
 
 ## Not yet covered
 

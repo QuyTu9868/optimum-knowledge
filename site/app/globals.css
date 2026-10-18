@@ -125,7 +125,8 @@ a:hover { color: var(--heading); text-decoration-color: var(--muted); }
 .prose th { background: var(--surface); color: var(--heading); font-weight: 600; }
 
 /* Our diagrams */
-.prose figure.diagram { margin: 8px 0 32px; }
+.prose figure.diagram { margin: 8px 0 32px; overflow-x: auto; }
+@media (max-width: 720px) { .prose figure.diagram img { max-width: none; width: 720px; } }
 .prose figure.diagram img { max-width: 100%; width: 100%; border-radius: 10px; border: 1px solid var(--border); background: var(--surface); }
 .prose figcaption { margin-top: 8px; font-size: 13px; color: var(--muted); }
 .diagram-note { display: block; font-size: 12px; opacity: 0.8; }

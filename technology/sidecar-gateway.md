@@ -19,7 +19,7 @@ A sidecar is a separate program that runs next to the main software and adds a f
 - Client to mesh: each message is fingerprinted with XXHash and kept in a short cache of about one minute to drop duplicates, then forwarded to mump2p peers, with optional batching for topics other than blocks. ([Gateway README](https://github.com/getoptimum/optimum-gateway)) [confirmed]
 - Mesh to client: a message already in the cache is ignored, otherwise it is SSZ-decoded, re-encoded and published to the local libp2p network. ([Gateway README](https://github.com/getoptimum/optimum-gateway)) [confirmed]
 - It runs two libp2p hosts: TCP 33212 faces the consensus client and TCP 33213 faces other gateways on the mump2p mesh. A telemetry HTTP server listens on 48123 with /health and /api/v1/self_info. ([Gateway README](https://github.com/getoptimum/optimum-gateway)) [confirmed]
-- The client needs no code change: it is pointed at the Gateway as a peer, for example with Prysm's --peer flag and the Gateway's multiaddress. That is one configuration setting. ([Gateway README](https://github.com/getoptimum/optimum-gateway)) [confirmed]
+- The client needs no code change: it is pointed at the Gateway as a peer, for example with Prysm's --peer flag and the Gateway's multiaddress. ([Gateway README](https://github.com/getoptimum/optimum-gateway)) [confirmed]
 - A 2025 validator integration video covers the beacon block and attestation topics and says beacon aggregate was coming soon. ([validator implementation video, 2025-09-29](https://www.youtube.com/watch?v=xe1u2Ct6WNY)) [claimed]
 
 ## Repos

@@ -12,7 +12,6 @@ Things people repeat about Optimum that no source in this repo supports yet. Do 
 | RLNC patents are owned by MIT and licensed to Optimum | Community posts | Any patent number or license announcement |
 | Optimum's RLNC library is "source-available, not open source" | Community posts | A repo, license file or official statement |
 | The MIT NEC chair passed from Nancy Lynch to Muriel Médard | Implied by Optimum's team page | An MIT source saying so |
-| How mump2p handles IDONTWANT | Expected from GossipSub heritage | A spec or code reference (other control-message settings are now in code/known-issues.md) |
 | Seed round was $10M | Signalbase headline | The article itself; Optimum and The Defiant say $11M |
 | 2026 IEEE Hamming Medal for Médard | Optimum team page | IEEE's own announcement |
 | Blocks republished after a 30s TTL caused 30-46s latency spikes | Community posts | Any issue, PR, changelog or post. PR #121 adds a 30s dedup window but mentions no spike |
