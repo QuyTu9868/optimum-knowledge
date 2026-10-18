@@ -1,6 +1,6 @@
 ---
 title: Documented configuration defaults
-last_verified: 2026-10-09
+last_verified: 2026-10-18
 status: confirmed, with internal inconsistencies on the docs page
 ---
 
@@ -9,6 +9,8 @@ status: confirmed, with internal inconsistencies on the docs page
 All values from the docs parameters page: https://docs.getoptimum.xyz/docs/guides/03-parameters [confirmed]
 
 Defaults change between versions. Check the page before relying on a value.
+
+Check on 2026-10-18: the parameters page above returned HTTP 404, so the values below could not be re-verified. The docs p2p page names the same settings differently: ShredFactor (base fragments per message), PublisherShardMultiplier (coded shards created at publish time are ShredFactor times this), ForwardShardThreshold (a relay recodes and forwards once it holds more than ShredFactor times this many shards) and MeshDegreeTarget, MeshDegreeMin and MeshDegreeMax. The docs do not say which environment variable maps to which name, so the table rows are probably the same settings. ([docs p2p](https://docs.getoptimum.xyz/docs/learn/overview/p2p)) [confirmed]
 
 ## RLNC mode (mump2p)
 
@@ -39,6 +41,10 @@ Defaults change between versions. Check the page before relying on a value.
 
 - Deployment can go through a proxy, or clients can connect straight to P2P nodes over gRPC. ([guides overview](https://docs.getoptimum.xyz/docs/guides/overview)) [confirmed]
 
+## Gateway ports
+
+- The Gateway listens on TCP 33212 for its consensus-client-facing libp2p host, TCP 33213 for the mump2p mesh (gateway to gateway), and TCP 48123 for the telemetry HTTP server. ([Gateway README](https://github.com/getoptimum/optimum-gateway)) [confirmed]
+
 ## Disputed
 
 Values that differ between sections of the same docs page:
@@ -47,3 +53,5 @@ Values that differ between sections of the same docs page:
 - API port: 9090 vs 8081.
 - Log level: debug vs production.
 - Identity directory: `/identity` vs `/tmp`.
+- OPTIMUM_THRESHOLD: the parameter table says 0.75 is the fraction of shards needed "to forward or decode". The p2p docs page says the threshold only decides when a relay recodes and forwards, and that decoding needs k linearly independent shards. ([docs p2p](https://docs.getoptimum.xyz/docs/learn/overview/p2p)) [confirmed]
+- Port 33212: the parameter table lists it as a gRPC port between proxy and P2P node (SIDECAR_PORT). The Gateway README uses 33212 for the consensus-client-facing libp2p host. They may be different products, and neither source says. ([Gateway README](https://github.com/getoptimum/optimum-gateway)) [confirmed]

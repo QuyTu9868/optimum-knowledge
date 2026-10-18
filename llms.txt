@@ -15,6 +15,7 @@ Rules for agents using this repo:
 ## Technology
 - [Overview](technology/overview.md): what Optimum is, product names, live vs planned
 - [RLNC](technology/rlnc.md): network coding basics, recoding, comparison with Reed-Solomon and fountain codes
+- [Network topologies](technology/network-topologies.md): how data reaches many nodes, with throughput trade-offs
 - [mump2p and GossipSub](technology/mump2p-and-gossipsub.md): relation to libp2p, speed claims by source
 - [Parameters](technology/parameters.md): documented config defaults
 - [Security](technology/security.md): pollution defense, ProbeLab audit

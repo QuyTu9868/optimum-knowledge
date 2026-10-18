@@ -25,6 +25,7 @@ When two sources disagree, the file says so under **Disputed** and lists both si
 |---|---|
 | [technology/overview.md](technology/overview.md) | What Optimum is, product names (mump2p, OptimumP2P, deRAM, DeROM), what is live vs planned |
 | [technology/rlnc.md](technology/rlnc.md) | Random Linear Network Coding, recoding at relay nodes, RLNC vs Reed-Solomon vs fountain codes |
+| [technology/network-topologies.md](technology/network-topologies.md) | How data reaches many nodes: star, chain, tree, gossip mesh, coded mesh, and the transaction journey |
 | [technology/mump2p-and-gossipsub.md](technology/mump2p-and-gossipsub.md) | How mump2p sits on top of libp2p GossipSub, speed claims and where each number comes from |
 | [technology/parameters.md](technology/parameters.md) | Documented config defaults (mesh, shards, threshold, ports) |
 | [technology/security.md](technology/security.md) | Pollution attack defense, ProbeLab audit |

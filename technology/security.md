@@ -1,6 +1,6 @@
 ---
 title: Security, pollution attacks and audits
-last_verified: 2026-10-14
+last_verified: 2026-10-18
 status: confirmed
 ---
 
@@ -13,6 +13,10 @@ In network coding, a malicious node can send a bad coded packet. Because relays 
 - After decoding, nodes check the rebuilt data against the publisher's original signature and hash. Verification is end-to-end, not per shard. ([docs p2p](https://docs.getoptimum.xyz/docs/learn/overview/p2p)) [confirmed]
 - Peers who send invalid shards get their reputation scores lowered, and are eventually cut off from the network. The docs admit it can be hard to pinpoint which shard was bad. ([docs p2p](https://docs.getoptimum.xyz/docs/learn/overview/p2p)) [confirmed]
 - The research reading list includes papers on countering Byzantine attacks in network-coded P2P systems, for example Kim et al., IEEE JSAC 2010. ([research list](https://docs.getoptimum.xyz/docs/research/gossip/gossip)) [confirmed]
+
+## Inherited from libp2p
+
+- Channels between nodes are encrypted and authenticated with Noise or TLS, and mump2p inherits libp2p's Sybil and eclipse attack defenses. ([docs p2p](https://docs.getoptimum.xyz/docs/learn/overview/p2p)) [confirmed]
 
 ## ProbeLab audit of the Optimum Gateway
 
