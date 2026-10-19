@@ -46,7 +46,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <div className="topbar-right">
             <Search />
             <LangSwitch viHrefs={viHrefs} />
-            <span className="community-pill">Community project</span>
+            <span className="community-pill">Community<span className="pill-extra"> project</span></span>
           </div>
         </header>
 

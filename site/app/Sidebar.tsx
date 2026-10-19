@@ -1,6 +1,7 @@
 "use client"; // needs the current url to highlight the open page
 
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 
 type NavGroup = { title: string; pages: { file: string; title: string; href: string }[] }; // our type
@@ -10,9 +11,16 @@ export default function Sidebar({ nav, viNav }: { nav: NavGroup[]; viNav: NavGro
   const pathname = usePathname(); // e.g. "/technology/rlnc"
   const isVi = pathname === "/vi" || pathname.startsWith("/vi/");
   const groups = isVi ? viNav : nav;
+  const [open, setOpen] = useState(false); // phone menu only; on wide screens the list is always shown
+  useEffect(() => setOpen(false), [pathname]); // close the menu after picking a page
 
   return (
-    <nav className="sidebar" aria-label="Docs">
+    <nav className={"sidebar" + (open ? " menu-open" : "")} aria-label="Docs">
+      <button type="button" className="nav-toggle" aria-expanded={open} onClick={() => setOpen(!open)}>
+        <span>Menu</span>
+        <span aria-hidden="true">{open ? "-" : "+"}</span>
+      </button>
+      <div className="nav-groups">
       {groups.map((group) => {
         const hasActive = group.pages.some((p) => p.href === pathname);
         return (
@@ -35,6 +43,7 @@ export default function Sidebar({ nav, viNav }: { nav: NavGroup[]; viNav: NavGro
           Các trang khác chưa có bản dịch. <Link href="/">Xem bản tiếng Anh đầy đủ</Link>
         </p>
       )}
+      </div>
     </nav>
   );
 }
