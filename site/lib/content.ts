@@ -2,10 +2,16 @@
 import fs from "node:fs";
 import { createHash } from "node:crypto";
 import path from "node:path";
-import matter from "gray-matter";
+import { parse as parseYaml } from "yaml";
 import { marked } from "marked";
 
 const CONTENT_ROOT = path.join(process.cwd(), "content"); // our constant
+
+// Splits the front matter (the YAML block between two --- lines) from the Markdown body. Our helper.
+function matter(raw: string): { data: Record<string, any>; content: string } {
+  const m = raw.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?/);
+  return m ? { data: (parseYaml(m[1]) as Record<string, any>) ?? {}, content: raw.slice(m[0].length) } : { data: {}, content: raw };
+}
 
 // Sidebar order, matching the README sections. Our own data.
 export const SECTIONS: { title: string; dir: string }[] = [
