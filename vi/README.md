@@ -4,11 +4,13 @@ lang: vi
 
 # Optimum Knowledge (bản tiếng Việt)
 
-Bản dịch cộng đồng của các trang công nghệ trong kho tri thức này. Bản tiếng Anh là bản gốc. Khi hai bản khác nhau, tin bản tiếng Anh.
+Bản dịch cộng đồng của các trang trong kho tri thức này. Bản tiếng Anh là bản gốc. Khi hai bản khác nhau, tin bản tiếng Anh.
 
 Mỗi dòng dữ kiện vẫn giữ nguyên link nguồn và tag `[confirmed]`, `[claimed]`, `[third-party]` như bản gốc. Thuật ngữ được viết song song tiếng Việt và tiếng Anh ở lần đầu xuất hiện trong mỗi trang. Bảng thuật ngữ nằm ở [GLOSSARY.md](GLOSSARY.md).
 
 ## Các trang đã dịch
+
+**Công nghệ**
 
 - [Tổng quan công nghệ](technology/overview.md)
 - [RLNC](technology/rlnc.md)
@@ -20,4 +22,20 @@ Mỗi dòng dữ kiện vẫn giữ nguyên link nguồn và tag `[confirmed]`, 
 - [Tham số](technology/parameters.md)
 - [Bảo mật](technology/security.md)
 
-Các trang còn lại (đội ngũ, kết quả, hệ sinh thái, mã nguồn) chưa có bản dịch, xem [bản tiếng Anh](../README.md).
+**Đội ngũ và lịch sử**
+
+- [Con người](team/people.md)
+- [Gọi vốn](team/funding.md)
+- [Lịch sử nghiên cứu](team/research-history.md)
+- [Sở hữu trí tuệ và giấy phép](team/ip-and-licensing.md)
+- [Dòng thời gian](team/timeline.md)
+
+**Kết quả, hệ sinh thái, mã nguồn**
+
+- [Hiệu năng](results/performance.md)
+- [Validator](ecosystem/validators.md)
+- [Đối tác và kinh doanh](ecosystem/partners-and-business.md)
+- [Các vấn đề đã biết](code/known-issues.md)
+- [Bản phát hành](code/releases.md)
+
+Các trang meta (CONTRIBUTING, unverified) chưa có bản dịch, xem [bản tiếng Anh](../README.md).

@@ -11,6 +11,7 @@ Rules for agents using this repo:
 
 ## Start here
 - [README](README.md): index of all files and how tags work
+- [Vietnamese translation](vi/README.md): community translation of most pages, English is the source
 
 ## Technology
 - [Overview](technology/overview.md): what Optimum is, product names, live vs planned
