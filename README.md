@@ -6,6 +6,8 @@ Built for AI agents and content creators. Paste this repo link into your agent, 
 
 This is not an official Optimum repository.
 
+Vietnamese translation of the technology pages (community translation, English is the source): [vi/README.md](vi/README.md).
+
 ## How to read a fact
 
 Every fact line ends with a source link and a tag:

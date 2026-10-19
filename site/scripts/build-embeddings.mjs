@@ -23,7 +23,7 @@ function sections() {
   const out = [];
   const walk = (dir) => {
     for (const name of readdirSync(dir)) {
-      if (name.startsWith(".") || name === "site") continue;
+      if (name.startsWith(".") || name === "site" || name === "vi") continue; // vi/ = Vietnamese copies, not extra facts
       const full = path.join(dir, name);
       if (statSync(full).isDirectory()) { walk(full); continue; }
       if (!name.endsWith(".md")) continue;

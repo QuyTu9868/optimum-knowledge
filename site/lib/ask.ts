@@ -42,7 +42,7 @@ function loadKnowledge(): string {
   const walk = (dir: string) => {
     for (const name of fs.readdirSync(dir)) {
       const full = path.join(dir, name);
-      if (name.startsWith(".") || name === "site") continue; // skip .git, .github and the website code (site/) if it lives in the same repo
+      if (name.startsWith(".") || name === "site" || name === "vi") continue; // vi/ = Vietnamese copies, not extra facts // skip .git, .github and the website code (site/) if it lives in the same repo
       if (fs.statSync(full).isDirectory()) walk(full);
       else if (name.endsWith(".md") || name === "llms.txt") files.push(path.relative(CONTENT_ROOT, full).replace(/\\/g, "/"));
     }

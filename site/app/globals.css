@@ -269,3 +269,13 @@ kbd {
 @keyframes op-breathe { 50% { transform: scaleY(1.035); } }
 @media (prefers-reduced-motion: reduce) { .op, .op-wrap { animation: none; } }
 @media (max-width: 820px) { .op-wrap { width: 96px; height: 96px; right: 12px; } }
+
+/* Language toggle and Vietnamese page notes */
+.lang-switch { display: flex; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; font-size: 12px; font-weight: 600; }
+.lang-switch a { padding: 4px 10px; color: var(--muted); text-decoration: none; }
+.lang-switch a.active { background: var(--border); color: var(--heading); }
+.translation-note { margin: 0 0 12px; padding: 8px 12px; font-size: 13px; color: var(--muted); border: 1px solid var(--border); border-radius: 8px; background: var(--surface); }
+.nav-note { margin: 16px 8px 0; font-size: 12px; color: var(--muted); }
+
+/* Very small phones: keep the logo, drop the brand text so the search box, EN/VI toggle and badge fit */
+@media (max-width: 520px) { .brand span { display: none; } }

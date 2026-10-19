@@ -5,13 +5,15 @@ import { usePathname } from "next/navigation";
 
 type NavGroup = { title: string; pages: { file: string; title: string; href: string }[] }; // our type
 
-// Left menu: collapsible groups, current page highlighted, its group open.
-export default function Sidebar({ nav }: { nav: NavGroup[] }) {
+// Left menu: collapsible groups, current page highlighted, its group open. Under /vi it lists the Vietnamese pages.
+export default function Sidebar({ nav, viNav }: { nav: NavGroup[]; viNav: NavGroup[] }) {
   const pathname = usePathname(); // e.g. "/technology/rlnc"
+  const isVi = pathname === "/vi" || pathname.startsWith("/vi/");
+  const groups = isVi ? viNav : nav;
 
   return (
     <nav className="sidebar" aria-label="Docs">
-      {nav.map((group) => {
+      {groups.map((group) => {
         const hasActive = group.pages.some((p) => p.href === pathname);
         return (
           <details key={group.title} className="nav-group" open={hasActive || undefined}>
@@ -28,6 +30,11 @@ export default function Sidebar({ nav }: { nav: NavGroup[] }) {
           </details>
         );
       })}
+      {isVi && (
+        <p className="nav-note">
+          Các trang khác chưa có bản dịch. <Link href="/">Xem bản tiếng Anh đầy đủ</Link>
+        </p>
+      )}
     </nav>
   );
 }

@@ -1,5 +1,6 @@
 // Reads Markdown files from ./content (the cloned knowledge repo) and turns them into pages.
 import fs from "node:fs";
+import { createHash } from "node:crypto";
 import path from "node:path";
 import matter from "gray-matter";
 import { marked } from "marked";
@@ -27,6 +28,9 @@ export type DocPage = {
   title: string;
   lastVerified?: string;
   status?: string;
+  lang?: string; // "vi" for Vietnamese copies
+  translationOf?: string; // vi pages: the English file this is a translation of
+  sourceSha?: string; // vi pages: short hash of that English file when it was translated
 };
 
 // Turns "technology/rlnc.md" into its page info. Our helper.
@@ -37,11 +41,44 @@ function readMeta(file: string): DocPage {
   return {
     slug: file.replace(/\.md$/, "").split("/"),
     file,
-    title: data.title ?? heading ?? file,
+    title: (file.startsWith("vi/") ? heading : data.title) ?? heading ?? file, // Vietnamese pages show their own heading
     lastVerified: data.last_verified ? String(data.last_verified instanceof Date ? data.last_verified.toISOString().slice(0, 10) : data.last_verified) : undefined,
     status: data.status,
+    lang: data.lang,
+    translationOf: data.translation_of,
+    sourceSha: data.source_sha ? String(data.source_sha) : undefined,
   };
 }
+
+// Short hash of an English file, used to notice when a Vietnamese copy is older than its source. Our helper.
+export function shaOf(file: string): string {
+  const raw = fs.readFileSync(path.join(CONTENT_ROOT, file), "utf8").replace(/\r\n/g, "\n");
+  return createHash("sha256").update(raw).digest("hex").slice(0, 12);
+}
+
+// Vietnamese pages found in content/vi (home first, then the same order as the English sections). Our helper.
+export function getViPages(): DocPage[] {
+  const viRoot = path.join(CONTENT_ROOT, "vi");
+  if (!fs.existsSync(viRoot)) return [];
+  const out: DocPage[] = [];
+  if (fs.existsSync(path.join(viRoot, "README.md"))) out.push({ ...readMeta("vi/README.md"), slug: ["vi"] });
+  for (const s of SECTIONS) {
+    const dir = path.join(viRoot, s.dir);
+    if (!fs.existsSync(dir)) continue;
+    for (const f of fs.readdirSync(dir).filter((x) => x.endsWith(".md")).sort()) out.push(readMeta(`vi/${s.dir}/${f}`));
+  }
+  return out;
+}
+
+// Group titles in Vietnamese for the sidebar and the label above a page title. Our data.
+export const SECTION_VI: Record<string, string> = {
+  Technology: "Công nghệ",
+  "Team and history": "Đội ngũ và lịch sử",
+  Results: "Kết quả",
+  Ecosystem: "Hệ sinh thái",
+  Code: "Mã nguồn",
+  Meta: "Khác",
+};
 
 // Every page grouped for the sidebar. Our helper.
 export function getNav(): { title: string; pages: DocPage[] }[] {
@@ -64,10 +101,11 @@ export function getAllPages(): DocPage[] {
 const TAG_CLASS: Record<string, string> = { confirmed: "tag-confirmed", claimed: "tag-claimed", "third-party": "tag-third" };
 
 // Renders one repo file to HTML: fixes relative links and turns [confirmed] etc into badges. Our helper.
-export function renderFile(file: string): { meta: DocPage; html: string; toc: TocItem[]; section?: string } {
+export function renderFile(file: string): { meta: DocPage; html: string; toc: TocItem[]; section?: string; stale?: boolean } {
   const raw = fs.readFileSync(path.join(CONTENT_ROOT, file), "utf8");
   const { content } = matter(raw);
   const dir = path.posix.dirname(file);
+  const isVi = file.startsWith("vi/");
 
   const html = marked.parse(content, {
     async: false,
@@ -81,9 +119,11 @@ export function renderFile(file: string): { meta: DocPage; html: string; toc: To
       }
       if (/^(https?:|mailto:|#)/.test(href)) return; // external links stay as they are
       const [target, hash] = href.split("#");
-      const resolved = path.posix.normalize(path.posix.join(dir, target));
+      let resolved = path.posix.normalize(path.posix.join(dir, target));
+      // A Vietnamese file links like the English one. If there is no Vietnamese copy of the target, point at the English file.
+      if (isVi && resolved.startsWith("vi/") && !fs.existsSync(path.join(CONTENT_ROOT, resolved))) resolved = resolved.slice(3);
       if (resolved.endsWith(".md")) {
-        const route = resolved === "README.md" ? "/" : "/" + resolved.replace(/\.md$/, "");
+        const route = resolved === "README.md" ? "/" : resolved === "vi/README.md" ? "/vi" : "/" + resolved.replace(/\.md$/, "");
         token.href = route + (hash ? `#${hash}` : "");
       } else if (/\.(jpe?g|png|webp|gif|svg)$/i.test(resolved)) {
         token.href = "/kb/" + resolved; // photos copied into public/kb by fetch-content
@@ -106,17 +146,39 @@ export function renderFile(file: string): { meta: DocPage; html: string; toc: To
 
   // Our own diagrams for this page (web only, not in the knowledge repo). Each goes right after its h2 heading, or after the h1.
   let withDiagram = withIds;
-  for (const d of DIAGRAMS[file] ?? []) {
-    const fig = `<figure class="diagram"><img src="/diagrams/${d.src}" alt="${d.alt}" /><figcaption>${d.caption} <span class="diagram-note">Diagram drawn by the site author from the facts on this page.</span></figcaption></figure>`;
-    // Find the heading by its text (no regular expression, so no escaping problems), then put the figure after it.
-    const tag = d.after ? `<h2 id="${slugify(d.after)}">${d.after}</h2>` : "</h1>";
-    const at = withDiagram.indexOf(tag);
-    if (at >= 0) withDiagram = withDiagram.slice(0, at + tag.length) + fig + withDiagram.slice(at + tag.length);
+  const englishFile = isVi ? (readMeta(file).translationOf ?? "") : file;
+  const englishH2 = isVi && englishFile ? [...matter(fs.readFileSync(path.join(CONTENT_ROOT, englishFile), "utf8")).content.matchAll(/^## (.+)$/gm)].map((m) => m[1].trim()) : [];
+  for (const d of DIAGRAMS[englishFile] ?? []) {
+    const text = isVi ? (DIAGRAM_VI[d.src] ?? d) : d;
+    const note = isVi ? "Sơ đồ do tác giả site vẽ từ các dữ kiện trong trang này, chữ trong hình bằng tiếng Anh." : "Diagram drawn by the site author from the facts on this page.";
+    const fig = `<figure class="diagram"><img src="/diagrams/${d.src}" alt="${text.alt}" /><figcaption>${text.caption} <span class="diagram-note">${note}</span></figcaption></figure>`;
+    let at = -1;
+    let len = 0;
+    if (!d.after) {
+      at = withDiagram.indexOf("</h1>");
+      len = 5;
+    } else if (isVi) {
+      // Same heading position as in the English page: the n-th h2.
+      const n = englishH2.findIndex((h) => slugify(h) === slugify(d.after!));
+      const heads = [...withDiagram.matchAll(/<h2 id="[^"]*">.*?<\/h2>/g)];
+      if (n >= 0 && heads[n]) {
+        at = heads[n].index!;
+        len = heads[n][0].length;
+      }
+    } else {
+      const tag = `<h2 id="${slugify(d.after)}">${d.after}</h2>`; // find by text, no regular expression escaping needed
+      at = withDiagram.indexOf(tag);
+      len = tag.length;
+    }
+    if (at >= 0) withDiagram = withDiagram.slice(0, at + len) + fig + withDiagram.slice(at + len);
   }
 
-  const meta = file === "README.md" ? { ...readMeta(file), slug: [] } : readMeta(file);
-  const section = getNav().find((g) => g.pages.some((p) => p.file === file))?.title; // for the label above the title
-  return { meta, html: withDiagram, toc, section };
+  let meta = file === "README.md" ? { ...readMeta(file), slug: [] } : readMeta(file);
+  if (file === "vi/README.md") meta = { ...meta, slug: ["vi"] };
+  const sectionKey = isVi ? SECTIONS.find((x) => x.dir === file.split("/")[1])?.title : getNav().find((g) => g.pages.some((p) => p.file === file))?.title;
+  const section = isVi && sectionKey ? SECTION_VI[sectionKey] : sectionKey; // for the label above the title
+  const stale = isVi && !!meta.translationOf && meta.sourceSha !== shaOf(meta.translationOf); // English changed after this translation
+  return { meta, html: withDiagram, toc, section, stale };
 }
 
 export type SearchDoc = { title: string; href: string; section: string; text: string }; // our type
@@ -209,6 +271,50 @@ const DIAGRAMS: Record<string, Diagram[]> = {
       caption: "Milestones from the sources on this page. Dashed nodes are company claims; mainnet status is disputed.",
     },
   ],
+};
+
+// Vietnamese alt text and captions for the same diagrams, keyed by svg file. Our data.
+const DIAGRAM_VI: Record<string, { alt: string; caption: string }> = {
+  "rlnc.svg": {
+    alt: "Ba mảnh dữ liệu gốc được biến thành các shard, mỗi shard là một tổ hợp ngẫu nhiên của các mảnh. Relay trộn các shard đang giữ thành một shard mới mà không cần giải mã. Bên nhận cần k tổ hợp độc lập tuyến tính bất kỳ rồi giải ra các mảnh gốc.",
+    caption: "Từ mảnh đến tổ hợp và ngược lại: relay trộn shard mà không giải mã, bên nhận dựng lại dữ liệu từ k tổ hợp độc lập tuyến tính bất kỳ.",
+  },
+  "rlnc-equations.svg": {
+    alt: "Với bản sao thuần túy, bên nhận có thể giữ x1 hai lần mà vẫn chờ x3. Với ba tổ hợp khác nhau như 3x1 + 2x2 + x3, ba tổ hợp độc lập bất kỳ là đủ để giải ra x1, x2 và x3.",
+    caption: "Bản sao lặp lại không thêm gì, còn mọi tổ hợp đều có giá trị (ví dụ trên bảng của Médard, số liệu chỉ để minh họa).",
+  },
+  "rlnc-recoding.svg": {
+    alt: "Trên chuỗi nguồn - relay 1 - relay 2 - bên nhận, mỗi chặng đều có mất gói. Với mã hóa đầu cuối, mất mát của mọi chặng cộng dồn; với tái mã hóa, mỗi chặng tự bù phần mất của mình. Ví dụ ngắn hơn của Optimum (nguồn, một relay, bên nhận): 9 lượt truyền nếu chỉ chuyển tiếp, 8 lượt trong 8 bước nếu giải mã rồi mã hóa lại, 8 lượt trong 5 bước nếu tái mã hóa.",
+    caption: "Tái mã hóa bù mất mát theo từng chặng. Số lần truyền là ví dụ riêng của Optimum.",
+  },
+  "why-gossip-slow.svg": {
+    alt: "Một slot Ethereum dài 12 giây, trong đó khoảng 4 giây là lúc validator thống nhất về head của chuỗi. Validator ở xa nguồn khối thấy thông tin cũ hơn và chịu thiệt nhiều hơn vì các bản sao lặp lại, tạo ra lợi thế cho việc đặt máy cùng vị trí (colocation) gần nguồn. Các tổ hợp mã hóa khiến mọi mảnh nhận được đều có giá trị.",
+    caption: "Vì sao dữ liệu lặp lại gây hại, theo lập luận của Médard. Đây là cách lý giải của Optimum, không phải số đo.",
+  },
+  "publish-path.svg": {
+    alt: "Publisher đệm và chia thông điệp thành k mảnh rồi tạo ShredFactor nhân PublisherShardMultiplier shard, gửi các shard khác nhau cho các peer khác nhau trong mesh. Nút nhận loại bỏ shard dư, giải mã khi có k shard độc lập, và theo một trong hai quy tắc chuyển tiếp: shard từ publisher đi ngay, shard từ peer được tái mã hóa sau một ngưỡng. Thông điệp điều khiển: IDONTWANT, IHAVE, IWANT, GRAFT và PRUNE.",
+    caption: "Đường phát hành và chuyển tiếp như mô tả trên trang p2p của docs.",
+  },
+  "sidecar-gateway.svg": {
+    alt: "Client đồng thuận vẫn giữ stack libp2p thường và kết nối với Optimum Gateway. Gateway có host libp2p ở cổng 33212 hướng về client, bộ nhớ đệm chống trùng kèm mã hóa lại SSZ, và host mump2p ở cổng 33213 hướng về mesh mump2p của các gateway khác.",
+    caption: "Gateway là chương trình riêng, bắc cầu giữa gossip của client và mesh mump2p. Chi tiết lấy từ README của Gateway.",
+  },
+  "flexnodes.svg": {
+    alt: "Proposer gửi khối tới các Flexnode, các Flexnode tạo phương trình mã hóa mới ngay trên đường đi và chuyển cho bên nhận như validator và block builder. Theo kế hoạch, bên nhận trả tiền cho Flexnode. Flexnode được mô tả là hỗ trợ lan truyền và không có kế hoạch slashing.",
+    caption: "Vị trí của Flexnode trong topology, theo mô tả trong video của Optimum. Vòng thanh toán mới là kế hoạch, chưa chạy.",
+  },
+  "tx-lifecycle.svg": {
+    alt: "Giao dịch đi từ thiết bị qua Wi-Fi và điểm truy cập, rồi cáp quang dùng chung, switch và router tới block builder, sau đó tới proposer, nút này phải gửi được tới nhiều validator. Khoảng 1,000 validator (con số thật cao hơn) cần khoảng một triệu đường riêng.",
+    caption: "Hành trình của một giao dịch, theo video về vòng đời giao dịch của Optimum.",
+  },
+  "topologies.svg": {
+    alt: "Bốn trong số các cách để đến được nhiều bên nhận: mỗi bên nhận một kết nối (sao), cây multicast, mesh gossip, và mesh mã hóa nơi mọi kết nối đều có thể mang phương trình.",
+    caption: "Bốn trong số các cách đến được nhiều nút, theo giải thích của Optimum (daisy chain có trong phần chữ). Đây là mô hình để giảng giải, không phải số đo.",
+  },
+  "timeline.svg": {
+    alt: "Dòng thời gian từ các bài báo RLNC nền tảng (2002-2006) đến Optimum thành lập (2024), ra mắt và vòng seed (2025-04-15), báo cáo thử nghiệm Hoodi, mã nguồn Gateway công khai, cuộc gọi Lido PERCH, kiểm toán ProbeLab, Gateway v1.3.2, và trạng thái mainnet của Optimum còn tranh cãi.",
+    caption: "Các mốc từ nguồn trên trang này. Nút nét đứt là tuyên bố của công ty; trạng thái mainnet còn tranh cãi.",
+  },
 };
 
 export type TocItem = { id: string; text: string; level: number };

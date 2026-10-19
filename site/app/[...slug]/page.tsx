@@ -1,20 +1,20 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { getAllPages, renderFile } from "@/lib/content";
+import { getAllPages, getViPages, renderFile } from "@/lib/content";
 import DocView from "../DocView";
 
 type Props = { params: Promise<{ slug: string[] }> };
 
-// Pre-builds one static page per Markdown file.
+// Pre-builds one static page per Markdown file, English and Vietnamese.
 export function generateStaticParams() {
-  return getAllPages().map((p) => ({ slug: p.slug }));
+  return [...getAllPages(), ...getViPages()].map((p) => ({ slug: p.slug }));
 }
 
 export const dynamicParams = false; // unknown urls go to 404
 
 // Finds the repo file behind a url. Our helper.
 function fileFor(slug: string[]) {
-  return getAllPages().find((p) => p.slug.join("/") === slug.join("/"))?.file;
+  return [...getAllPages(), ...getViPages()].find((p) => p.slug.join("/") === slug.join("/"))?.file;
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {

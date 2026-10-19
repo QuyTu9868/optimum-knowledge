@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Geist, Geist_Mono } from "next/font/google";
-import { getNav } from "@/lib/content";
+import { getNav, getViPages, SECTIONS, SECTION_VI } from "@/lib/content";
 import Sidebar from "./Sidebar";
+import LangSwitch from "./LangSwitch";
 import Search from "./Search";
 import Mascot from "./Mascot";
 import "./globals.css";
@@ -23,6 +24,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   }));
   nav.find((g) => g.title === "Meta")?.pages.unshift({ file: "roadmap", title: "Roadmap", href: "/roadmap" }); // our placeholder page, not from the repo
 
+  // Vietnamese pages grouped like the English ones, for the sidebar under /vi. Titles are the pages' own Vietnamese headings.
+  const viPages = getViPages();
+  const viNav = [
+    ...(viPages.some((p) => p.file === "vi/README.md") ? [{ title: "Trang chủ", pages: [{ file: "vi/README.md", title: "Giới thiệu", href: "/vi" }] }] : []),
+    ...SECTIONS.map((s) => ({
+      title: SECTION_VI[s.title],
+      pages: viPages.filter((p) => p.file.startsWith(`vi/${s.dir}/`)).map((p) => ({ file: p.file, title: p.title, href: "/" + p.slug.join("/") })),
+    })).filter((g) => g.pages.length > 0),
+  ];
+  const viHrefs = viPages.map((p) => "/" + p.slug.join("/").replace(/^vi/, "")).filter((h) => h !== "/"); // english urls that have a Vietnamese copy
+
   return (
     <html lang="en" className={`${sans.variable} ${mono.variable}`}>
       <body>
@@ -33,12 +45,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </Link>
           <div className="topbar-right">
             <Search />
+            <LangSwitch viHrefs={viHrefs} />
             <span className="community-pill">Community project</span>
           </div>
         </header>
 
         <div className="shell">
-          <Sidebar nav={nav} />
+          <Sidebar nav={nav} viNav={viNav} />
 
           <main className="content">{children}</main>
         </div>
@@ -51,6 +64,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             Facts come from the{" "}
             <a href="https://github.com/QuyTu9868/optimum-knowledge">optimum-knowledge</a> repo, each with its source
             link. For official information see <a href="https://www.getoptimum.xyz/">getoptimum.xyz</a>. The mascot Op is a community creation, not an official Optimum character.
+          </p>
+          <p lang="vi">
+            Site này do một thành viên cộng đồng xây dựng, không phải của đội ngũ Optimum. Bản tiếng Việt là bản dịch cộng đồng, bản tiếng Anh là bản gốc.
           </p>
         </footer>
       </body>
