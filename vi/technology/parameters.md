@@ -4,7 +4,7 @@ last_verified: 2026-10-18
 status: confirmed, with internal inconsistencies on the docs page
 lang: vi
 translation_of: technology/parameters.md
-source_sha: f65248936b19
+source_sha: 10acee50f402
 ---
 
 # Tham số (Parameters)
@@ -13,7 +13,7 @@ Mọi giá trị lấy từ trang tham số của docs: https://docs.getoptimum.
 
 Giá trị mặc định thay đổi giữa các phiên bản. Hãy kiểm tra lại trang này trước khi dựa vào một giá trị.
 
-Kiểm tra ngày 2026-10-18: trang tham số ở trên trả về HTTP 404, nên các giá trị bên dưới không thể xác minh lại. Trang docs p2p gọi cùng các thiết lập này bằng tên khác: ShredFactor (số mảnh dữ liệu (fragment) cơ sở mỗi thông điệp), PublisherShardMultiplier (số shard (mảnh mã hóa) tạo ra lúc publish bằng ShredFactor nhân giá trị này), ForwardShardThreshold (relay (nút trung chuyển) tái mã hóa và chuyển tiếp khi đang giữ nhiều hơn ShredFactor nhân giá trị này số shard) và MeshDegreeTarget, MeshDegreeMin và MeshDegreeMax. Docs không nói biến môi trường nào ứng với tên nào, nên các dòng trong bảng nhiều khả năng là cùng các thiết lập đó. ([docs p2p](https://docs.getoptimum.xyz/docs/learn/overview/p2p)) [confirmed]
+Kiểm tra ngày 2026-10-18: trang tham số ở trên trả về HTTP 404, nên các giá trị bên dưới không thể xác minh lại. Trang docs p2p gọi các thiết lập tương tự bằng tên khác: ShredFactor (số mảnh dữ liệu (fragment) cơ sở mỗi thông điệp), PublisherShardMultiplier (số shard (mảnh mã hóa) tạo ra lúc publish bằng ShredFactor nhân giá trị này), ForwardShardThreshold (relay (nút trung chuyển) tái mã hóa và chuyển tiếp khi số shard vượt một ngưỡng, mà docs viết cả là ForwardShardThreshold lẫn là ShredFactor nhân ForwardShardThreshold) và MeshDegreeTarget, MeshDegreeMin và MeshDegreeMax. Docs không nói biến môi trường nào ứng với tên nào, nên mọi sự đối ứng với bảng bên dưới đều là suy luận. ([docs p2p](https://docs.getoptimum.xyz/docs/learn/overview/p2p)) [claimed]
 
 ## Chế độ RLNC (RLNC mode) cho mump2p
 
@@ -42,7 +42,7 @@ Kiểm tra ngày 2026-10-18: trang tham số ở trên trả về HTTP 404, nên
 | SIDECAR_PORT | 33212 | Cổng gRPC giữa proxy và nút P2P |
 | SUBSCRIBER_THRESHOLD | 0.1 | Tỷ lệ subscriber đang kết nối cần có để chuyển tiếp một thông điệp |
 
-- Có thể triển khai qua proxy, hoặc client kết nối thẳng tới các nút P2P bằng gRPC. ([guides overview](https://docs.getoptimum.xyz/docs/how-to-guides/overview)) [confirmed]
+- Một phiên bản docs trước đây mô tả việc triển khai qua proxy hoặc kết nối gRPC trực tiếp tới các nút P2P. Trang guides được dẫn hiện chỉ hiển thị "Under Construction", nên không thể xác minh lại vào 2026-10-18. ([guides overview](https://docs.getoptimum.xyz/docs/how-to-guides/overview)) [claimed]
 
 ## Cổng của Gateway (Gateway ports)
 
@@ -56,5 +56,5 @@ Các giá trị khác nhau giữa những phần của cùng một trang docs:
 - Cổng API: 9090 và 8081.
 - Mức log: debug và production.
 - Thư mục identity: `/identity` và `/tmp`.
-- OPTIMUM_THRESHOLD: bảng tham số nói 0.75 là tỷ lệ shard cần có "to forward or decode". Trang docs p2p nói ngưỡng chỉ quyết định lúc nào relay tái mã hóa và chuyển tiếp, còn giải mã cần k shard độc lập tuyến tính. ([docs p2p](https://docs.getoptimum.xyz/docs/learn/overview/p2p)) [confirmed]
+- OPTIMUM_THRESHOLD: bảng tham số nói 0.75 là tỷ lệ shard cần có "to forward or decode". Trang docs p2p mô tả ForwardShardThreshold là ngưỡng chuyển tiếp và nói giải mã cần k shard độc lập tuyến tính. Việc OPTIMUM_THRESHOLD có phải cùng thiết lập đó hay không là giả định, không được nêu rõ. ([docs p2p](https://docs.getoptimum.xyz/docs/learn/overview/p2p)) [claimed]
 - Cổng 33212: bảng tham số liệt kê nó là cổng gRPC giữa proxy và nút P2P (SIDECAR_PORT). Gateway README dùng 33212 cho libp2p host hướng tới client đồng thuận. Có thể đây là hai sản phẩm khác nhau, và không nguồn nào nói rõ. ([Gateway README](https://github.com/getoptimum/optimum-gateway)) [confirmed]

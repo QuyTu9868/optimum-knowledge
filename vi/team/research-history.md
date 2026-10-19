@@ -23,11 +23,11 @@ source_sha: a22eca9cabe1
 ## Lịch sử thương mại trước Optimum (Commercial history before Optimum)
 
 - Code On Technologies tách RLNC ra từ Caltech và MIT và cấp phép nó như một thuật toán độc quyền (theo báo cáo năm 2014). ([Fierce Network, 2014-06-08](https://www.fierce-network.com/tech/code-licensing-its-technology-which-uses-algebra-to-speed-up-networks)) [third-party]
-- Code On ghi Médard là đồng tác giả phát minh RLNC. ([Code On](https://www.codeontechnologies.com/company/about)) [third-party]
+- Code On ghi Médard là một trong những người đồng phát minh RLNC. ([Code On](https://www.codeontechnologies.com/company/about)) [third-party]
 
 ## Giải thưởng (Awards)
 
-- Giải IEEE Koji Kobayashi Computers and Communications Award năm 2022, trao cho cá nhân Médard, cho công trình về mã hóa mạng và truyền thông quang và không dây. Blog ra mắt viết như thể chính RLNC được vinh danh; trang team nói rõ đó là giải của bà. ([team page](https://www.getoptimum.xyz/team)) [claimed]
+- Giải IEEE Koji Kobayashi Computers and Communications Award năm 2022, trao cho cá nhân Médard, cho công trình về mã hóa mạng và mạng quang, mạng không dây. Launch blog viết như thể chính RLNC được vinh danh; team page nói rõ đó là giải của bà. ([team page](https://www.getoptimum.xyz/team)) [claimed]
 - IEEE Richard W. Hamming Medal năm 2026, trao cho Médard, theo Optimum. Chưa tự kiểm chứng độc lập. ([team page](https://www.getoptimum.xyz/team)) [claimed]
 
 ## Còn tranh cãi (Disputed)

@@ -4,7 +4,7 @@ last_verified: 2026-10-18
 status: confirmed
 lang: vi
 translation_of: technology/security.md
-source_sha: 6be0dc367497
+source_sha: 23dfc77ffb85
 ---
 
 # Bảo mật (Security)
@@ -19,7 +19,7 @@ Trong mã hóa mạng (network coding), một nút độc hại có thể gửi 
 
 ## Kế thừa từ libp2p (Inherited from libp2p)
 
-- Kênh giữa các nút được mã hóa bảo mật (encryption) và xác thực bằng Noise hoặc TLS, và mump2p thừa hưởng các biện pháp phòng thủ Sybil và eclipse của libp2p. ([docs p2p](https://docs.getoptimum.xyz/docs/learn/overview/p2p)) [confirmed]
+- Kênh giữa các nút được mã hóa bảo mật (encryption) và xác thực bằng Noise hoặc TLS, và docs nói mump2p dùng cơ chế khám phá và quản lý peer của libp2p, trong đó có các biện pháp phòng thủ Sybil và eclipse. ([docs p2p](https://docs.getoptimum.xyz/docs/learn/overview/p2p)) [claimed]
 
 ## Kiểm toán Optimum Gateway của ProbeLab (ProbeLab audit of the Optimum Gateway)
 

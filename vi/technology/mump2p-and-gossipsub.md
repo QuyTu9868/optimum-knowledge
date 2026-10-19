@@ -4,7 +4,7 @@ last_verified: 2026-10-18
 status: relationship confirmed, speed numbers disputed
 lang: vi
 translation_of: technology/mump2p-and-gossipsub.md
-source_sha: 2705a1c67c1c
+source_sha: eccab4949287
 ---
 
 # mump2p và GossipSub
@@ -37,7 +37,8 @@ Tóm tắt từ trang docs p2p.
 - **Nhận một shard:** nút kiểm tra tính độc lập tuyến tính của shard và bỏ những shard dư thừa, lưu shard hợp lệ cùng các shard khác của thông điệp, và thử giải mã khi đã có đủ k shard khác nhau. ([docs p2p](https://docs.getoptimum.xyz/docs/learn/overview/p2p)) [confirmed]
 - **Chuyển tiếp:** shard từ publisher (bên phát hành thông điệp) được gửi ngay cho mọi mesh peer. Shard từ các peer khác được tái mã hóa và chuyển tiếp khi nút đã giữ đủ số lượng. Docs ghi ngưỡng này là ForwardShardThreshold ở một chỗ và là ShredFactor nhân ForwardShardThreshold ở chỗ khác. ([docs p2p](https://docs.getoptimum.xyz/docs/learn/overview/p2p)) [claimed]
 - **Thông điệp điều khiển** mở rộng từ GossipSub: IDONTWANT báo các peer ngừng gửi shard của một thông điệp đã giải mã xong, IHAVE thông báo những shard đang giữ, IWANT yêu cầu thêm shard của thông điệp chưa giải mã được, còn GRAFT và PRUNE làm mesh lớn lên hoặc co lại. ([docs p2p](https://docs.getoptimum.xyz/docs/learn/overview/p2p)) [confirmed]
-- **Kích thước mesh:** MeshDegreeTarget, MeshDegreeMin và MeshDegreeMax quy định số peer mà một nút giữ. Docs dẫn bậc kết nối (degree) lý tưởng mặc định của libp2p là 6, chấp nhận từ 4 đến 12 (theo spec gossipsub v1.0 của libp2p). Consensus spec của Ethereum đặt giá trị riêng (low 6, high 12, heartbeat 0.7 s). ([docs p2p](https://docs.getoptimum.xyz/docs/learn/overview/p2p)) [claimed]
+- **Kích thước mesh:** MeshDegreeTarget, MeshDegreeMin và MeshDegreeMax quy định số peer mà một nút giữ. Docs dẫn bậc kết nối (degree) lý tưởng mặc định của libp2p là 6, chấp nhận từ 4 đến 12. ([docs p2p](https://docs.getoptimum.xyz/docs/learn/overview/p2p)) [claimed]
+- Spec gossipsub v1.0 của libp2p liệt kê D 6, D_low 4 và D_high 12. Consensus spec của Ethereum đặt giá trị riêng: D 8, D_low 6, D_high 12 và heartbeat 0.7 s. ([libp2p gossipsub v1.0 spec](https://github.com/libp2p/specs/blob/master/pubsub/gossipsub/gossipsub-v1.0.md), [consensus-specs p2p-interface](https://github.com/ethereum/consensus-specs/blob/master/specs/phase0/p2p-interface.md)) [third-party]
 - Giá trị mặc định của các thiết lập này nằm trong [parameters.md](parameters.md).
 
 
@@ -57,7 +58,7 @@ Các con số này đến từ những thiết lập và thời điểm khác nh
 ## Bản demo tốc độ trực tiếp năm 2025 (The 2025 live speed demo)
 
 - Bản demo chạy 72 nút rải khắp thế giới: 36 nút chạy mump2p và 36 nút chạy GossipSub, với bố trí địa lý gần như giống hệt nhau. ([mump2p vs GossipSub speed demo, 2025-08-18](https://www.youtube.com/watch?v=Ggnz_7a8Ri0)) [claimed]
-- Thông điệp 5 MB, rồi 8 MB, được phát từ các nút chọn ngẫu nhiên. Video mô tả khối L1 nặng 2 đến 5 MB. Các kích thước này vượt mức tối đa 1 MB cho mỗi thông điệp trong spec của libp2p, nên nhiều khả năng bản demo đã dùng một giới hạn cấu hình lớn hơn. "Delay" nghĩa là thời gian cho tới khi 95% số nút nhận được thông điệp. ([mump2p vs GossipSub speed demo, 2025-08-18](https://www.youtube.com/watch?v=Ggnz_7a8Ri0)) [claimed]
+- Thông điệp 5 MB, rồi 8 MB, được phát từ các nút chọn ngẫu nhiên. Video mô tả khối L1 nặng 2 đến 5 MB. "Delay" nghĩa là thời gian cho tới khi 95% số nút nhận được thông điệp. ([mump2p vs GossipSub speed demo, 2025-08-18](https://www.youtube.com/watch?v=Ggnz_7a8Ri0)) [claimed]
 - Ở mức 5 MB và một thông điệp mỗi giây, diễn giả báo cáo khoảng 1 s với mump2p so với khoảng 2 s với GossipSub, và ít dao động hơn. ([mump2p vs GossipSub speed demo, 2025-08-18](https://www.youtube.com/watch?v=Ggnz_7a8Ri0)) [claimed]
 - Ở mức 8 MB và hai thông điệp mỗi giây, mump2p vẫn theo kịp, còn độ trễ của GossipSub cứ tăng dần vì hàng đợi tồn đọng. ([mump2p vs GossipSub speed demo, 2025-08-18](https://www.youtube.com/watch?v=Ggnz_7a8Ri0)) [claimed]
 - Optimum trình bày đây là một bản demo tốc độ. Nghiên cứu về doanh thu trong buổi thuyết trình nghiên cứu tháng 5 năm 2026 dùng một chỉ số khác, là thời gian để một khối đến được 80% mạng. ([research talk, 2026-05-07](https://www.youtube.com/watch?v=fgeXDbORuz0)) [claimed]

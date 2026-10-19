@@ -4,7 +4,7 @@ last_verified: 2026-10-18
 status: claimed, Optimum's own explanation, models not measurements
 lang: vi
 translation_of: technology/network-topologies.md
-source_sha: 37d0202d74fd
+source_sha: 66c202385408
 ---
 
 # Dữ liệu đến được nhiều nút như thế nào (How data reaches many nodes)
@@ -23,7 +23,7 @@ source_sha: 37d0202d74fd
 - **Chuỗi nối tiếp (daisy chain):** mỗi nút chuyển tiếp cho nút kế, nên mọi đường đều chạy ở tốc độ đầy đủ và thông lượng (throughput) lý tưởng không giảm khi thêm nút. Nếu áp dụng mã đầu cuối trên cả chuỗi, thông lượng giảm theo (1 - epsilon) lũy thừa n, tiến dần về không khi chuỗi dài. ([Network topology series, 2026-01-14](https://www.youtube.com/watch?v=KRb_eRSRBo4)) [claimed]
 - **Cây multicast:** mỗi đường dùng chung chỉ có một bản sao đi qua, nên không phải nhân bản dữ liệu như kiểu mỗi bên nhận một kết nối. Tìm một cây tốt trong mesh (mạng lưới kết nối) dày đặc là bài toán NP-khó (NP-hard). ([Exploring Network Topologies: Tree Multicast, 2026-01-22](https://www.youtube.com/watch?v=XdqVpE5qUOo)) [claimed]
 - **Mesh gossip:** gossip (lan truyền kiểu tin đồn) không mã hóa chống mất gói bằng cách giới hạn số chặng, và diễn giả ước lượng thông lượng của nó suy giảm cỡ 1 - nε. Mạng của Ethereum được mô tả là gần với chuỗi nối tiếp hơn hình sao, nhưng vẫn là một mesh. ([Network topology series, 2026-01-14](https://www.youtube.com/watch?v=KRb_eRSRBo4)) [claimed]
-- **Mesh có mã hóa:** mọi kết nối sẵn có đều có thể chở các phương trình, nên bên nhận không bị buộc vào một đường duy nhất. Tái mã hóa (recoding) ở mọi relay (nút trung chuyển) mà không cần giải mã giữ thông lượng ở mức tối ưu của một đường, bất kể chuỗi có bao nhiêu nút, đổi lại là nhiều chặng hơn và thêm chút độ trễ (latency). ([Network topology series, 2026-01-14](https://www.youtube.com/watch?v=KRb_eRSRBo4)) [claimed]
+- **Mesh có mã hóa:** mọi kết nối sẵn có đều có thể chở các phương trình, nên bên nhận không bị buộc vào một đường duy nhất. Trên một chuỗi, tái mã hóa (recoding) ở mọi relay (nút trung chuyển) mà không cần giải mã giữ thông lượng ở mức tối ưu của một đường, bất kể chuỗi có bao nhiêu nút, đổi lại là nhiều chặng hơn và thêm chút độ trễ (latency). ([Exploring Network Topologies: RLNC, 2026-01-30](https://www.youtube.com/watch?v=LPO9iEJPYD4), [Network topology series, 2026-01-14](https://www.youtube.com/watch?v=KRb_eRSRBo4)) [claimed]
 - Các nút có thể tự quyết định gửi bao nhiêu phương trình chỉ dựa vào các nút lân cận, không cần biết topology toàn cục, và chạy trong thời gian đa thức. ([Exploring Network Topologies: RLNC, 2026-01-30](https://www.youtube.com/watch?v=LPO9iEJPYD4)) [claimed]
 
 ## Vì sao gửi lại gây hại (Why resends hurt)

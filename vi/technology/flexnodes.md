@@ -4,7 +4,7 @@ last_verified: 2026-10-18
 status: claimed, forward-looking, plans not final
 lang: vi
 translation_of: technology/flexnodes.md
-source_sha: 5c596cdf8067
+source_sha: 34c670d01d9f
 ---
 
 # Flexnode và chợ độ trễ (Flexnodes and the Latency Marketplace)
@@ -17,11 +17,11 @@ source_sha: 5c596cdf8067
 ## Flexnode làm gì, theo các video của Optimum (What a Flexnode does, per Optimum's videos)
 
 - Flexnode là nút gửi các phương trình đã mã hóa cho bên nhận như validator (nút xác thực). Nó có thể là validator hoặc không. ([Exploring Network Topologies: Flexnodes, 2026-02-12](https://www.youtube.com/watch?v=RXHBf7SRygI)) [claimed]
-- Trong topology (cấu trúc kết nối mạng), Flexnode là các relay (nút trung chuyển) nằm giữa proposer (nút đề xuất khối) và bên nhận. Chúng tạo ra các phương trình mã hóa mới ngay trên đường đi, và bên nhận kết nối tới nhiều Flexnode. ([Flexnodes Explained, 2026-02-10](https://www.youtube.com/watch?v=mCCcJcAzXY0)) [claimed]
+- Trong topology (cấu trúc kết nối mạng), Flexnode là các relay (nút trung chuyển) nằm giữa proposer (nút đề xuất khối) và bên nhận. Chúng tạo ra các phương trình mã hóa mới ngay trên đường đi, và bên nhận kết nối tới nhiều Flexnode. ([Flexnodes Explained, 2026-02-10](https://www.youtube.com/watch?v=mCCcJcAzXY0), [Exploring Network Topologies: Optimum Flexnodes, 2026-02-12](https://www.youtube.com/watch?v=RXHBf7SRygI)) [claimed]
 - Bên nhận không chọn được mình nhận phương trình nào. Nó nhận bất cứ gì gửi tới, và chọn kết nối với những Flexnode nào. ([Exploring Network Topologies: Flexnodes, 2026-02-12](https://www.youtube.com/watch?v=RXHBf7SRygI)) [claimed]
-- Hiện nay Flexnode chạy mump2p để lan truyền dữ liệu. DeRAM và các dịch vụ khác sẽ đến sau, và operator sẽ tự chọn cung cấp dịch vụ nào. ([Flexnodes: a global network of data accelerators, 2026-01-20](https://www.youtube.com/watch?v=DguSwGFvftc)) [claimed]
+- Tính đến video tháng 1 năm 2026, Flexnode chạy mump2p để lan truyền dữ liệu. DeRAM và các dịch vụ khác sẽ đến sau, và operator sẽ tự chọn cung cấp dịch vụ nào. ([Flexnodes: a global network of data accelerators, 2026-01-20](https://www.youtube.com/watch?v=DguSwGFvftc)) [claimed]
 - Optimum nói rằng không có kế hoạch dùng slashing (phạt cắt stake) cho Flexnode. Flexnode nào ngoại tuyến thì chỉ đơn giản là không có thu nhập, còn mesh có mã hóa vẫn chạy bình thường khi thiếu nó. ([Exploring Network Topologies: Flexnodes and slashing, 2026-02-24](https://www.youtube.com/watch?v=3BIGj-vso2I)) [claimed]
-- Hành vi cố ý gây hại sẽ bị trừng phạt, nhưng chưa có cơ chế nào cho việc đó được mô tả. ([Flexnodes Explained, 2026-02-10](https://www.youtube.com/watch?v=mCCcJcAzXY0)) [claimed]
+- Một nhận xét thoáng qua trong Flexnodes Explained nói hành vi cố ý gây hại sẽ bị trừng phạt, nhưng chưa có cơ chế nào cho việc đó được mô tả. Điều này khó khớp với kế hoạch không dùng slashing ở trên. ([Flexnodes Explained, 2026-02-10](https://www.youtube.com/watch?v=mCCcJcAzXY0)) [claimed]
 - Yêu cầu tài nguyên được mô tả là nhẹ: chạy được trên laptop, và mục tiêu là cả điện thoại thông minh. ([Flexnodes Explained, 2026-02-10](https://www.youtube.com/watch?v=mCCcJcAzXY0)) [claimed]
 
 ## Chợ độ trễ (Latency Marketplace), dự kiến

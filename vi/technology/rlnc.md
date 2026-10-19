@@ -4,7 +4,7 @@ last_verified: 2026-10-18
 status: confirmed for mechanism, claimed for advantages
 lang: vi
 translation_of: technology/rlnc.md
-source_sha: c4ac1c378c19
+source_sha: 92e7777ec50e
 ---
 
 # RLNC (mã hóa mạng tuyến tính ngẫu nhiên)
@@ -28,7 +28,7 @@ Thay vì chuyển tiếp bản sao của thông điệp, mỗi nút gửi đi c�
 
 Đây là các ví dụ giảng dạy của Médard. Các con số chỉ để minh họa. Hệ thống thật tính trên trường hữu hạn với hệ số ngẫu nhiên, nơi các mix độc lập tuyến tính chỉ có xác suất cao chứ không chắc chắn, còn số nhỏ chọn tay thì có thể bị phụ thuộc tuyến tính.
 
-- Lấy ba mảnh x1, x2 và x3. Một validator (nút xác thực) ở xa nguồn nhận ba mix khác nhau, ví dụ 3x1 + 2x2 + x3, x1 + x2 + 5x3 và 11x1 + 2x2 + 13x3. Ba mix độc lập bất kỳ là đủ để nó giải ra x1, x2 và x3, mix nào tới trước cũng được. ([Médard whiteboard video, 2026-07-01](https://www.youtube.com/watch?v=XGxZxzxAe0g)) [claimed]
+- Lấy ba mảnh x1, x2 và x3. Một validator (nút xác thực) ở xa nguồn nhận ba mix khác nhau, ví dụ 3x1 + 2x2 + x3, x1 + x2 + 5x3 và 11x1 + 2x2 + 13x3. Ba mix này đủ để nó giải ra x1, x2 và x3. ([Médard whiteboard video, 2026-07-01](https://www.youtube.com/watch?v=XGxZxzxAe0g)) [claimed]
 - Một bản sao lặp lại của x1 chỉ bảo vệ khi mất x1. Nó không giúp gì nếu mất x2. ([erasure coding video, 2025-08-18](https://www.youtube.com/watch?v=KR6sMbBhizE)) [claimed]
 - Ví dụ nhỏ nhất về khôi phục dữ liệu mất (erasure): gửi x1, x2, x3 và thêm x1 + x2 + x3. Nếu mất bất kỳ một mảnh nào, ba mảnh còn lại khôi phục được nó. ([erasure coding video, 2025-08-18](https://www.youtube.com/watch?v=KR6sMbBhizE)) [claimed]
 - Trong RLNC, mỗi mix có hệ số riêng, chọn ngẫu nhiên từ một trường hữu hạn đủ lớn, nên không có hệ số nào được định sẵn từ trước. ([erasure coding video, 2025-08-18](https://www.youtube.com/watch?v=KR6sMbBhizE)) [claimed]
@@ -77,7 +77,7 @@ Thay vì chuyển tiếp bản sao của thông điệp, mỗi nút gửi đi c�
 
 ## Còn tranh cãi (Disputed)
 
-- **Chặng cuối hay liên kết yếu nhất.** Blog của Optimum nói rằng với tái mã hóa, mức mất gói của bên nhận chỉ phản ánh chặng cuối. Video tháng 3 năm 2026 nói chất lượng tổng thể là chất lượng của liên kết yếu nhất trên đường đi. Hai ý này nói về các thiết lập khác nhau nên có thể không mâu thuẫn, nhưng các nguồn không dung hòa chúng. ([RLNC vs Reed-Solomon video, 2026-03-25](https://www.youtube.com/watch?v=M1RCYMWJguo))
+- **Chặng cuối hay liên kết yếu nhất.** Blog của Optimum nói rằng với tái mã hóa, mức mất gói của bên nhận chỉ phản ánh chặng cuối ([battle of the codes pt II, 2025-05-16](https://www.getoptimum.xyz/blog/battle-of-the-codes-pt-ii-rlnc-speedup)) [claimed]. Video tháng 3 năm 2026 nói chất lượng tổng thể là chất lượng của liên kết yếu nhất trên đường đi ([RLNC vs Reed-Solomon video, 2026-03-25](https://www.youtube.com/watch?v=M1RCYMWJguo)) [claimed]. Hai ý này nói về các thiết lập khác nhau nên có thể không mâu thuẫn, nhưng các nguồn không dung hòa chúng.
 
 ## Chưa đề cập (Not yet covered)
 

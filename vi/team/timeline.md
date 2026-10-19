@@ -20,7 +20,7 @@ source_sha: e7344a71ade2
 | 2026-07-20 | Mã nguồn Gateway được công khai (bản chụp ban đầu, v1.1.0) | [GitHub](https://github.com/getoptimum/optimum-gateway) | [confirmed] |
 | 2026-07-30 | Médard trình bày mump2p tại workshop Flashbots MEV-SBC | [@MurielMedard post, 2026-07-31](https://x.com/MurielMedard/status/2083306781821038829) | [claimed] |
 | 2026-08 | Bài đăng triển khai mainnet: 40+ validator (nút xác thực), truy cập được cấp quyền bằng API key, miễn phí cho validator | [blog](https://www.getoptimum.xyz/blog/free-and-faster-ethereum-beacon-block-propagation) | [claimed] |
-| 2026-08-04 | Kent Lin nói Optimum sắp lên mainnet Ethereum với 40+ bên vận hành đã sẵn sàng | [@kentlinyy post](https://x.com/kentlinyy/status/2084655348456321157) | [claimed] |
+| 2026-08-04 | Kent Lin nói Optimum sắp lên mainnet Ethereum với 40+ bên vận hành đã được xếp sẵn | [@kentlinyy post](https://x.com/kentlinyy/status/2084655348456321157) | [claimed] |
 | 2026-08-10 | Bài đăng Lido PERCH đề nghị các bên vận hành nút chạy và thử mump2p trên mainnet | [Lido forum](https://research.lido.fi/t/perch-request-for-node-operators-to-run-and-test-optimum-mump2p/11786) | [confirmed] |
 | 2026-08-18 | Báo cáo kiểm toán của ProbeLab được công bố | [ProbeLab](https://probelab.io/blog/security-audit-report-optimum-gateway/) | [third-party] |
 | 2026-08-20 | Optimum thông báo đã tham gia Ethereum Korea Consortium | [@get_optimum post](https://x.com/get_optimum/status/2090239160208764986) | [claimed] |
@@ -38,12 +38,12 @@ Các con số khác trên trang team: 40 đối tác validator và hơn $24B ETH
 **Optimum đã chạy trên mainnet chưa?** Các nguồn tính đến 2026-10-09:
 
 - Trang sản phẩm: mump2p "Live now". [claimed]
-- Kent Lin, 2026-08-04: nói Optimum "about to go live on Ethereum mainnet", với 40+ bên vận hành đã sẵn sàng. Dùng thì tương lai, trước bài đăng ra mắt. [claimed]
+- Kent Lin, 2026-08-04: nói Optimum "about to go live on Ethereum mainnet", với 40+ bên vận hành đã được xếp sẵn. Đây là lời nói về tương lai, đăng trước bài ra mắt. [claimed]
 - Trang chủ: benchmark trên mainnet đang tiến hành; các số liệu tốc độ nổi bật lấy từ testnet Hoodi. [claimed]
 - Bài đăng Lido PERCH: mump2p đang lan truyền trên mainnet Ethereum. [claimed]
 - Bên vận hành độc lập: 36 nút đầy đủ (full node) trên mainnet đang chạy Gateway. [third-party]
 - Trang team: "Optimum Mainnet" vẫn ghi là sắp ra mắt. [claimed]
 
-Cách đọc khả dĩ nhất: sidecar (tiến trình chạy kèm) của Gateway đã chạy trên mainnet Ethereum cùng các bên vận hành, còn mạng riêng của Optimum thì chưa được công bố ra mắt. Hãy viết "running on Ethereum mainnet via the Gateway sidecar", đừng viết "Optimum mainnet is live".
+Cách đọc khả dĩ nhất: sidecar (tiến trình chạy kèm) của Gateway đã chạy trên mainnet Ethereum cùng các bên vận hành, còn việc Optimum ra mắt mạng của chính mình thì chưa được công bố. Hãy viết "running on Ethereum mainnet via the Gateway sidecar", đừng viết "Optimum mainnet is live".
 
 **Cách viết về testnet.** Blog ra mắt nói testnet riêng (private testnet). Sau đó trang chủ nhắc tới Hoodi, một testnet công khai của Ethereum. Cả hai có thể đúng ở các thời điểm khác nhau.

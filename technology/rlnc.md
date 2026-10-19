@@ -25,7 +25,7 @@ Instead of forwarding copies of a message, each node sends random mixes of the p
 
 These are Médard's teaching examples. The numbers are only for illustration. Real systems compute over a finite field with random coefficients, where independent mixes are likely but not guaranteed, and small hand-picked numbers can fail there.
 
-- Take three pieces x1, x2 and x3. A validator far from the source gets three different mixes, for example 3x1 + 2x2 + x3, x1 + x2 + 5x3 and 11x1 + 2x2 + 13x3. Any three independent mixes are enough for it to solve for x1, x2 and x3, whichever mixes arrive first. ([Médard whiteboard video, 2026-07-01](https://www.youtube.com/watch?v=XGxZxzxAe0g)) [claimed]
+- Take three pieces x1, x2 and x3. A validator far from the source gets three different mixes, for example 3x1 + 2x2 + x3, x1 + x2 + 5x3 and 11x1 + 2x2 + 13x3. These three mixes suffice for it to solve for x1, x2 and x3. ([Médard whiteboard video, 2026-07-01](https://www.youtube.com/watch?v=XGxZxzxAe0g)) [claimed]
 - A repeated copy of x1 only protects against losing x1. It does not help if x2 is lost instead. ([erasure coding video, 2025-08-18](https://www.youtube.com/watch?v=KR6sMbBhizE)) [claimed]
 - The smallest repair example: send x1, x2, x3 and also x1 + x2 + x3. If any one piece is lost, the other three recover it. ([erasure coding video, 2025-08-18](https://www.youtube.com/watch?v=KR6sMbBhizE)) [claimed]
 - In RLNC every mix has its own coefficients, chosen at random from a large enough set of numbers (a field), so none are fixed ahead of time. ([erasure coding video, 2025-08-18](https://www.youtube.com/watch?v=KR6sMbBhizE)) [claimed]
@@ -74,7 +74,7 @@ These are Optimum's descriptions, not independent analysis.
 
 ## Disputed
 
-- **Last hop or weakest link.** Optimum's blog says that with recoding a receiver's losses reflect only the last hop. The March 2026 video says the overall quality is that of the weakest link on the path. These are stated for different setups and may not conflict, but the sources do not reconcile them. ([RLNC vs Reed-Solomon video, 2026-03-25](https://www.youtube.com/watch?v=M1RCYMWJguo))
+- **Last hop or weakest link.** Optimum's blog says that with recoding a receiver's losses reflect only the last hop ([battle of the codes pt II, 2025-05-16](https://www.getoptimum.xyz/blog/battle-of-the-codes-pt-ii-rlnc-speedup)) [claimed]. The March 2026 video says the overall quality is that of the weakest link on the path ([RLNC vs Reed-Solomon video, 2026-03-25](https://www.youtube.com/watch?v=M1RCYMWJguo)) [claimed]. These are stated for different setups and may not conflict, but the sources do not reconcile them.
 
 ## Not yet covered
 

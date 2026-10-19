@@ -14,11 +14,11 @@ status: claimed, forward-looking, plans not final
 ## What a Flexnode does, per Optimum's videos
 
 - A Flexnode is a node that sends coded equations to receivers such as validators. It may or may not be a validator itself. ([Exploring Network Topologies: Flexnodes, 2026-02-12](https://www.youtube.com/watch?v=RXHBf7SRygI)) [claimed]
-- In the topology Flexnodes are intermediate relays between the proposer and a receiver. They regenerate new coded equations on the path, and the receiver connects to several of them. ([Flexnodes Explained, 2026-02-10](https://www.youtube.com/watch?v=mCCcJcAzXY0)) [claimed]
+- In the topology Flexnodes are intermediate relays between the proposer and a receiver. They regenerate new coded equations on the path, and the receiver connects to several of them. ([Flexnodes Explained, 2026-02-10](https://www.youtube.com/watch?v=mCCcJcAzXY0), [Exploring Network Topologies: Optimum Flexnodes, 2026-02-12](https://www.youtube.com/watch?v=RXHBf7SRygI)) [claimed]
 - The receiver does not choose which equations it gets. It takes whatever arrives and chooses which Flexnodes to connect to. ([Exploring Network Topologies: Flexnodes, 2026-02-12](https://www.youtube.com/watch?v=RXHBf7SRygI)) [claimed]
-- Today Flexnodes run mump2p for propagation. DeRAM and other services come later, and operators will pick which services to offer. ([Flexnodes: a global network of data accelerators, 2026-01-20](https://www.youtube.com/watch?v=DguSwGFvftc)) [claimed]
+- As of the January 2026 video, Flexnodes run mump2p for propagation. DeRAM and other services come later, and operators will pick which services to offer. ([Flexnodes: a global network of data accelerators, 2026-01-20](https://www.youtube.com/watch?v=DguSwGFvftc)) [claimed]
 - Optimum says it does not plan to use slashing for Flexnodes. A Flexnode that goes offline simply earns nothing, while the coded mesh keeps working without it. ([Exploring Network Topologies: Flexnodes and slashing, 2026-02-24](https://www.youtube.com/watch?v=3BIGj-vso2I)) [claimed]
-- Deliberate misbehavior would be punished, but no mechanism for that is described. ([Flexnodes Explained, 2026-02-10](https://www.youtube.com/watch?v=mCCcJcAzXY0)) [claimed]
+- A passing remark in Flexnodes Explained says deliberate misbehavior would be punished, but no mechanism for that is described. This sits uneasily with the no-slashing plan above. ([Flexnodes Explained, 2026-02-10](https://www.youtube.com/watch?v=mCCcJcAzXY0)) [claimed]
 - Resource needs are described as light: a laptop, with a smartphone as a goal. ([Flexnodes Explained, 2026-02-10](https://www.youtube.com/watch?v=mCCcJcAzXY0)) [claimed]
 
 ## Latency Marketplace (planned)

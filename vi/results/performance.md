@@ -11,13 +11,13 @@ source_sha: 1cb5500e1dd6
 
 Đọc phần này trước: gần như mọi con số tốc độ bên dưới do Optimum công bố, hoặc nằm trong báo cáo do Optimum tài trợ. Phép đo mainnet độc lập duy nhất tìm được cho tới nay không thấy tác động đáng kể trên một bản build đầu. Cả hai phía đều có ở đây.
 
-## Mô phỏng và devnet giai đoạn đầu (Early simulations and devnets (2025))
+## Mô phỏng và devnet giai đoạn đầu, 2025 (Early simulations and devnets, 2025)
 
 - Mô phỏng Ethshadow với 1,000 nút: OptimumP2P chuyển thông điệp nhanh hơn Gossipsub hơn 2x. ([blog, 2025-06-12](https://www.getoptimum.xyz/blog/comparing-the-performance-of-optimump2p-and-gossipsub)) [claimed]
 - Thử nghiệm trực tiếp trên 36 nút với thông điệp 6 MB: độ trễ (latency) trung bình 1.17s, so với 2.35s của Gossipsub. ([same post](https://www.getoptimum.xyz/blog/comparing-the-performance-of-optimump2p-and-gossipsub)) [claimed]
 - Testnet 36 nút: khối 4, 6 và 10 MB được chuyển trong khoảng 1s; Gossipsub mất 1.6s ở 4 MB và 2.6s ở 6 MB. Không nêu phần cứng hay thời lượng. ([blog, 2025-07-10](https://www.getoptimum.xyz/blog/mump2p-unlocking-next-gen-performance-for-tomorrows-killer-apps)) [claimed]
 
-## Testnet Hoodi, cuối 2025 (Hoodi testnet (late 2025))
+## Testnet Hoodi, cuối 2025 (Hoodi testnet, late 2025)
 
 - Thời gian lan truyền khối trung bình khoảng 150 ms trên 30 gateway phân bố toàn cầu. Bài viết gọi đây là số liệu vòng đầu. ([blog, 2025-09-23](https://www.getoptimum.xyz/blog/acceleration-mump2p-early-results-on-hoodi-testnet)) [claimed]
 - Mốc so sánh là con số Gossipsub nhanh nhất từ ethPandaOps, khoảng 1s. Cùng bài này nêu mức tăng tốc trung bình 6.5x, "frequently" 7-8x. ([same post](https://www.getoptimum.xyz/blog/acceleration-mump2p-early-results-on-hoodi-testnet)) [claimed]
@@ -41,7 +41,7 @@ source_sha: 1cb5500e1dd6
   - Không gắn validator nào, nên đường đi của attestation (phiếu xác nhận) chưa từng được kiểm thử.
 - Tính đến last_verified, Optimum chưa đăng bản tổng kết cuối trong thread đó.
 
-### Báo cáo của các nhà vận hành trong thread Lido, Hoodi (Operator reports from the Lido thread (Hoodi))
+### Báo cáo của các nhà vận hành trong thread Lido, Hoodi (Operator reports from the Lido thread, Hoodi)
 
 - HashKey Cloud: thời gian lan truyền attestation trung bình giảm khoảng 200 ms. [third-party]
 - Blockdaemon: hiệu năng attestation cải thiện nói chung, không có con số. [third-party]

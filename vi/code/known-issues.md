@@ -14,7 +14,7 @@ Không đọc được danh sách issue trong lúc nghiên cứu, nên file này
 ## Các bản sửa đáng chú ý (Notable fixes)
 
 - **Slot bị bỏ qua ở v1.3.0 và v1.3.1:** một số slot (khung 12 giây của Ethereum) bị bỏ qua; v1.3.2 lan truyền khối ở mọi slot và là bản nâng cấp bắt buộc. ([CHANGELOG](https://github.com/getoptimum/optimum-gateway/blob/main/docs/CHANGELOG.md)) [confirmed]
-- **Thông báo trùng lặp (PR #121, 2026-09-09):** thêm cửa sổ chống trùng (dedup) 30 giây để các lần mã hóa lại của cùng một khối từ cùng một nguồn không kích hoạt sự kiện stream lặp lại. PR không nhắc tới việc publish (đăng thông điệp) lại hay độ trễ (latency) tăng vọt. ([PR #121](https://github.com/getoptimum/optimum-gateway/pull/121)) [confirmed]
+- **Thông báo trùng lặp (PR #121, 2026-09-09):** thêm cửa sổ chống trùng (dedup) 30 giây để các lần mã hóa lại (re-encoding, không phải tái mã hóa RLNC) của cùng một khối từ cùng một nguồn không kích hoạt sự kiện stream lặp lại. PR không nhắc tới việc publish (đăng thông điệp) lại hay độ trễ (latency) tăng vọt. ([PR #121](https://github.com/getoptimum/optimum-gateway/pull/121)) [confirmed]
 - **Chặn bằng handshake (PR #8, 2026-07-23):** chỉ nhận thông điệp từ các peer (nút ngang hàng) đã hoàn tất xác thực handshake. Không nhắc tới hành vi riêng của client nào. ([PR #8](https://github.com/getoptimum/optimum-gateway/pull/8)) [confirmed]
 - **Chỉ số sức khỏe (PR #48, v1.0.2):** chỉ số sức khỏe của client đồng thuận (consensus client) giờ cũng được cập nhật khi chuyển tiếp (relay) đi ra, không chỉ khi nhận gossip (lan truyền kiểu tin đồn) đi vào. [confirmed]
 - Các mục khác, chỉ theo tiêu đề: telemetry data race (#10), vấn đề TLS trong stream service (#84), chặn theo slot cho Hermes beacon fanout (#135), ghi lại thời điểm first-seen của publisher (bên phát hành thông điệp) (#161), chấp nhận khối gossip tới giới hạn kích thước nén (#162). [confirmed]
@@ -27,7 +27,7 @@ Không đọc được danh sách issue trong lúc nghiên cứu, nên file này
 
 Từ [config.go](https://github.com/getoptimum/optimum-gateway/blob/main/pkg/service/mum_p2p/config.go): [confirmed]
 
-- Mục tiêu mesh (mạng lưới kết nối) degree có thể cấu hình; ngưỡng dưới là mục tiêu trừ 1, ngưỡng trên là mục tiêu cộng 6.
+- Mesh degree (số peer trong mesh, mạng lưới kết nối) mục tiêu có thể cấu hình; ngưỡng dưới là mục tiêu trừ 1, ngưỡng trên là mục tiêu cộng 6.
 - Heartbeat mỗi 700 ms.
 - Thông điệp đầy đủ được giữ trong 6 cửa sổ để trả lời các yêu cầu IWANT; gossip bao phủ 3 cửa sổ.
 - Có thể bật tracing để ghi log các sự kiện mesh GRAFT/PRUNE.

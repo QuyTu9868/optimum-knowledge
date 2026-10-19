@@ -9,7 +9,7 @@ source_sha: 94bca97191ef
 
 # Nhân sự (People)
 
-Ảnh được lưu trong [photos/](photos/), cắt từ [team page](https://www.getoptimum.xyz/team) chính thức của Optimum. Quyền thuộc về Optimum. Nếu đội ngũ yêu cầu, ảnh sẽ được gỡ.
+Ảnh được lưu trong [photos/](photos/), cắt từ [team page](https://www.getoptimum.xyz/team) chính thức của Optimum. Ghi công thuộc về Optimum. Nếu đội ngũ yêu cầu, ảnh sẽ được gỡ.
 
 **Dành cho AI agent:** để hiển thị ảnh của ai đó, dùng dòng "Photo URL" trong mục của người đó và xuất ra dưới dạng ảnh Markdown, ví dụ `![Muriel Médard](URL)`.
 
@@ -25,7 +25,7 @@ Photo URL: https://raw.githubusercontent.com/QuyTu9868/optimum-knowledge/main/te
 - Đồng phát minh RLNC, tác giả của hơn 30 bằng sáng chế và đơn xin cấp bằng sáng chế. ([Code On](https://www.codeontechnologies.com/company/about)) [third-party]
 - Nhận IEEE Koji Kobayashi Computers and Communications Award năm 2022, cho công trình về mã hóa mạng và mạng quang, mạng không dây. Đây là giải thưởng cá nhân. ([team page](https://www.getoptimum.xyz/team)) [claimed]
 - Được bầu vào Leopoldina (German National Academy of Sciences) năm 2022. ([team page](https://www.getoptimum.xyz/team)) [claimed]
-- Optimum ghi bà nhận IEEE Richard W. Hamming Medal năm 2026. ([team page](https://www.getoptimum.xyz/team)) [claimed]
+- Optimum liệt kê IEEE Richard W. Hamming Medal năm 2026 cho bà. ([team page](https://www.getoptimum.xyz/team)) [claimed]
 - Viết một bài opinion trên CoinDesk có tựa "Quantum-proof blockchain: why math, not machines, holds the key", đăng ngày 2026-09-13. ([CoinDesk](https://www.coindesk.com/opinion/2026/09/13/quantum-proof-blockchain-why-math-not-machines-holds-the-key)) [confirmed]. Lập luận của bài được tóm tắt trong [../technology/security.md](../technology/security.md).
 - Optimum nói bà có một buổi phỏng vấn với Maeil Business Newspaper ở Seoul trong Korea Blockchain Week. Chưa đọc bài báo đó. ([@get_optimum post, 2026-09-30](https://x.com/get_optimum/status/2105339976540152132)) [claimed]
 - X: https://x.com/MurielMedard
@@ -36,7 +36,7 @@ Photo URL: https://raw.githubusercontent.com/QuyTu9868/optimum-knowledge/main/te
 Photo URL: https://raw.githubusercontent.com/QuyTu9868/optimum-knowledge/main/team/photos/kishori-konwar.jpg
 
 - Đồng sáng lập. ([team page](https://www.getoptimum.xyz/team)) [claimed]
-- Từng là Senior Engineer and Scientist tại Meta, nghiên cứu sau tiến sĩ (postdoc) tại MIT. ([launch blog, 2025-04-15](https://www.getoptimum.xyz/blog/introducing-optimum-building-the-missing-memory-layer-for-web3)) [claimed]
+- Từng là Senior Engineer and Scientist tại Meta, từng làm postdoc (nghiên cứu sau tiến sĩ) tại MIT. ([launch blog, 2025-04-15](https://www.getoptimum.xyz/blog/introducing-optimum-building-the-missing-memory-layer-for-web3)) [claimed]
 - Từng là quant tại Goldman Sachs. ([team page](https://www.getoptimum.xyz/team)) [claimed]
 - Team page ghi chuyên môn là hệ thống phân tán, lý thuyết mã hóa và AI; launch blog thì nói hệ thống phân tán và tính toán chịu lỗi. [claimed]
 - Đồng tác giả của các bài blog RLNC vs Reed-Solomon. ([battle of the codes](https://www.getoptimum.xyz/blog/battle-of-the-codes-rlnc-vs-reed-solomon-fountain-codes)) [confirmed]
@@ -64,7 +64,7 @@ Photo URL: https://raw.githubusercontent.com/QuyTu9868/optimum-knowledge/main/te
 
 - Được ghi là cố vấn và "Former NEC Chair, MIT". ([team page](https://www.getoptimum.xyz/team)) [claimed]
 - MIT EECS ghi bà là NEC Professor of Software Science and Engineering (Post-Tenure). ([MIT EECS](https://www.eecs.mit.edu/people/nancy-lynch)) [confirmed]
-- Optimum cho rằng bà là người có chứng minh toán học đầu tiên về Byzantine Fault Tolerance, năm 1985. ([team page](https://www.getoptimum.xyz/team)) [claimed]
+- Optimum ghi nhận bà là tác giả của chứng minh toán học đầu tiên về Byzantine Fault Tolerance, năm 1985. ([team page](https://www.getoptimum.xyz/team)) [claimed]
 - Optimum nói thuật toán DLS (1988) của bà đã ảnh hưởng đến Tendermint và cơ chế đồng thuận của Ethereum. ([team page](https://www.getoptimum.xyz/team)) [claimed]
 
 ### Sriram Viswanath, cố vấn

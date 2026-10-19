@@ -16,7 +16,7 @@ In network coding, a malicious node can send a bad coded packet. Because relays 
 
 ## Inherited from libp2p
 
-- Channels between nodes are encrypted and authenticated with Noise or TLS, and mump2p inherits libp2p's Sybil and eclipse attack defenses. ([docs p2p](https://docs.getoptimum.xyz/docs/learn/overview/p2p)) [confirmed]
+- Channels between nodes are encrypted and authenticated with Noise or TLS, and the docs say mump2p uses libp2p's peer discovery and management, which include Sybil and eclipse defenses. ([docs p2p](https://docs.getoptimum.xyz/docs/learn/overview/p2p)) [claimed]
 
 ## ProbeLab audit of the Optimum Gateway
 

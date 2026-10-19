@@ -39,10 +39,10 @@ Ngày ghi ở đây là ngày commit của từng tag. ([tags](https://github.co
 | Phiên bản | Ngày | Ghi chú |
 |---|---|---|
 | v1.1.0 | 2026-07-20 | Initial public snapshot; JWT handshake với dịch vụ xác thực của Optimum |
-| v1.0.2 | 2026-08-05 | Sửa health metric (#48); sửa các lỗi theo kiểm toán (audit) của ProbeLab |
+| v1.0.2 | 2026-08-05 | Sửa chỉ số sức khỏe (#48); sửa các lỗi theo kiểm toán (audit) của ProbeLab |
 | v1.1.1 | 2026-08-06 | Bản build StereumLabs dùng cho phép thử mainnet độc lập |
 | v1.2.0 | 2026-08-27 | |
-| v1.2.1 | 2026-09-09 | Cửa sổ chống trùng (dedup) 30-second cho khối mã hóa lại (#121) |
+| v1.2.1 | 2026-09-09 | Cửa sổ chống trùng (dedup) 30 giây cho khối được mã hóa lại (#121) |
 | v1.3.0 | 2026-09-10 | Quyền publish lấy từ JWT scope (#123, #126); Subscribe hai chiều có làm mới token (#120) |
 | v1.3.1 | 2026-09-14 | Tự đăng ký bằng một join key dùng chung toàn org, `ojk_` (#116, docs #129) |
 | v1.3.2 | 2026-09-17 | Khối lan truyền ở mọi slot (khung 12 giây của Ethereum); v1.3.0 và v1.3.1 bỏ sót một số slot |

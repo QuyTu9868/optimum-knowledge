@@ -10,7 +10,7 @@ All values from the docs parameters page: https://docs.getoptimum.xyz/docs/guide
 
 Defaults change between versions. Check the page before relying on a value.
 
-Check on 2026-10-18: the parameters page above returned HTTP 404, so the values below could not be re-verified. The docs p2p page names the same settings differently: ShredFactor (base fragments per message), PublisherShardMultiplier (coded shards created at publish time are ShredFactor times this), ForwardShardThreshold (a relay recodes and forwards once it holds more than ShredFactor times this many shards) and MeshDegreeTarget, MeshDegreeMin and MeshDegreeMax. The docs do not say which environment variable maps to which name, so the table rows are probably the same settings. ([docs p2p](https://docs.getoptimum.xyz/docs/learn/overview/p2p)) [confirmed]
+Check on 2026-10-18: the parameters page above returned HTTP 404, so the values below could not be re-verified. The docs p2p page names similar settings: ShredFactor (base fragments per message), PublisherShardMultiplier (coded shards created at publish time are ShredFactor times this), ForwardShardThreshold (a relay recodes and forwards once the shard count exceeds a threshold, which the docs write both as ForwardShardThreshold and as ShredFactor times ForwardShardThreshold) and MeshDegreeTarget, MeshDegreeMin and MeshDegreeMax. The docs do not say which environment variable maps to which name, so any mapping to the table below is an inference. ([docs p2p](https://docs.getoptimum.xyz/docs/learn/overview/p2p)) [claimed]
 
 ## RLNC mode (mump2p)
 
@@ -39,7 +39,7 @@ Check on 2026-10-18: the parameters page above returned HTTP 404, so the values 
 | SIDECAR_PORT | 33212 | gRPC port between proxy and P2P node |
 | SUBSCRIBER_THRESHOLD | 0.1 | Share of connected subscribers needed to forward a message |
 
-- Deployment can go through a proxy, or clients can connect straight to P2P nodes over gRPC. ([guides overview](https://docs.getoptimum.xyz/docs/how-to-guides/overview)) [confirmed]
+- An earlier version of the docs described deployment through a proxy or direct gRPC connections to P2P nodes. The cited guides page now shows only "Under Construction", so this could not be re-verified on 2026-10-18. ([guides overview](https://docs.getoptimum.xyz/docs/how-to-guides/overview)) [claimed]
 
 ## Gateway ports
 
@@ -53,5 +53,5 @@ Values that differ between sections of the same docs page:
 - API port: 9090 vs 8081.
 - Log level: debug vs production.
 - Identity directory: `/identity` vs `/tmp`.
-- OPTIMUM_THRESHOLD: the parameter table says 0.75 is the fraction of shards needed "to forward or decode". The p2p docs page says the threshold only decides when a relay recodes and forwards, and that decoding needs k linearly independent shards. ([docs p2p](https://docs.getoptimum.xyz/docs/learn/overview/p2p)) [confirmed]
+- OPTIMUM_THRESHOLD: the parameter table says 0.75 is the fraction of shards needed "to forward or decode". The p2p docs page describes ForwardShardThreshold as the forwarding threshold and says decoding needs k linearly independent shards. Whether OPTIMUM_THRESHOLD is the same setting is assumed, not stated. ([docs p2p](https://docs.getoptimum.xyz/docs/learn/overview/p2p)) [claimed]
 - Port 33212: the parameter table lists it as a gRPC port between proxy and P2P node (SIDECAR_PORT). The Gateway README uses 33212 for the consensus-client-facing libp2p host. They may be different products, and neither source says. ([Gateway README](https://github.com/getoptimum/optimum-gateway)) [confirmed]
