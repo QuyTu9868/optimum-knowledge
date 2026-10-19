@@ -18,8 +18,20 @@ function fileFor(slug: string[]) {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const file = fileFor((await params).slug);
-  return file ? { title: `${renderFile(file).meta.title} - Optimum Knowledge` } : {};
+  const slug = (await params).slug;
+  const file = fileFor(slug);
+  if (!file) return {};
+  const meta = renderFile(file).meta;
+  // English and Vietnamese copies point at each other so search engines serve the right language.
+  const here = "/" + slug.join("/");
+  const isVi = slug[0] === "vi";
+  const enUrl = isVi ? (meta.translationOf ? "/" + meta.translationOf.replace(/\.md$/, "") : "/") : here;
+  const viUrl = isVi ? here : "/vi" + here;
+  const hasPair = isVi ? true : getViPages().some((p) => "/" + p.slug.join("/") === viUrl);
+  return {
+    title: `${meta.title} - Optimum Knowledge`,
+    alternates: { canonical: here, ...(hasPair ? { languages: { en: enUrl, vi: viUrl } } : {}) },
+  };
 }
 
 export default async function DocPage({ params }: Props) {

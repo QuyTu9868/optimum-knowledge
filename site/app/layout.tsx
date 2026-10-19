@@ -11,10 +11,15 @@ import "./globals.css";
 const sans = Geist({ subsets: ["latin", "latin-ext"], variable: "--font-sans" });
 const mono = Geist_Mono({ subsets: ["latin", "latin-ext"], variable: "--font-mono" });
 
+const DESCRIPTION = "Source-cited facts about Optimum, rendered from a community knowledge repo. Not an official Optimum site."; // our constant
+
 export const metadata: Metadata = {
+  metadataBase: new URL("https://optimum-knowledge.vercel.app"), // so share-image links become absolute
   title: "Optimum Knowledge - community docs",
-  description: "Source-cited facts about Optimum, rendered from a community knowledge repo. Not an official Optimum site.",
+  description: DESCRIPTION,
   icons: { icon: "/logo.jpg" },
+  openGraph: { title: "Optimum Knowledge - community docs", description: DESCRIPTION, siteName: "Optimum Knowledge", type: "website" }, // image: app/opengraph-image.png
+  twitter: { card: "summary_large_image", title: "Optimum Knowledge - community docs", description: DESCRIPTION }, // image: app/twitter-image.png
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
