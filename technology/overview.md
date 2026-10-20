@@ -1,6 +1,6 @@
 ---
 title: What Optimum is
-last_verified: 2026-10-14
+last_verified: 2026-10-20
 status: mostly confirmed, product status changes often
 ---
 
@@ -21,7 +21,12 @@ status: mostly confirmed, product status changes often
 | OptimumP2P / Optimump2p | Older name used in 2025 blog posts for the same pub/sub protocol | Renamed, see note below |
 | deRAM / DeRAM | Decentralized RAM layer giving apps real-time read/write access to chain state | Product page marks it "Soon" |
 | DeROM | Listed alongside DeRAM as an upcoming RLNC use case | Planned |
-| Optimum Gateway | The sidecar validators run to use mump2p | See [sidecar-gateway.md](sidecar-gateway.md) |
+| Optimum Gateway | Program run beside a beacon node (validator sidecar), or alone in stream-only mode | See [sidecar-gateway.md](sidecar-gateway.md), [../products/run-the-gateway.md](../products/run-the-gateway.md), [gateway-design.md](gateway-design.md) |
+| Console and Signal | Web console where operators enrol gateways and manage keys, and the Signal service it switches on per account | See [../products/console-and-signal.md](../products/console-and-signal.md) |
+| Accelerate | Console feature that recommends a bid cutoff for the MEV sidecar (mev-boost or Commit-Boost) | See [../products/accelerate.md](../products/accelerate.md) |
+| Slot-based block acceleration | Gateway mechanism from ADR-0012: bootstrap lists slots to accelerate and Hermes-role gateways pass only listed blocks to their client. The sources do not link it to the Console Accelerate feature | See [gateway-design.md](gateway-design.md) |
+| keysync | Tool that syncs validator keys with Optimum | See [../products/keysync.md](../products/keysync.md) |
+| Consumer block stream | Opt-in read-only block feed from a gateway (ADR-0011) | See [../products/block-stream.md](../products/block-stream.md) |
 | Flexnodes | Operator-run nodes in the coded gossip network | See [flexnodes.md](flexnodes.md) |
 
 Sources:

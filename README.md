@@ -32,8 +32,18 @@ When two sources disagree, the file says so under **Disputed** and lists both si
 | [technology/parameters.md](technology/parameters.md) | Documented config defaults (mesh, shards, threshold, ports) |
 | [technology/security.md](technology/security.md) | Pollution attack defense, ProbeLab audit |
 | [technology/sidecar-gateway.md](technology/sidecar-gateway.md) | Optimum Gateway as a validator sidecar, what it does and doesn't touch |
+| [technology/gateway-design.md](technology/gateway-design.md) | What the 13 gateway design records (ADRs) decide, and which are only proposals |
 | [technology/flexnodes.md](technology/flexnodes.md) | Flexnodes and the planned Latency Marketplace |
 | [technology/provably-optimal.md](technology/provably-optimal.md) | The "provably optimal" claim and the conditions behind it |
+
+### Products (what operators use today, per the official docs of 2026-10-20)
+| File | What's in it |
+|---|---|
+| [products/console-and-signal.md](products/console-and-signal.md) | Optimum Console, Signal, accounts, enrollment keys, reports |
+| [products/accelerate.md](products/accelerate.md) | Accelerate: bid cutoff recommendation for the MEV sidecar, eligibility, what the numbers mean |
+| [products/run-the-gateway.md](products/run-the-gateway.md) | Running the gateway: container, ports, settings, health, Kubernetes |
+| [products/block-stream.md](products/block-stream.md) | The consumer block stream for accounts that do not run validators |
+| [products/keysync.md](products/keysync.md) | The keysync CLI for reconciling validator assignments |
 
 ### Team and history
 | File | What's in it |
@@ -59,6 +69,7 @@ When two sources disagree, the file says so under **Disputed** and lists both si
 | File | What's in it |
 |---|---|
 | [code/releases.md](code/releases.md) | Public repos, licenses, Gateway release timeline |
+| [code/sdks-and-tools.md](code/sdks-and-tools.md) | SDKs and developer tools actually published, and what was not found |
 | [code/known-issues.md](code/known-issues.md) | Notable fixes, GossipSub settings in code, stories with no source |
 
 ### Meta
