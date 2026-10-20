@@ -12,7 +12,7 @@
   <circle cx="80" cy="190" r="8" fill="#D9DADC"/>
   <line x1="80" y1="180" x2="80" y2="140" stroke="#5B616D"/>
   <text x="80" y="92" fill="#F2F2F3" font-size="14" font-weight="600" text-anchor="middle">Bài báo RLNC</text>
-  <text x="80" y="110" fill="#F2F2F3" font-size="14" font-weight="600" text-anchor="middle">nền tảng</text>
+  <text x="80" y="110" fill="#F2F2F3" font-size="14" font-weight="600" text-anchor="middle">nền tảng, công bố</text>
   <text x="80" y="128" fill="#969698" font-size="12" text-anchor="middle">2002-2006</text>
 
   <!-- 2 claimed -->
@@ -46,7 +46,7 @@
   <circle cx="690" cy="190" r="8" fill="#D9DADC"/>
   <line x1="690" y1="200" x2="690" y2="240" stroke="#5B616D"/>
   <text x="690" y="262" fill="#F2F2F3" font-size="14" font-weight="600" text-anchor="middle">Lido PERCH</text>
-  <text x="690" y="280" fill="#F2F2F3" font-size="14" font-weight="600" text-anchor="middle">cuộc gọi thử mainnet</text>
+  <text x="690" y="280" fill="#F2F2F3" font-size="14" font-weight="600" text-anchor="middle">kêu gọi chạy thử mainnet</text>
   <text x="690" y="298" fill="#969698" font-size="12" text-anchor="middle">2026-08-10</text>
 
   <!-- 7 third-party -->
@@ -68,18 +68,18 @@
   <text x="1100" y="195" fill="#E3C27A" font-size="13" font-weight="700" text-anchor="middle">?</text>
   <line x1="1100" y1="178" x2="1100" y2="140" stroke="#5B616D"/>
   <text x="1100" y="74" fill="#F2F2F3" font-size="14" font-weight="600" text-anchor="middle">Mainnet Optimum:</text>
-  <text x="1100" y="92" fill="#F2F2F3" font-size="14" font-weight="600" text-anchor="middle">"sắp ra mắt"</text>
+  <text x="1100" y="92" fill="#F2F2F3" font-size="14" font-weight="600" text-anchor="middle">"coming soon"</text>
   <text x="1100" y="110" fill="#969698" font-size="12" text-anchor="middle">2026</text>
   <text x="1100" y="128" fill="#E3C27A" font-size="11" font-weight="700" text-anchor="middle" letter-spacing="1">CÒN TRANH CÃI</text>
   <text x="1100" y="232" fill="#969698" font-size="11" text-anchor="middle">Nhiều khả năng: Gateway</text>
   <text x="1100" y="246" fill="#969698" font-size="11" text-anchor="middle">chạy trên mainnet</text>
-  <text x="1100" y="260" fill="#969698" font-size="11" text-anchor="middle">Ethereum; mạng riêng</text>
+  <text x="1100" y="260" fill="#969698" font-size="11" text-anchor="middle">Ethereum; mạng Optimum</text>
   <text x="1100" y="274" fill="#969698" font-size="11" text-anchor="middle">chưa được công bố</text>
 
   <!-- legend -->
   <g font-size="12" fill="#969698">
     <circle cx="70" cy="346" r="6" fill="#D9DADC"/><text x="84" y="350">confirmed</text>
-    <circle cx="180" cy="346" r="6" fill="#282C35" stroke="#E3C27A" stroke-width="2" stroke-dasharray="3 2"/><text x="194" y="350">claimed (Optimum tự nói)</text>
+    <circle cx="180" cy="346" r="6" fill="#282C35" stroke="#E3C27A" stroke-width="2" stroke-dasharray="3 2"/><text x="194" y="350">claimed: Optimum nói</text>
     <circle cx="350" cy="346" r="6" fill="#93C3EA"/><circle cx="350" cy="346" r="9" fill="none" stroke="#93C3EA"/><text x="366" y="350">third-party</text>
     <text x="470" y="350">Khoảng cách không theo tỷ lệ.</text>
   </g>

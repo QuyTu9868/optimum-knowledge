@@ -301,3 +301,6 @@ kbd {
 
 /* Phones: keep diagrams readable by letting them scroll sideways inside their figure (this rule must come after the img rule above) */
 @media (max-width: 720px) { .prose figure.diagram img { max-width: none; width: 720px; } }
+
+/* The timeline is wider than the other diagrams, so give it more room on phones */
+@media (max-width: 720px) { .prose figure.diagram img[src*="timeline"] { width: 1000px; } }
