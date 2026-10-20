@@ -156,8 +156,8 @@ export function renderFile(file: string): { meta: DocPage; html: string; toc: To
   const englishH2 = isVi && englishFile ? [...matter(fs.readFileSync(path.join(CONTENT_ROOT, englishFile), "utf8")).content.matchAll(/^## (.+)$/gm)].map((m) => m[1].trim()) : [];
   for (const d of DIAGRAMS[englishFile] ?? []) {
     const text = isVi ? (DIAGRAM_VI[d.src] ?? d) : d;
-    const note = isVi ? "Sơ đồ do tác giả site vẽ từ các dữ kiện trong trang này, chữ trong hình bằng tiếng Anh." : "Diagram drawn by the site author from the facts on this page.";
-    const fig = `<figure class="diagram"><img src="/diagrams/${d.src}" alt="${text.alt}" /><figcaption>${text.caption} <span class="diagram-note">${note}</span></figcaption></figure>`;
+    const note = isVi ? "Sơ đồ do tác giả site vẽ từ các dữ kiện trong trang này." : "Diagram drawn by the site author from the facts on this page.";
+    const fig = `<figure class="diagram"><img src="/diagrams/${isVi ? d.src.replace(".svg", "-vi.svg") : d.src}" alt="${text.alt}" /><figcaption>${text.caption} <span class="diagram-note">${note}</span></figcaption></figure>`;
     let at = -1;
     let len = 0;
     if (!d.after) {
