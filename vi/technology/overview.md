@@ -1,10 +1,10 @@
 ---
 title: What Optimum is
-last_verified: 2026-10-14
+last_verified: 2026-10-20
 status: mostly confirmed, product status changes often
 lang: vi
 translation_of: technology/overview.md
-source_sha: 985ec96111a2
+source_sha: b3a88421888a
 ---
 
 # Optimum là gì (What Optimum is)
@@ -24,7 +24,12 @@ source_sha: 985ec96111a2
 | OptimumP2P / Optimump2p | Tên cũ dùng trong các bài blog năm 2025 cho cùng giao thức pub/sub này | Đã đổi tên, xem ghi chú bên dưới |
 | deRAM / DeRAM | Lớp RAM phi tập trung, cấp cho ứng dụng quyền đọc/ghi thời gian thực vào trạng thái chuỗi | Trang sản phẩm ghi là "Soon" |
 | DeROM | Được liệt kê cạnh DeRAM như một trường hợp dùng RLNC sắp tới | Đang lên kế hoạch |
-| Optimum Gateway | Sidecar (tiến trình chạy kèm) mà validator chạy để dùng mump2p | Xem [sidecar-gateway.md](sidecar-gateway.md) |
+| Optimum Gateway | Chương trình chạy cạnh một beacon node (sidecar, tức tiến trình chạy kèm của validator), hoặc chạy riêng ở chế độ stream-only (chỉ stream) | Xem [sidecar-gateway.md](sidecar-gateway.md), [../products/run-the-gateway.md](../products/run-the-gateway.md), [gateway-design.md](gateway-design.md) |
+| Console và Signal | Web console (trang quản trị) nơi operator đăng ký gateway và quản lý khóa, cùng dịch vụ Signal được bật theo từng tài khoản | Xem [../products/console-and-signal.md](../products/console-and-signal.md) |
+| Accelerate | Tính năng của Console đề xuất bid cutoff (mốc cắt bid) cho MEV sidecar (mev-boost hoặc Commit-Boost) | Xem [../products/accelerate.md](../products/accelerate.md) |
+| Slot-based block acceleration | Cơ chế của Gateway theo ADR-0012: bootstrap liệt kê các slot cần tăng tốc và các gateway vai trò Hermes chỉ chuyển các khối nằm trong danh sách cho client của mình. Các nguồn không nối nó với tính năng Accelerate của Console | Xem [gateway-design.md](gateway-design.md) |
+| keysync | Công cụ đồng bộ validator key với Optimum | Xem [../products/keysync.md](../products/keysync.md) |
+| Consumer block stream | Luồng khối chỉ đọc, phải tự bật, lấy từ một gateway (ADR-0011) | Xem [../products/block-stream.md](../products/block-stream.md) |
 | Flexnodes | Các nút do operator vận hành trong mạng gossip (lan truyền kiểu tin đồn) có mã hóa | Xem [flexnodes.md](flexnodes.md) |
 
 Nguồn:

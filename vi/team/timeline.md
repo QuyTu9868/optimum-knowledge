@@ -1,10 +1,10 @@
 ---
 title: Timeline
-last_verified: 2026-10-14
+last_verified: 2026-10-20
 status: mixed, mainnet status disputed
 lang: vi
 translation_of: team/timeline.md
-source_sha: e7344a71ade2
+source_sha: ead1e3978ea6
 ---
 
 # Dòng thời gian (Timeline)
@@ -16,19 +16,25 @@ source_sha: e7344a71ade2
 | 2025-04-15 | Ra mắt công khai, vòng seed $11M do 1kx dẫn dắt, testnet riêng đã hoạt động | [launch blog](https://www.getoptimum.xyz/blog/introducing-optimum-building-the-missing-memory-layer-for-web3) | [confirmed] |
 | 2025 | Thử nghiệm trên testnet Hoodi của Ethereum | [homepage](https://www.getoptimum.xyz/) | [claimed] |
 | 2025-09-23 | Blockworks đưa tin về các lần thử trên Hoodi, và ước tính của Everstake là sẽ chuyển lên mainnet trong khoảng ba tháng | [Blockworks](https://blockworks.com/news/ethereum-networking-bottleneck) | [third-party] |
+| 2026-06-25 | optimum-keysync v1.0.0, v1.1.0 và v1.1.1 được phát hành | [keysync releases](https://github.com/getoptimum/optimum-keysync/releases) | [confirmed] |
 | 2026-07 | ProbeLab kiểm toán (audit) giai đoạn 2 cho Gateway | [ProbeLab](https://probelab.io/blog/security-audit-report-optimum-gateway/) | [third-party] |
 | 2026-07-20 | Mã nguồn Gateway được công khai (bản chụp ban đầu, v1.1.0) | [GitHub](https://github.com/getoptimum/optimum-gateway) | [confirmed] |
 | 2026-07-30 | Médard trình bày mump2p tại workshop Flashbots MEV-SBC | [@MurielMedard post, 2026-07-31](https://x.com/MurielMedard/status/2083306781821038829) | [claimed] |
+| 2026-08-05 | ADR-0011 (consumer block stream) đề ngày này | [ADR-0011](https://github.com/getoptimum/optimum-gateway/blob/main/docs/adr/0011-gateway-consumer-block-stream.md) | [confirmed] |
 | 2026-08 | Bài đăng triển khai mainnet: 40+ validator (nút xác thực), truy cập được cấp quyền bằng API key, miễn phí cho validator | [blog](https://www.getoptimum.xyz/blog/free-and-faster-ethereum-beacon-block-propagation) | [claimed] |
+| 2026-10-20 | Ghi chú: docs hiện tại mô tả enrollment key (khóa đăng ký theo org); Signal được bật theo từng tài khoản; đường API key (`ogw_`) là lối cũ hơn | [docs: what Signal does](https://docs.getoptimum.xyz/signal/what-signal-does); [ADR-0013](https://github.com/getoptimum/optimum-gateway/blob/main/docs/adr/0013-gateway-self-enrollment.md); [manual v1.3.2 configuration](https://github.com/getoptimum/optimum-gateway/blob/main/docs/versions/v1.3.2/02_configuration.md); [console-and-signal.md](../products/console-and-signal.md) | [confirmed] |
 | 2026-08-04 | Kent Lin nói Optimum sắp lên mainnet Ethereum với 40+ bên vận hành đã được xếp sẵn | [@kentlinyy post](https://x.com/kentlinyy/status/2084655348456321157) | [claimed] |
 | 2026-08-10 | Bài đăng Lido PERCH đề nghị các bên vận hành nút chạy và thử mump2p trên mainnet | [Lido forum](https://research.lido.fi/t/perch-request-for-node-operators-to-run-and-test-optimum-mump2p/11786) | [confirmed] |
+| 2026-08-18 | ADR-0012 (slot-based block acceleration) đề ngày này | [ADR-0012](https://github.com/getoptimum/optimum-gateway/blob/main/docs/adr/0012-slot-based-block-acceleration.md) | [confirmed] |
 | 2026-08-18 | Báo cáo kiểm toán của ProbeLab được công bố | [ProbeLab](https://probelab.io/blog/security-audit-report-optimum-gateway/) | [third-party] |
 | 2026-08-20 | Optimum thông báo đã tham gia Ethereum Korea Consortium | [@get_optimum post](https://x.com/get_optimum/status/2090239160208764986) | [claimed] |
 | 2026-08-21 | Médard trình bày tại Nanyang Blockchain Conference, Singapore | [@get_optimum, 2026-08-17](https://x.com/get_optimum/status/2089392492626280941); [@MurielMedard, 2026-08-26](https://x.com/MurielMedard/status/2092639088943956374) | [claimed] |
+| 2026-09-08 | ADR-0013 (gateway self-enrollment) đề ngày này | [ADR-0013](https://github.com/getoptimum/optimum-gateway/blob/main/docs/adr/0013-gateway-self-enrollment.md) | [confirmed] |
 | 2026-09-09 | Một bên vận hành độc lập báo cáo không thấy tác động đáng kể trên một bản build sớm | [Lido forum](https://research.lido.fi/t/perch-request-for-node-operators-to-run-and-test-optimum-mump2p/11786) | [third-party] |
 | 2026-09-14 | Gateway v1.3.1 thêm tính năng tự đăng ký (self-enrollment) bằng join key dùng chung toàn tổ chức | [CHANGELOG](https://github.com/getoptimum/optimum-gateway/blob/main/docs/CHANGELOG.md) | [confirmed] |
 | 2026-09-17 | Gateway v1.3.2, hiện là phiên bản duy nhất còn được hỗ trợ | [CHANGELOG](https://github.com/getoptimum/optimum-gateway/blob/main/docs/CHANGELOG.md) | [confirmed] |
 | 2026-09-29 | Sự kiện CODED tại Korea Blockchain Week, đồng tổ chức với Google Cloud, Four Pillars, LINE NEXT và Auros | [@get_optimum post, 2026-09-17](https://x.com/get_optimum/status/2100671701965271457) | [claimed] |
+| 2026-10-20 | Đến ngày này, docs chính thức mô tả hành trình của nhà vận hành (operator) bắt đầu từ Console (enrollment key, gateways, Signal, Accelerate) | [docs site](https://docs.getoptimum.xyz/); [console-and-signal.md](../products/console-and-signal.md) | [confirmed] |
 | 2026 | "Optimum Mainnet" được ghi là sắp ra mắt | [team page](https://www.getoptimum.xyz/team) | [claimed] |
 
 Các con số khác trên trang team: 40 đối tác validator và hơn $24B ETH đang stake. ([team page](https://www.getoptimum.xyz/team)) [claimed]. Xem [../ecosystem/validators.md](../ecosystem/validators.md).

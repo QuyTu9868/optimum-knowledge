@@ -12,6 +12,8 @@ Quy ước cho mọi bản dịch tiếng Việt trong thư mục `vi/`. Bản t
 - Nhãn của link nguồn (ví dụ "docs p2p", "Médard whiteboard video, 2026-07-01") giữ nguyên tiếng Anh, vì đó là tên nguồn.
 - Trích dẫn nguyên văn trong dấu ngoặc kép: giữ tiếng Anh.
 - Số liệu giữ nguyên như bản gốc, kể cả dấu phân cách (ví dụ 1,000 và 2.42x).
+- Tên nút, nhãn và menu trong giao diện (Console, Signal, Accelerate, "Verify", "Gateways & keys"...): giữ nguyên tiếng Anh, vì người dùng thấy giao diện bằng tiếng Anh. Có thể kèm giải nghĩa tiếng Việt trong ngoặc ở lần đầu.
+- Tên biến môi trường, cờ, lệnh, đường dẫn API, tên package (OPT_GATEWAY_ID, OPT_JOIN_KEY, KEYSYNC_API_KEY...): giữ nguyên.
 - Không dùng dấu gạch dài (em dash). Dùng "-" hoặc viết lại câu.
 - Không thêm ý, không bỏ ý, không làm mạnh hay yếu hơn mức chắc chắn của câu gốc ("claims" là "nói rằng", không phải "chứng minh").
 
@@ -66,6 +68,22 @@ Quy ước cho mọi bản dịch tiếng Việt trong thư mục `vi/`. Bản t
 | parity piece | mảnh dự phòng (parity); không dùng "sửa lỗi" cho erasure |
 | transmission | lượt truyền |
 | publish / release | publish (đăng thông điệp) / bản phát hành |
+| Console | Console (giữ nguyên, trang quản trị của Optimum) |
+| Signal / Accelerate | Signal / Accelerate (giữ nguyên tên sản phẩm) |
+| gateway | gateway (giữ nguyên) |
+| enrollment key | enrollment key (khóa đăng ký gateway) |
+| bid cutoff | mốc cắt bid (bid cutoff) |
+| MEV sidecar | MEV sidecar (giữ nguyên) |
+| ADR | ADR (bản ghi quyết định kiến trúc) |
+| stream-only | chỉ stream (stream-only) |
+| block stream | block stream (luồng khối) |
+| operator | nhà vận hành (operator) |
+| staking provider | nhà cung cấp staking (staking provider) |
+| beacon node | beacon node (giữ nguyên) |
+| MEV relay | MEV relay (giữ nguyên, khác với relay là nút trung chuyển) |
+| SDK / CLI | SDK / CLI (giữ nguyên) |
+| Helm chart | Helm chart (giữ nguyên) |
+| peering | kết nối peer (peering) |
 | Disputed | Còn tranh cãi (Disputed) |
 | Not yet covered | Chưa đề cập (Not yet covered) |
 | Unverified | Chưa xác minh (Unverified) |

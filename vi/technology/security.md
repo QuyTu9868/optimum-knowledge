@@ -1,10 +1,10 @@
 ---
 title: Security, pollution attacks and audits
-last_verified: 2026-10-18
+last_verified: 2026-10-20
 status: confirmed
 lang: vi
 translation_of: technology/security.md
-source_sha: 23dfc77ffb85
+source_sha: de00285da899
 ---
 
 # Bảo mật (Security)
@@ -27,6 +27,16 @@ Trong mã hóa mạng (network coding), một nút độc hại có thể gửi 
 - Phase 2 (tháng 7 năm 2026) tìm ra 17 vấn đề, không cái nào ở mức critical: 1 high, 9 medium, 1 low, 6 informational. ([ProbeLab](https://probelab.io/blog/security-audit-report-optimum-gateway/)) [third-party]
 - Tất cả đã được sửa trong v1.0.2, trừ F-07 (medium) mới chỉ được giải quyết một phần. ([ProbeLab](https://probelab.io/blog/security-audit-report-optimum-gateway/)) [third-party]
 - Báo cáo kiểm toán nói Gateway không thay đổi logic ký của validator (nút xác thực), beacon state hay nhiệm vụ attestation (phiếu xác nhận). ([ProbeLab](https://probelab.io/blog/security-audit-report-optimum-gateway/)) [third-party]
+
+## Chưa có căn cứ cho thấy kiểm toán bao phủ (Not shown to be covered by the audit)
+
+Giai đoạn kiểm toán diễn ra vào tháng 7 năm 2026. Những bề mặt dưới đây được ghi nhận muộn hơn hoặc ở những nơi mà các nguồn không gắn với bản kiểm toán; trang này không nói rằng bản kiểm toán bao phủ chúng.
+
+- Gateway tự đăng ký bằng org join key dùng lại được và một keypair sinh cục bộ (ADR-0013, 2026-09-08). ([ADR-0013](https://github.com/getoptimum/optimum-gateway/blob/main/docs/adr/0013-gateway-self-enrollment.md)) [confirmed]
+- Luồng block dành cho consumer: bearer stream token, và gateway không tự kết thúc TLS, nên muốn mở ra công khai cần một TLS proxy (ADR-0011, 2026-08-05). Xem [../products/block-stream.md](../products/block-stream.md). ([ADR-0011](https://github.com/getoptimum/optimum-gateway/blob/main/docs/adr/0011-gateway-consumer-block-stream.md)) [confirmed]
+- Operator API key (`ovi_live_*`, `KEYSYNC_API_KEY`) cho keysync. Xem [../products/keysync.md](../products/keysync.md). ([optimum-keysync README](https://github.com/getoptimum/optimum-keysync)) [confirmed]
+- Đẩy log của gateway từ xa lên Loki của Optimum và chỉ số lên Mimir của Optimum, khi được bật. Xem [../products/run-the-gateway.md](../products/run-the-gateway.md). ([gateway manual v1.3.2: configuration](https://github.com/getoptimum/optimum-gateway/blob/main/docs/versions/v1.3.2/02_configuration.md)) [confirmed]
+- Việc gateway vai trò Hermes giữ lại block (ADR-0012). Xem [gateway-design.md](gateway-design.md). ([ADR-0012](https://github.com/getoptimum/optimum-gateway/blob/main/docs/adr/0012-slot-based-block-acceleration.md)) [confirmed]
 
 Xem thêm [sidecar-gateway.md](sidecar-gateway.md).
 

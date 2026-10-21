@@ -18,9 +18,18 @@ Mỗi dòng dữ kiện vẫn giữ nguyên link nguồn và tag `[confirmed]`, 
 - [Tối ưu có chứng minh](technology/provably-optimal.md)
 - [Topology mạng](technology/network-topologies.md)
 - [Sidecar Gateway](technology/sidecar-gateway.md)
+- [Quyết định thiết kế gateway (ADR)](technology/gateway-design.md)
 - [Flexnode](technology/flexnodes.md)
 - [Tham số](technology/parameters.md)
 - [Bảo mật](technology/security.md)
+
+**Sản phẩm (theo docs chính thức ngày 2026-10-20)**
+
+- [Console và Signal](products/console-and-signal.md)
+- [Accelerate](products/accelerate.md)
+- [Chạy Gateway](products/run-the-gateway.md)
+- [Block stream](products/block-stream.md)
+- [keysync](products/keysync.md)
 
 **Đội ngũ và lịch sử**
 
@@ -37,5 +46,6 @@ Mỗi dòng dữ kiện vẫn giữ nguyên link nguồn và tag `[confirmed]`, 
 - [Đối tác và kinh doanh](ecosystem/partners-and-business.md)
 - [Các vấn đề đã biết](code/known-issues.md)
 - [Bản phát hành](code/releases.md)
+- [SDK và công cụ cho nhà phát triển](code/sdks-and-tools.md)
 
 Các trang meta (CONTRIBUTING, unverified) chưa có bản dịch, xem [bản tiếng Anh](../README.md).

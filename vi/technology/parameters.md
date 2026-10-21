@@ -1,19 +1,19 @@
 ---
 title: Documented configuration defaults
-last_verified: 2026-10-18
+last_verified: 2026-10-20
 status: confirmed, with internal inconsistencies on the docs page
 lang: vi
 translation_of: technology/parameters.md
-source_sha: 10acee50f402
+source_sha: 4f459ad0fc94
 ---
 
 # Tham số (Parameters)
 
-Mọi giá trị lấy từ trang tham số của docs: https://docs.getoptimum.xyz/docs/guides/03-parameters (trang trả về 404 ngày 2026-10-18) [claimed]
+Mọi giá trị lấy từ trang tham số của docs: https://docs.getoptimum.xyz/docs/guides/03-parameters (trang trả về 404 ngày 2026-10-18; ngày 2026-10-20 URL này trả về 200 nhưng hiển thị trang "What Optimum does", tức là chuyển hướng sang https://docs.getoptimum.xyz/start/what-optimum-does) [claimed]
 
 Giá trị mặc định thay đổi giữa các phiên bản. Hãy kiểm tra lại trang này trước khi dựa vào một giá trị.
 
-Kiểm tra ngày 2026-10-18: trang tham số ở trên trả về HTTP 404, nên các giá trị bên dưới không thể xác minh lại. Trang docs p2p gọi các thiết lập tương tự bằng tên khác: ShredFactor (số mảnh dữ liệu (fragment) cơ sở mỗi thông điệp), PublisherShardMultiplier (số shard (mảnh mã hóa) tạo ra lúc publish bằng ShredFactor nhân giá trị này), ForwardShardThreshold (relay (nút trung chuyển) tái mã hóa và chuyển tiếp khi số shard vượt một ngưỡng, mà docs viết cả là ForwardShardThreshold lẫn là ShredFactor nhân ForwardShardThreshold) và MeshDegreeTarget, MeshDegreeMin và MeshDegreeMax. Docs không nói biến môi trường nào ứng với tên nào, nên mọi sự đối ứng với bảng bên dưới đều là suy luận. ([docs p2p](https://docs.getoptimum.xyz/docs/learn/overview/p2p)) [claimed]
+Kiểm tra ngày 2026-10-18: trang tham số ở trên trả về HTTP 404, nên các giá trị bên dưới không thể xác minh lại. Ngày 2026-10-20 trang không còn 404 nhưng không có bảng OPTIMUM_* nào, nên vẫn không thể xác minh lại các giá trị ở đó. Trang docs p2p gọi các thiết lập tương tự bằng tên khác: ShredFactor (số mảnh dữ liệu (fragment) cơ sở mỗi thông điệp), PublisherShardMultiplier (số shard (mảnh mã hóa) tạo ra lúc publish bằng ShredFactor nhân giá trị này), ForwardShardThreshold (relay (nút trung chuyển) tái mã hóa và chuyển tiếp khi số shard vượt một ngưỡng, mà docs viết cả là ForwardShardThreshold lẫn là ShredFactor nhân ForwardShardThreshold) và MeshDegreeTarget, MeshDegreeMin và MeshDegreeMax. Docs không nói biến môi trường nào ứng với tên nào, nên mọi sự đối ứng với bảng bên dưới đều là suy luận. ([docs p2p](https://docs.getoptimum.xyz/docs/learn/overview/p2p)) [claimed]
 
 ## Chế độ RLNC (RLNC mode) cho mump2p
 
@@ -47,6 +47,7 @@ Kiểm tra ngày 2026-10-18: trang tham số ở trên trả về HTTP 404, nên
 ## Cổng của Gateway (Gateway ports)
 
 - Gateway lắng nghe trên TCP 33212 cho libp2p host hướng tới client đồng thuận (consensus client), TCP 33213 cho mesh mump2p (gateway với gateway), và TCP 48123 cho máy chủ HTTP telemetry. ([Gateway README](https://github.com/getoptimum/optimum-gateway)) [confirmed]
+- Các thiết lập gateway hiện tại dùng tên `OPT_*` (`OPT_AGENT_LIB_P2P_PORT` 33212, `OPT_AGENT_MUMP2P_PORT` 33213, `OPT_TELEMETRY_PORT` 48123, stream 9600 và 9601, `OPT_LOG_LEVEL` debug). Xem [run-the-gateway](../products/run-the-gateway.md). ([gateway manual v1.3.2: configuration](https://github.com/getoptimum/optimum-gateway/blob/main/docs/versions/v1.3.2/02_configuration.md)) [confirmed]
 
 ## Còn tranh cãi (Disputed)
 
@@ -58,3 +59,4 @@ Các giá trị khác nhau giữa những phần của cùng một trang docs:
 - Thư mục identity: `/identity` và `/tmp`.
 - OPTIMUM_THRESHOLD: bảng tham số nói 0.75 là tỷ lệ shard cần có "to forward or decode". Trang docs p2p mô tả ForwardShardThreshold là ngưỡng chuyển tiếp và nói giải mã cần k shard độc lập tuyến tính. Việc OPTIMUM_THRESHOLD có phải cùng thiết lập đó hay không là giả định, không được nêu rõ. ([docs p2p](https://docs.getoptimum.xyz/docs/learn/overview/p2p)) [claimed]
 - Cổng 33212: bảng tham số liệt kê nó là cổng gRPC giữa proxy và nút P2P (SIDECAR_PORT). Gateway README dùng 33212 cho libp2p host hướng tới client đồng thuận. Có thể đây là hai sản phẩm khác nhau, và không nguồn nào nói rõ. ([Gateway README](https://github.com/getoptimum/optimum-gateway)) [confirmed]
+- Cổng 33212, cập nhật 2026-10-20: README của optimum-dev-setup-guide gọi `node-ip:33212` là "standard sidecar port" cho các nút P2P từ xa (địa chỉ client gRPC, mặc định `localhost:33212`), trong khi docs của gateway dùng 33212 cho listener libp2p hướng tới client đồng thuận. Vậy hai stack khác nhau dùng chung một số: sidecar gRPC từ proxy tới nút, và cổng client đồng thuận của gateway. Xem [run-the-gateway](../products/run-the-gateway.md). ([optimum-dev-setup-guide](https://github.com/getoptimum/optimum-dev-setup-guide), [docs: network](https://docs.getoptimum.xyz/signal/network)) [confirmed]

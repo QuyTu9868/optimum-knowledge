@@ -16,6 +16,7 @@ function matter(raw: string): { data: Record<string, any>; content: string } {
 // Sidebar order, matching the README sections. Our own data.
 export const SECTIONS: { title: string; dir: string }[] = [
   { title: "Technology", dir: "technology" },
+  { title: "Products", dir: "products" },
   { title: "Team and history", dir: "team" },
   { title: "Results", dir: "results" },
   { title: "Ecosystem", dir: "ecosystem" },
@@ -79,6 +80,7 @@ export function getViPages(): DocPage[] {
 // Group titles in Vietnamese for the sidebar and the label above a page title. Our data.
 export const SECTION_VI: Record<string, string> = {
   Technology: "Công nghệ",
+  Products: "Sản phẩm",
   "Team and history": "Đội ngũ và lịch sử",
   Results: "Kết quả",
   Ecosystem: "Hệ sinh thái",
