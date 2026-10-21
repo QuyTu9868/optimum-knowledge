@@ -1,7 +1,7 @@
 ---
 title: mump2p and libp2p GossipSub
-last_verified: 2026-10-18
-status: relationship confirmed, speed numbers disputed
+last_verified: 2026-10-21
+status: relationship confirmed, speed numbers disputed (2026-10-20 mainnet launch claims added, none independently checked)
 ---
 
 # mump2p and GossipSub
@@ -46,11 +46,15 @@ These numbers come from different setups and dates. Do not compare them as if th
 | Claim | Setting | Source | Tag |
 |---|---|---|---|
 | 50%+ lower latency, less variation vs GossipSub | Early tests, 2025 | [implementation blog, 2025-06-06](https://www.getoptimum.xyz/blog/introducing-optimump2p-implementation-and-benefits) | [claimed] |
-| 6-20x faster than gossipsub | Product page, no setup given | [product page](https://www.getoptimum.xyz/product) | [claimed] |
-| ~150ms average, at least 6x faster than GossipSub baseline | Hoodi testnet | [homepage](https://www.getoptimum.xyz/) | [claimed] |
-| 90-95% bandwidth saving vs gossipsub | Homepage, no setup given | [homepage](https://www.getoptimum.xyz/) | [claimed] |
+| 6-20x faster than gossipsub | Product page, no setup given (homepage 6-20x line gone on 2026-10-21; product page not rechecked) | [product page](https://www.getoptimum.xyz/product) | [claimed] |
+| ~150ms average, at least 6x faster than GossipSub baseline | Hoodi testnet; older homepage, no longer there on 2026-10-21 | [homepage](https://www.getoptimum.xyz/) | [claimed] |
+| 90-95% bandwidth saving vs gossipsub | Older homepage, no setup given, no longer there on 2026-10-21 | [homepage](https://www.getoptimum.xyz/) | [claimed] |
 | 2.42x faster, 7.88x lower variance | Ethereum mainnet vs libp2p baseline, posted by alan.s | [Lido PERCH post, 2026-08-10](https://research.lido.fi/t/perch-request-for-node-operators-to-run-and-test-optimum-mump2p/11786) | [claimed] |
 | No significant effect; Nimbus slower on treated nodes | 36 mainnet full nodes, no validators attached, 11.5 days, build v1.1.1, operator stefa2k | [reply in the same Lido thread, 2026-09-09](https://research.lido.fi/t/perch-request-for-node-operators-to-run-and-test-optimum-mump2p/11786) | [third-party] |
+| 2-3x faster | Ethereum mainnet, no sample or baseline given | [@get_optimum tweet, 2026-10-20](https://x.com/get_optimum/status/2112559939126206552) | [claimed] |
+| 2.5-3.5x on average; 3.3x (335 ms) over 50,292 slots, libp2p baseline measured by Xatu sentries | Ethereum mainnet, Hub data from a week before publishing | [launch blog, 2026-10-20](https://www.getoptimum.xyz/blog/3-4b-total-value-boosted-mump2p-is-live-on-ethereum-mainnet) | [claimed] |
+| 2-4x faster (avg) vs Gossipsub; Optimum first seen about 90% of the time | Ethereum mainnet, no sample given | [homepage](https://www.getoptimum.xyz/) | [claimed] |
+| Spread factor 3.21 (133.7 ms vs 429.3 ms), 31 hours, 9,281 slots, 300 gateways and 155 Xatu sentries; fetched 2026-10-21T13:50Z, values change | Ethereum mainnet, live Hub API | [network-performance API](https://console.getoptimum.xyz/api/public/network-performance) | [claimed] |
 
 ## The 2025 live speed demo
 
@@ -62,6 +66,7 @@ These numbers come from different setups and dates. Do not compare them as if th
 
 ## Disputed
 
+- **Mainnet launch speed multiple.** Tweet 2-3x, blog 2.5-3.5x (and 3.3x), homepage 2-4x, live Hub API 3.21 on 2026-10-21, against 2.42x earlier on the Lido post. Windows, samples and measures differ, and the independent early-build test above has not been answered. Details in [../results/performance.md](../results/performance.md).
 - **How much faster on mainnet.** Optimum's numbers show a clear speedup. One independent operator test on an early build found nothing significant. That test used full nodes without validators, so the attestation path was never tested. Both are reported here. When you use 2.42x, mention the independent result too.
 
 ## Not yet covered

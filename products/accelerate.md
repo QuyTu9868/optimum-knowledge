@@ -1,12 +1,12 @@
 ---
 title: Optimum Accelerate
-last_verified: 2026-10-20
+last_verified: 2026-10-21
 status: official docs only, gated by Optimum, no independent results
 ---
 
 # Optimum Accelerate
 
-Accelerate is a Console feature that recommends a bid cutoff for the MEV sidecar a validator operator already runs.
+Per the official docs (see Disputed), Accelerate is a Console feature that recommends a bid cutoff for the MEV sidecar a validator operator already runs.
 
 This page describes what the official docs say as of 2026-10-20. Account types and Console basics are in [console-and-signal.md](console-and-signal.md).
 
@@ -17,6 +17,14 @@ This page describes what the official docs say as of 2026-10-20. Account types a
 - The number comes from slots your validators already proposed. ([docs: what Accelerate does](https://docs.getoptimum.xyz/accelerate/what-accelerate-does)) [confirmed]
 - You download a config and deploy it yourself. Console never writes to your infrastructure, and Optimum has no write access to either sidecar. ([docs: what Accelerate does](https://docs.getoptimum.xyz/accelerate/what-accelerate-does), [docs: MEV sidecar configuration](https://docs.getoptimum.xyz/accelerate/adjust-mev-boost)) [confirmed]
 - The screen says accepting bids closer to the deadline captures more MEV. ([docs: what Accelerate does](https://docs.getoptimum.xyz/accelerate/what-accelerate-does)) [claimed]
+
+## Launch description (2026-10-20)
+
+- The launch post says Accelerate is "for sending data fast": it helps proposed blocks reach other validators sooner and "includes a service to optimize your bid cutoff settings". It says proposers use it first to maximise MEV bid capture, with professional trading organisations as a next target. ([blog](https://www.getoptimum.xyz/blog/3-4b-total-value-boosted-mump2p-is-live-on-ethereum-mainnet)) [claimed]
+- The homepage FAQ says Accelerate "propagates the blocks and attestations your validator sends" faster, and that both services run through the same mump2p sidecar. ([homepage](https://www.getoptimum.xyz/)) [claimed]
+- The post says Accelerate is available through self-serve onboarding to entities operating at least 200 validator keys. The homepage FAQ says operators running 200 or more validators. ([blog](https://www.getoptimum.xyz/blog/3-4b-total-value-boosted-mump2p-is-live-on-ethereum-mainnet); [homepage](https://www.getoptimum.xyz/)) [claimed]
+- The post says mump2p lets validators wait longer for a better bid while still meeting slot deadlines. ([blog](https://www.getoptimum.xyz/blog/3-4b-total-value-boosted-mump2p-is-live-on-ethereum-mainnet)) [claimed]
+- Signal, the receiving side, is on [console-and-signal](console-and-signal.md). The sending-side network is on [flexnodes](../technology/flexnodes.md).
 
 ## Who can use it
 
@@ -72,5 +80,11 @@ Neither source says the two are related, so this page treats them as separate. D
 - Whether any operator has deployed a recommendation, and what it did. No independent results found.
 - Whether the Console feature and ADR 0012 share any logic or data. Both sources are silent.
 - Terms of enablement by Optimum, and whether sub-200 operators can ever get it.
+
+## Disputed
+
+- **What Accelerate is:** the docs say it recommends a bid cutoff for the MEV sidecar and the config is deployed by the operator. The blog says it helps proposed blocks reach other validators sooner and includes a bid cutoff service. The homepage FAQ says it propagates the blocks and attestations a validator sends faster, with no mention of bid cutoffs. The homepage FAQ says sending runs through the mump2p sidecar; the blog and the docs Accelerate pages describe no sending mechanism. ([docs: what Accelerate does](https://docs.getoptimum.xyz/accelerate/what-accelerate-does); [blog](https://www.getoptimum.xyz/blog/3-4b-total-value-boosted-mump2p-is-live-on-ethereum-mainnet); [homepage](https://www.getoptimum.xyz/)) [claimed], [confirmed]
+- **Eligibility:** docs say 200 active mainnet validators, offered to entity accounts but individuals can be enabled; blog says "entities" with 200 validator keys; homepage says operators with 200 or more validators. Keys and validators may be the same count; no source says. ([docs: what Accelerate does](https://docs.getoptimum.xyz/accelerate/what-accelerate-does); [blog](https://www.getoptimum.xyz/blog/3-4b-total-value-boosted-mump2p-is-live-on-ethereum-mainnet); [homepage](https://www.getoptimum.xyz/)) [claimed], [confirmed]
+- **Enablement:** docs say Optimum enables Accelerate per organisation; the blog says "self-serve onboarding". ([docs: what Accelerate does](https://docs.getoptimum.xyz/accelerate/what-accelerate-does); [blog](https://www.getoptimum.xyz/blog/3-4b-total-value-boosted-mump2p-is-live-on-ethereum-mainnet)) [claimed], [confirmed]
 
 Related: [sidecar gateway](../technology/sidecar-gateway.md), [unverified claims](../unverified.md).

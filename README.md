@@ -44,6 +44,7 @@ When two sources disagree, the file says so under **Disputed** and lists both si
 | [products/run-the-gateway.md](products/run-the-gateway.md) | Running the gateway: container, ports, settings, health, Kubernetes |
 | [products/block-stream.md](products/block-stream.md) | The consumer block stream for accounts that do not run validators |
 | [products/keysync.md](products/keysync.md) | The keysync CLI for reconciling validator assignments |
+| [products/optimum-hub.md](products/optimum-hub.md) | The Optimum Hub dashboard, its public data endpoints, how its figures are measured and what is not verified |
 
 ### Team and history
 | File | What's in it |

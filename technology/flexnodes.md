@@ -1,6 +1,6 @@
 ---
 title: Flexnodes and the Latency Marketplace
-last_verified: 2026-10-18
+last_verified: 2026-10-21
 status: claimed, forward-looking, plans not final
 ---
 
@@ -30,6 +30,15 @@ status: claimed, forward-looking, plans not final
 - In the topology videos the receiver pays each Flexnode that supplies equations. This is described as the plan and not yet running. ([Exploring Network Topologies: Flexnodes, 2026-02-12](https://www.youtube.com/watch?v=RXHBf7SRygI)) [claimed]
 - Whether a sustainable marketplace works is described as an open question to be tested. ([Flexnodes Explained, 2026-02-10](https://www.youtube.com/watch?v=mCCcJcAzXY0)) [claimed]
 
+## Launch post usage (2026-10-20)
+
+- The mainnet post calls the Optimum Network "a global mesh of all the nodes running our chain specific network protocols" and says "We refer to these as Flexnodes". ([blog](https://www.getoptimum.xyz/blog/3-4b-total-value-boosted-mump2p-is-live-on-ethereum-mainnet)) [claimed]
+- It says Flexnodes perform RLNC sharding, encoding and decoding on block data, forward shards swiftly and create new shards, and that a larger, more geographically diverse mesh speeds delivery. ([blog](https://www.getoptimum.xyz/blog/3-4b-total-value-boosted-mump2p-is-live-on-ethereum-mainnet)) [claimed]
+- The post does not mention the Latency Marketplace, payment, or storage products. ([blog](https://www.getoptimum.xyz/blog/3-4b-total-value-boosted-mump2p-is-live-on-ethereum-mainnet)) [claimed]
+- Layering in the post: mump2p is built on RLNC, and the Optimum Network (Flexnodes) sits above it. The two services are on [../products/console-and-signal.md](../products/console-and-signal.md). ([blog](https://www.getoptimum.xyz/blog/3-4b-total-value-boosted-mump2p-is-live-on-ethereum-mainnet)) [claimed]
+
 ## Disputed
 
+- **Who counts as a Flexnode.** The blog defines Flexnodes as all nodes running Optimum's network protocols in the mesh, which reads as including validator-side mump2p nodes. The earlier video lines describe Flexnodes as separate intermediate relays, operator-run and possibly not validators, paid via a planned marketplace. The post does not say whether the 16 or 20 launch operators run Flexnodes in that sense. ([blog](https://www.getoptimum.xyz/blog/3-4b-total-value-boosted-mump2p-is-live-on-ethereum-mainnet); [Flexnodes Explained, 2026-02-10](https://www.youtube.com/watch?v=mCCcJcAzXY0))
+- **Date of the Flexnodes blog post.** The older line above dates it 2026-01-20. The post's own page metadata says published 2026-04-04, the blog listing shows April 4, 2026, and the page text also contains "January 20, 2026". The YouTube video of the same title is dated 2026-01-20, so January is probably the video date, but no source says so. ([flexnodes blog](https://www.getoptimum.xyz/blog/flexnodes-a-global-network-of-data-accelerators); [video](https://www.youtube.com/watch?v=DguSwGFvftc))
 - **Memory requests.** The docs intro says a flexnode serves memory requests. The February 2026 Flexnodes video says data at rest (updatable memory, DeRAM) is still to be added and that today Flexnodes only do propagation. ([docs intro](https://docs.getoptimum.xyz/docs/learn/overview/intro); [Flexnodes Explained, 2026-02-10](https://www.youtube.com/watch?v=mCCcJcAzXY0))

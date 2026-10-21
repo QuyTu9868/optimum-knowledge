@@ -1,6 +1,6 @@
 ---
 title: Optimum Console and Signal
-last_verified: 2026-10-20
+last_verified: 2026-10-21
 status: official docs read in full; Signal availability and report timing depend on Optimum enabling features per account
 ---
 
@@ -37,6 +37,14 @@ Ports, mounts, per-client peering and health checks are on [run-the-gateway](../
 - Signal is the gateway beside your beacon node: it receives blocks from the Optimum mesh and hands them to your consensus client. ([docs: what Signal does](https://docs.getoptimum.xyz/signal/what-signal-does)) [confirmed]
 - Optimum says this makes validators receive blocks sooner and improves attestation performance. ([docs: what Signal does](https://docs.getoptimum.xyz/signal/what-signal-does)) [claimed]
 - Optimum switches Signal on per account. Until then there is no Signal sidebar entry, the Verify check answers that it is not available, and no URL gets around it. Ask support. ([docs: what Signal does](https://docs.getoptimum.xyz/signal/what-signal-does), [docs: FAQ](https://docs.getoptimum.xyz/help/faq)) [confirmed]
+
+## Launch description (2026-10-20)
+
+- The launch post says Signal is "for receiving data fast" and "free and available to all Ethereum validator operators". It helps a node receive beacon blocks sooner, so it has more time to attest on time and to the correct head. ([blog](https://www.getoptimum.xyz/blog/3-4b-total-value-boosted-mump2p-is-live-on-ethereum-mainnet)) [claimed]
+- The homepage FAQ says Signal lets a validator receive blocks and attestations earlier than over Gossipsub alone, and calls it free for Ethereum validators. ([homepage](https://www.getoptimum.xyz/)) [claimed]
+- The post says validators sign up in the Console at console.getoptimum.xyz with self-serve setup, monitoring and admin tools, and that support is on the Discord operator channel. ([blog](https://www.getoptimum.xyz/blog/3-4b-total-value-boosted-mump2p-is-live-on-ethereum-mainnet)) [claimed]
+- The post says Signal and Accelerate are the two initial services of the Optimum Network, reached through the Console. ([blog](https://www.getoptimum.xyz/blog/3-4b-total-value-boosted-mump2p-is-live-on-ethereum-mainnet)) [claimed]
+- Accelerate is on [accelerate](../products/accelerate.md); the mesh is on [flexnodes](../technology/flexnodes.md).
 
 ## Enrollment
 
@@ -81,12 +89,14 @@ Ports, mounts, per-client peering and health checks are on [run-the-gateway](../
 
 - Terminology: the docs say "enrollment key" and the ADR says "org join key" and "Partner Console". The ADR also describes a legacy per-host ogw_ API key that the docs do not mention. ([docs: what Signal does](https://docs.getoptimum.xyz/signal/what-signal-does), [ADR 0013](https://github.com/getoptimum/optimum-gateway/blob/main/docs/adr/0013-gateway-self-enrollment.md)) [confirmed]
 - Menu names for the same Console areas vary by page: Gateways & keys (enrollment keys, consumer tokens), Stream consumers (also written "Keys" then "Stream consumers"), Manage API keys (keysync operator key; the keysync README says partners dashboard), Activate validators and Manage validators. See [block-stream](../products/block-stream.md) and [keysync](../products/keysync.md). ([docs: what Signal does](https://docs.getoptimum.xyz/signal/what-signal-does), [docs: onboard in bulk](https://docs.getoptimum.xyz/signal/onboard-in-bulk)) [confirmed]
+- Access after launch: the blog and homepage say Signal is open to any Ethereum validator operator, while the docs say Optimum switches Signal on per account. The docs are unchanged since 2026-10-20 13:04 UTC (sitemap and repo commits checked 2026-10-21), before the launch tweet. ([blog](https://www.getoptimum.xyz/blog/3-4b-total-value-boosted-mump2p-is-live-on-ethereum-mainnet); [homepage](https://www.getoptimum.xyz/); [docs: what Signal does](https://docs.getoptimum.xyz/signal/what-signal-does)) [claimed], [confirmed]
+- Blocks only vs blocks and attestations: the blog says Signal receives "beacon blocks", the homepage FAQ says "blocks and attestations", and the docs say blocks from the mesh. ([blog](https://www.getoptimum.xyz/blog/3-4b-total-value-boosted-mump2p-is-live-on-ethereum-mainnet); [homepage](https://www.getoptimum.xyz/); [docs: what Signal does](https://docs.getoptimum.xyz/signal/what-signal-does)) [claimed], [confirmed]
 - Access: the Console docs describe self-serve signup (sometimes closed), while the gateway manual is described on [run-the-gateway](../products/run-the-gateway.md) as invite-only. Signup may be open, but Signal and gateway keys are switched on per account by Optimum. ([docs: create an account](https://docs.getoptimum.xyz/getting-in/create-an-account), [docs: what Signal does](https://docs.getoptimum.xyz/signal/what-signal-does)) [confirmed]
 - The docs say the Helm chart values still describe the older API key path. ([docs: onboard in bulk](https://docs.getoptimum.xyz/signal/onboard-in-bulk)) [confirmed]
 
 ## Not yet covered
 
 - Which accounts Optimum switches Signal on for, and how long that takes, is not stated.
-- No measured numbers for earlier blocks or attestation gain are published in these pages, and they are not independently verified.
+- No independently measured numbers for earlier blocks or attestation gain were found. Optimum's own launch figures (335 ms over 50,292 slots; 51% fewer wrong head votes for one operator) are in the blog and on [performance](../results/performance.md). ([blog](https://www.getoptimum.xyz/blog/3-4b-total-value-boosted-mump2p-is-live-on-ethereum-mainnet)) [claimed]
 - The signup agreement terms are not summarised in the docs.
 - What the stake figures asked at registration are used for is not stated.
