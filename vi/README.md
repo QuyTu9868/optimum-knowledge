@@ -30,6 +30,7 @@ Mỗi dòng dữ kiện vẫn giữ nguyên link nguồn và tag `[confirmed]`, 
 - [Chạy Gateway](products/run-the-gateway.md)
 - [Block stream](products/block-stream.md)
 - [keysync](products/keysync.md)
+- [Optimum Hub](products/optimum-hub.md)
 
 **Đội ngũ và lịch sử**
 

@@ -1,10 +1,10 @@
 ---
 title: mump2p and libp2p GossipSub
-last_verified: 2026-10-18
-status: relationship confirmed, speed numbers disputed
+last_verified: 2026-10-21
+status: relationship confirmed, speed numbers disputed (2026-10-20 mainnet launch claims added, none independently checked)
 lang: vi
 translation_of: technology/mump2p-and-gossipsub.md
-source_sha: eccab4949287
+source_sha: 3835ed244774
 ---
 
 # mump2p và GossipSub
@@ -49,11 +49,15 @@ Các con số này đến từ những thiết lập và thời điểm khác nh
 | Tuyên bố | Bối cảnh | Nguồn | Tag |
 |---|---|---|---|
 | Độ trễ thấp hơn 50%+, ít biến động hơn so với GossipSub | Thử nghiệm ban đầu, 2025 | [implementation blog, 2025-06-06](https://www.getoptimum.xyz/blog/introducing-optimump2p-implementation-and-benefits) | [claimed] |
-| Nhanh hơn gossipsub 6-20x | Trang sản phẩm, không nêu thiết lập | [product page](https://www.getoptimum.xyz/product) | [claimed] |
-| Trung bình ~150ms, nhanh hơn baseline GossipSub ít nhất 6x | Hoodi testnet | [homepage](https://www.getoptimum.xyz/) | [claimed] |
-| Tiết kiệm băng thông (bandwidth) 90-95% so với gossipsub | Trang chủ, không nêu thiết lập | [homepage](https://www.getoptimum.xyz/) | [claimed] |
+| Nhanh hơn gossipsub 6-20x | Trang sản phẩm, không nêu thiết lập (dòng 6-20x trên homepage đã biến mất ngày 2026-10-21; chưa kiểm lại trang sản phẩm) | [product page](https://www.getoptimum.xyz/product) | [claimed] |
+| Trung bình ~150ms, nhanh hơn baseline GossipSub ít nhất 6x | Hoodi testnet; homepage bản cũ, không còn ngày 2026-10-21 | [homepage](https://www.getoptimum.xyz/) | [claimed] |
+| Tiết kiệm băng thông (bandwidth) 90-95% so với gossipsub | Homepage bản cũ, không nêu thiết lập, không còn ngày 2026-10-21 | [homepage](https://www.getoptimum.xyz/) | [claimed] |
 | Nhanh hơn 2.42x, phương sai thấp hơn 7.88x | Ethereum mainnet so với baseline libp2p, do alan.s đăng | [Lido PERCH post, 2026-08-10](https://research.lido.fi/t/perch-request-for-node-operators-to-run-and-test-optimum-mump2p/11786) | [claimed] |
 | Không có tác động đáng kể; Nimbus chậm hơn trên các nút được thử | 36 full node mainnet, không gắn validator, 11.5 ngày, build v1.1.1, operator stefa2k | [reply in the same Lido thread, 2026-09-09](https://research.lido.fi/t/perch-request-for-node-operators-to-run-and-test-optimum-mump2p/11786) | [third-party] |
+| Nhanh hơn 2-3x | Ethereum mainnet, không nêu mẫu hay baseline | [@get_optimum tweet, 2026-10-20](https://x.com/get_optimum/status/2112559939126206552) | [claimed] |
+| Trung bình 2.5-3.5x; 3.3x (335 ms) trên 50,292 slot, baseline libp2p do các Xatu sentry đo | Ethereum mainnet, dữ liệu Hub từ một tuần trước khi đăng | [launch blog, 2026-10-20](https://www.getoptimum.xyz/blog/3-4b-total-value-boosted-mump2p-is-live-on-ethereum-mainnet) | [claimed] |
+| Nhanh hơn 2-4x (trung bình) so với Gossipsub; đường Optimum là nguồn nhận được tin đầu tiên khoảng 90% số lần | Ethereum mainnet, không nêu mẫu | [homepage](https://www.getoptimum.xyz/) | [claimed] |
+| Spread factor 3.21 (133.7 ms so với 429.3 ms), 31 giờ, 9,281 slot, 300 gateway và 155 Xatu sentry; lấy lúc 2026-10-21T13:50Z, giá trị thay đổi | Ethereum mainnet, Hub API trực tiếp | [network-performance API](https://console.getoptimum.xyz/api/public/network-performance) | [claimed] |
 
 ## Bản demo tốc độ trực tiếp năm 2025 (The 2025 live speed demo)
 
@@ -65,6 +69,7 @@ Các con số này đến từ những thiết lập và thời điểm khác nh
 
 ## Còn tranh cãi (Disputed)
 
+- **Mức nhân tốc độ khi ra mắt mainnet.** Tweet nói 2-3x, blog 2.5-3.5x (và 3.3x), homepage 2-4x, Hub API trực tiếp 3.21 ngày 2026-10-21, so với 2.42x trước đó trên bài Lido. Cửa sổ đo, mẫu và cách đo khác nhau, và bài thử độc lập trên bản build đầu ở trên vẫn chưa được đáp lại. Chi tiết trong [../results/performance.md](../results/performance.md).
 - **Nhanh hơn bao nhiêu trên mainnet.** Số liệu của Optimum cho thấy tốc độ tăng rõ rệt. Một bài thử của operator độc lập trên bản build đầu không thấy khác biệt đáng kể. Bài thử đó dùng full node không gắn validator, nên đường attestation (phiếu xác nhận) chưa hề được kiểm tra. Cả hai đều được ghi lại ở đây. Khi dùng con số 2.42x, hãy nhắc cả kết quả độc lập.
 
 ## Chưa đề cập (Not yet covered)

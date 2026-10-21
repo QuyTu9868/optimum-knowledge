@@ -1,10 +1,10 @@
 ---
 title: Optimum Console and Signal
-last_verified: 2026-10-20
+last_verified: 2026-10-21
 status: official docs read in full; Signal availability and report timing depend on Optimum enabling features per account
 lang: vi
 translation_of: products/console-and-signal.md
-source_sha: ec1a5ccd0b78
+source_sha: 3173f33b6a08
 ---
 
 # Optimum Console và Signal (Optimum Console and Signal)
@@ -40,6 +40,14 @@ Cổng, mount, kết nối peer (peering) theo từng client và health check n�
 - Signal là gateway đặt cạnh beacon node của bạn: nó nhận khối từ mesh của Optimum và đưa cho client đồng thuận của bạn. ([docs: what Signal does](https://docs.getoptimum.xyz/signal/what-signal-does)) [confirmed]
 - Optimum nói rằng nhờ vậy validator nhận khối sớm hơn và hiệu suất attestation (phiếu xác nhận) tốt hơn. ([docs: what Signal does](https://docs.getoptimum.xyz/signal/what-signal-does)) [claimed]
 - Optimum bật Signal theo từng tài khoản. Cho tới lúc đó, thanh bên không có mục Signal, bước kiểm tra Verify trả lời là chưa khả dụng, và không có URL nào đi vòng được. Hãy hỏi support. ([docs: what Signal does](https://docs.getoptimum.xyz/signal/what-signal-does), [docs: FAQ](https://docs.getoptimum.xyz/help/faq)) [confirmed]
+
+## Mô tả khi ra mắt (Launch description, 2026-10-20)
+
+- Bài ra mắt nói Signal là "for receiving data fast" và "free and available to all Ethereum validator operators". Nó giúp một nút nhận beacon block sớm hơn, nên có thêm thời gian để attest đúng hạn và đúng head. ([blog](https://www.getoptimum.xyz/blog/3-4b-total-value-boosted-mump2p-is-live-on-ethereum-mainnet)) [claimed]
+- FAQ trên homepage nói Signal cho validator nhận khối và attestation sớm hơn so với chỉ dùng Gossipsub, và gọi nó là miễn phí cho validator Ethereum. ([homepage](https://www.getoptimum.xyz/)) [claimed]
+- Bài đăng nói validator đăng ký trong Console tại console.getoptimum.xyz với thiết lập tự phục vụ, công cụ giám sát và quản trị, và hỗ trợ nằm ở kênh Discord dành cho operator. ([blog](https://www.getoptimum.xyz/blog/3-4b-total-value-boosted-mump2p-is-live-on-ethereum-mainnet)) [claimed]
+- Bài đăng nói Signal và Accelerate là hai dịch vụ đầu tiên của Optimum Network, truy cập qua Console. ([blog](https://www.getoptimum.xyz/blog/3-4b-total-value-boosted-mump2p-is-live-on-ethereum-mainnet)) [claimed]
+- Accelerate nằm ở [accelerate](../products/accelerate.md); mesh nằm ở [flexnodes](../technology/flexnodes.md).
 
 ## Đăng ký gateway (Enrollment)
 
@@ -84,12 +92,14 @@ Cổng, mount, kết nối peer (peering) theo từng client và health check n�
 
 - Thuật ngữ: docs gọi là "enrollment key" còn ADR (bản ghi quyết định kiến trúc) gọi là "org join key" và "Partner Console". ADR cũng mô tả một API key cũ theo từng máy chủ có tiền tố ogw_ mà docs không nhắc tới. ([docs: what Signal does](https://docs.getoptimum.xyz/signal/what-signal-does), [ADR 0013](https://github.com/getoptimum/optimum-gateway/blob/main/docs/adr/0013-gateway-self-enrollment.md)) [confirmed]
 - Tên menu cho cùng các khu vực của Console khác nhau tùy trang: Gateways & keys (enrollment key, consumer token), Stream consumers (cũng được viết là "Keys" rồi "Stream consumers"), Manage API keys (khóa operator của keysync; README của keysync nói là partners dashboard), Activate validators và Manage validators. Xem [block-stream](../products/block-stream.md) và [keysync](../products/keysync.md). ([docs: what Signal does](https://docs.getoptimum.xyz/signal/what-signal-does), [docs: onboard in bulk](https://docs.getoptimum.xyz/signal/onboard-in-bulk)) [confirmed]
+- Truy cập sau khi ra mắt: blog và homepage nói Signal mở cho mọi operator validator Ethereum, còn docs nói Optimum bật Signal theo từng tài khoản. Docs không đổi kể từ 2026-10-20 13:04 UTC (đã kiểm sitemap và commit của repo ngày 2026-10-21), tức trước tweet ra mắt. ([blog](https://www.getoptimum.xyz/blog/3-4b-total-value-boosted-mump2p-is-live-on-ethereum-mainnet); [homepage](https://www.getoptimum.xyz/); [docs: what Signal does](https://docs.getoptimum.xyz/signal/what-signal-does)) [claimed], [confirmed]
+- Chỉ khối so với khối và attestation: blog nói Signal nhận "beacon blocks", FAQ homepage nói "blocks and attestations", còn docs nói khối từ mesh. ([blog](https://www.getoptimum.xyz/blog/3-4b-total-value-boosted-mump2p-is-live-on-ethereum-mainnet); [homepage](https://www.getoptimum.xyz/); [docs: what Signal does](https://docs.getoptimum.xyz/signal/what-signal-does)) [claimed], [confirmed]
 - Truy cập: docs của Console mô tả đăng ký tự phục vụ (đôi khi đóng), trong khi sổ tay gateway được mô tả ở [run-the-gateway](../products/run-the-gateway.md) là chỉ theo lời mời. Việc đăng ký có thể đang mở, nhưng Signal và khóa gateway được Optimum bật theo từng tài khoản. ([docs: create an account](https://docs.getoptimum.xyz/getting-in/create-an-account), [docs: what Signal does](https://docs.getoptimum.xyz/signal/what-signal-does)) [confirmed]
 - Docs nói rằng giá trị của Helm chart vẫn mô tả đường dùng API key cũ. ([docs: onboard in bulk](https://docs.getoptimum.xyz/signal/onboard-in-bulk)) [confirmed]
 
 ## Chưa đề cập (Not yet covered)
 
 - Optimum bật Signal cho những tài khoản nào, và mất bao lâu, không được nêu.
-- Các trang này không công bố số đo nào về khối đến sớm hơn hay mức cải thiện attestation, và chúng chưa được xác minh độc lập.
+- Chưa tìm thấy số đo độc lập nào về khối đến sớm hơn hay mức cải thiện attestation. Các con số ra mắt của chính Optimum (335 ms trên 50,292 slot; giảm 51% phiếu sai head với một operator) nằm trong blog và ở [performance](../results/performance.md). ([blog](https://www.getoptimum.xyz/blog/3-4b-total-value-boosted-mump2p-is-live-on-ethereum-mainnet)) [claimed]
 - Điều khoản của thỏa thuận đăng ký không được tóm tắt trong docs.
 - Các con số stake hỏi lúc đăng ký được dùng vào việc gì thì không được nêu.

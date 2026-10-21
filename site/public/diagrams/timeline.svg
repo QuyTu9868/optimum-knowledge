@@ -63,18 +63,15 @@
   <text x="930" y="280" fill="#F2F2F3" font-size="14" font-weight="600" text-anchor="middle">supported</text>
   <text x="930" y="298" fill="#969698" font-size="12" text-anchor="middle">2026-09-17</text>
 
-  <!-- 9 claimed + disputed -->
+  <!-- 9 claimed: launch announcement -->
   <circle cx="1100" cy="190" r="10" fill="#282C35" stroke="#E3C27A" stroke-width="2" stroke-dasharray="4 3"/>
-  <text x="1100" y="195" fill="#E3C27A" font-size="13" font-weight="700" text-anchor="middle">?</text>
   <line x1="1100" y1="178" x2="1100" y2="140" stroke="#5B616D"/>
-  <text x="1100" y="74" fill="#F2F2F3" font-size="14" font-weight="600" text-anchor="middle">Optimum Mainnet:</text>
-  <text x="1100" y="92" fill="#F2F2F3" font-size="14" font-weight="600" text-anchor="middle">"coming soon"</text>
-  <text x="1100" y="110" fill="#969698" font-size="12" text-anchor="middle">2026</text>
-  <text x="1100" y="128" fill="#E3C27A" font-size="11" font-weight="700" text-anchor="middle" letter-spacing="1">DISPUTED</text>
-  <text x="1100" y="232" fill="#969698" font-size="11" text-anchor="middle">Likely: Gateway</text>
-  <text x="1100" y="246" fill="#969698" font-size="11" text-anchor="middle">runs on Ethereum</text>
-  <text x="1100" y="260" fill="#969698" font-size="11" text-anchor="middle">mainnet; own network</text>
-  <text x="1100" y="274" fill="#969698" font-size="11" text-anchor="middle">not announced</text>
+  <text x="1100" y="74" fill="#F2F2F3" font-size="14" font-weight="600" text-anchor="middle">mump2p live on</text>
+  <text x="1100" y="92" fill="#F2F2F3" font-size="14" font-weight="600" text-anchor="middle">Ethereum mainnet</text>
+  <text x="1100" y="110" fill="#969698" font-size="12" text-anchor="middle">2026-10-20</text>
+  <text x="1100" y="232" fill="#969698" font-size="11" text-anchor="middle">Announced by Optimum;</text>
+  <text x="1100" y="246" fill="#969698" font-size="11" text-anchor="middle">speed and stake figures</text>
+  <text x="1100" y="260" fill="#969698" font-size="11" text-anchor="middle">differ by source</text>
 
   <!-- legend -->
   <g font-size="12" fill="#969698">

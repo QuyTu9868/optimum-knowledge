@@ -275,8 +275,8 @@ const DIAGRAMS: Record<string, Diagram[]> = {
   "team/timeline.md": [
     {
       src: "timeline.svg",
-      alt: "Timeline from core RLNC papers (2002-2006) to Optimum founded (2024), launch and seed (2025-04-15), Hoodi tests report, Gateway source public, Lido PERCH call, ProbeLab audit, Gateway v1.3.2, and a disputed Optimum mainnet status.",
-      caption: "Milestones from the sources on this page. Dashed nodes are company claims; mainnet status is disputed.",
+      alt: "Timeline from core RLNC papers (2002-2006) to Optimum founded (2024), launch and seed (2025-04-15), Hoodi tests report, Gateway source public, Lido PERCH call, ProbeLab audit, Gateway v1.3.2, and the 2026-10-20 announcement that mump2p is live on Ethereum mainnet.",
+      caption: "Milestones from the sources on this page. Dashed nodes are company claims; the mainnet launch is Optimum's own announcement and its speed and stake figures differ by source.",
     },
   ],
 };
@@ -320,8 +320,8 @@ const DIAGRAM_VI: Record<string, { alt: string; caption: string }> = {
     caption: "Bốn trong số các cách đến được nhiều nút, theo giải thích của Optimum (daisy chain có trong phần chữ). Đây là mô hình để giảng giải, không phải số đo.",
   },
   "timeline.svg": {
-    alt: "Dòng thời gian từ các bài báo RLNC nền tảng (2002-2006) đến Optimum thành lập (2024), ra mắt và vòng seed (2025-04-15), báo cáo thử nghiệm Hoodi, mã nguồn Gateway công khai, cuộc gọi Lido PERCH, kiểm toán ProbeLab, Gateway v1.3.2, và trạng thái mainnet của Optimum còn tranh cãi.",
-    caption: "Các mốc từ nguồn trên trang này. Nút nét đứt là tuyên bố của công ty; trạng thái mainnet còn tranh cãi.",
+    alt: "Dòng thời gian từ các bài báo RLNC nền tảng (2002-2006) đến Optimum thành lập (2024), ra mắt và vòng seed (2025-04-15), báo cáo thử nghiệm Hoodi, mã nguồn Gateway công khai, cuộc gọi Lido PERCH, kiểm toán ProbeLab, Gateway v1.3.2, và thông báo ngày 2026-10-20 rằng mump2p đã chạy trên mainnet Ethereum.",
+    caption: "Các mốc từ nguồn trên trang này. Nút nét đứt là tuyên bố của công ty; việc ra mắt mainnet là thông báo của chính Optimum, còn số liệu tốc độ và stake khác nhau tùy nguồn.",
   },
 };
 
