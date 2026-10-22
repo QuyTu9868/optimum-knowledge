@@ -13,7 +13,8 @@ const MAX_TRIES = 3; // our constant
 // Tokens the model may spend thinking. Measured 2026-10-16 on 6 test questions: 256 passed 6/6 in ~12 s, 1024 passed 5/6 and 6/6
 // in ~13-15 s, and 0 is rejected by this model (HTTP error). Omitting the setting earlier lost facts phrased differently from the question.
 const THINKING_BUDGET = Number(process.env.THINKING_BUDGET ?? 256); // can be overridden with the THINKING_BUDGET env var
-const TIMEOUT_MS = 30_000; // never leave the user waiting longer than this
+const TIMEOUT_MS = 28_000; // never leave the user waiting longer than this (the route allows 30 s)
+const HEDGE_MS = 8_000; // a call still silent after this long gets a second parallel call; most answers arrive in 2 to 5 s
 const CONTENT_ROOT = path.join(process.cwd(), "content");
 
 const SYSTEM_PROMPT = `You answer questions about Optimum (getoptimum.xyz) using ONLY the knowledge base text given below. It may be excerpts: the sections that matched the question.
@@ -30,7 +31,7 @@ Rules:
 - If a file lists the topic under "Disputed", give both sides and say it is disputed.
 - If the topic appears in unverified.md, say it has no supporting source yet.
 - Short: at most about 120 words, bullet points welcome.
-- Reply in the same language as the question: English question, English answer; Vietnamese question, Vietnamese answer.
+- Reply in the language named under ANSWER LANGUAGE at the end of the input, even though the files are in English: English question, English answer; Vietnamese question, Vietnamese answer (all text in the answer, including the words that introduce each fact).
 - Write normal text with full accents and diacritics for that language. Do not use LaTeX or $...$ math. No em dashes.`;
 
 let knowledge: string | null = null; // cached once per server process
@@ -70,6 +71,7 @@ function loadChunks(): Chunk[] | null {
 
 const TOP_SECTIONS = 10; // our constant: sections sent per question
 const MAX_CHARS = 16_000; // our constant: cap on the text sent
+const WIDE = { top: 24, chars: 40_000 }; // our constant: second, wider look when the first excerpts did not answer
 
 const cosine = (a: number[], b: number[]) => {
   let dot = 0, na = 0, nb = 0;
@@ -78,21 +80,36 @@ const cosine = (a: number[], b: number[]) => {
 };
 
 // The matching sections as one text block, or null if retrieval is not possible. Our helper.
-async function retrieve(question: string, key: string): Promise<string | null> {
+// Word-overlap score, used when the embedding call is not available (rate limit, timeout). No network, so it cannot fail. Our helper.
+function lexicalScores(question: string, chunks: Chunk[]): number[] {
+  const words = [...new Set(plain(question).split(/[^a-z0-9]+/).filter((w) => w.length > 2))];
+  const docs = chunks.map((c) => plain(`${c.file} ${c.heading} ${c.text}`));
+  const df = words.map((w) => docs.filter((d) => d.includes(w)).length);
+  return docs.map((d) => words.reduce((sum, w, i) => sum + (d.includes(w) ? Math.log(1 + chunks.length / (1 + df[i])) : 0), 0));
+}
+
+async function retrieve(question: string, key: string, wide = false): Promise<string | null> {
   const chunks = loadChunks();
   if (!chunks?.length) return null;
+  const top = wide ? WIDE.top : TOP_SECTIONS;
+  const cap = wide ? WIDE.chars : MAX_CHARS;
   try {
-    const res = await fetch("https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:embedContent", {
-      method: "POST",
-      headers: { "content-type": "application/json", "x-goog-api-key": key },
-      signal: AbortSignal.timeout(6_000),
-      body: JSON.stringify({ content: { parts: [{ text: question }] }, taskType: "RETRIEVAL_QUERY", outputDimensionality: chunks[0].vec.length }),
-    });
-    if (!res.ok) return null;
-    const q: number[] = (await res.json()).embedding?.values;
-    if (!q?.length) return null;
+    let scores: number[] | null = null;
+    try {
+      const res = await fetch("https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:embedContent", {
+        method: "POST",
+        headers: { "content-type": "application/json", "x-goog-api-key": key },
+        signal: AbortSignal.timeout(5_000),
+        body: JSON.stringify({ content: { parts: [{ text: question }] }, taskType: "RETRIEVAL_QUERY", outputDimensionality: chunks[0].vec.length }),
+      });
+      const q: number[] | undefined = res.ok ? (await res.json()).embedding?.values : undefined;
+      if (q?.length) scores = chunks.map((c) => cosine(q, c.vec));
+    } catch {
+      scores = null;
+    }
+    if (!scores) scores = lexicalScores(question, chunks); // embedding unavailable: still send only the best-matching sections, not the whole repo
     const picked = new Set(
-      chunks.map((c, i) => ({ i, score: cosine(q, c.vec) })).sort((a, b) => b.score - a.score).slice(0, TOP_SECTIONS).map((x) => x.i),
+      scores.map((score, i) => ({ i, score })).sort((a, b) => b.score - a.score).slice(0, top).map((x) => x.i),
     );
     // A fact and its "Disputed" section belong together, so add the Disputed section of every file we picked from.
     const files = new Set([...picked].map((i) => chunks[i].file));
@@ -100,7 +117,7 @@ async function retrieve(question: string, key: string): Promise<string | null> {
     let total = 0;
     const byFile = new Map<string, string[]>();
     for (const i of [...picked].sort((a, b) => a - b)) {
-      if (total + chunks[i].text.length > MAX_CHARS) continue;
+      if (total + chunks[i].text.length > cap) continue;
       total += chunks[i].text.length;
       byFile.set(chunks[i].file, [...(byFile.get(chunks[i].file) ?? []), chunks[i].text]);
     }
@@ -218,13 +235,26 @@ function parseAnswer(text: string): { covered?: boolean; answer: string; sources
   }
 }
 
+// Name the answer language ourselves: the files are English, and the model sometimes follows them instead of the question. Our helper.
+function languageHint(question: string): string {
+  const vi = /[ăâđêôơưàáảãạằắẳẵặầấẩẫậèéẻẽẹềếểễệìíỉĩịòóỏõọồốổỗộờớởỡợùúủũụừứửữựỳýỷỹỵ]/i.test(question);
+  return `=== ANSWER LANGUAGE ===\n${vi ? "Vietnamese, with full diacritics" : "the same language as the question above"} (not the language of the files)`;
+}
+
 export async function ask(question: string): Promise<AskResult> {
   const key = process.env.GEMINI_API_KEY ?? "";
-  const input = `=== QUESTION ===\n${question}`;
+  const deadline = Date.now() + TIMEOUT_MS; // one time budget for everything below
+  const input = `=== QUESTION ===\n${question}\n\n${languageHint(question)}`;
   const excerpts = key ? await retrieve(question, key) : null;
-  let r = await callGemini(SYSTEM_PROMPT, excerpts ?? loadKnowledge(), input);
-  // The model says it found nothing relevant in the excerpts: look again in the whole repo before giving up.
-  if (r.ok && excerpts && parseAnswer(r.text)?.covered === false) r = await callGemini(SYSTEM_PROMPT, loadKnowledge(), input);
+  let r = await callGemini(SYSTEM_PROMPT, excerpts ?? loadKnowledge(), input, deadline);
+  // The model says it found nothing relevant in the excerpts: look wider (more sections), if there is time left.
+  if (r.ok && excerpts && parseAnswer(r.text)?.covered === false && deadline - Date.now() > 9_000) {
+    const wider = await retrieve(question, key, true);
+    if (wider) {
+      const second = await callGemini(SYSTEM_PROMPT, wider, input, deadline);
+      if (second.ok) r = second;
+    }
+  }
   if (!r.ok) return r;
   const parsed = parseAnswer(r.text);
   if (!parsed) return { ok: true, html: toHtml(r.text) + peopleStrip(r.text), usage: r.usage }; // not JSON: show the plain text, no source list
@@ -247,38 +277,65 @@ const RESPONSE_SCHEMA = {
 };
 
 // One Gemini call with the whole knowledge base in front of the given input. Our helper.
-async function callGemini(system: string, knowledgeText: string, input: string): Promise<GeminiText> {
+async function callGemini(system: string, knowledgeText: string, input: string, deadline: number): Promise<GeminiText> {
   const key = process.env.GEMINI_API_KEY;
   if (!key) return { ok: false, status: 500, error: "The AI assistant is not configured on this server (missing GEMINI_API_KEY)." };
 
-  // 503 means Google is overloaded right now and waiting helps: retry. Never retry 429 (quota) or other errors.
-  const started = Date.now();
-  let res: Response | undefined;
-  for (let attempt = 1; attempt <= MAX_TRIES; attempt++) {
-    try {
-      res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`, {
+  // Gemini answers in 2 to 5 s most of the time, but some calls hang for 20 s or end in 503 (overloaded). So instead of waiting
+  // on one call: if a call is still silent after HEDGE_MS, or it ends in 503 or a network error, start another one right away
+  // (up to MAX_TRIES calls), and use whichever answers first. Never retry 429 (quota) or other errors: waiting does not fix them.
+  const body = JSON.stringify({
+    systemInstruction: { parts: [{ text: system }] },
+    contents: [{ role: "user", parts: [{ text: `${knowledgeText}\n\n${input}` }] }],
+    generationConfig: { temperature: 0.2, thinkingConfig: { thinkingBudget: THINKING_BUDGET }, responseMimeType: "application/json", responseSchema: RESPONSE_SCHEMA },
+  });
+  const controllers = new Map<number, AbortController>();
+  const inflight = new Map<number, Promise<[number, Response | null]>>();
+  let launched = 0;
+  const launch = () => {
+    const id = ++launched;
+    const ctl = new AbortController();
+    controllers.set(id, ctl);
+    const timer = setTimeout(() => ctl.abort(), Math.max(3_000, deadline - Date.now()));
+    inflight.set(
+      id,
+      fetch(`https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`, {
         method: "POST",
         headers: { "content-type": "application/json", "x-goog-api-key": key },
-        signal: AbortSignal.timeout(Math.max(5_000, TIMEOUT_MS - (Date.now() - started))), // one shared time budget
-        body: JSON.stringify({
-          systemInstruction: { parts: [{ text: system }] },
-          contents: [{ role: "user", parts: [{ text: `${knowledgeText}\n\n${input}` }] }],
-          generationConfig: { temperature: 0.2, thinkingConfig: { thinkingBudget: THINKING_BUDGET }, responseMimeType: "application/json", responseSchema: RESPONSE_SCHEMA },
-        }),
-      });
-    } catch {
-      return { ok: false, status: 504, error: "Gemini did not answer within 30 seconds. Try again, or ask a shorter question." };
-    }
-    if (res.status !== 503 || attempt === MAX_TRIES || Date.now() - started > 14_000) break; // keep room for a slow answer inside the 30 s budget
-    await new Promise((r) => setTimeout(r, 1_500 * attempt));
-  }
-  if (!res) return { ok: false, status: 502, error: "No answer from Gemini. Try again in a moment." };
+        signal: ctl.signal,
+        body,
+      }).then(
+        (r) => { clearTimeout(timer); return [id, r] as [number, Response | null]; },
+        () => { clearTimeout(timer); return [id, null] as [number, Response | null]; },
+      ),
+    );
+  };
 
-  const body = await res.json().catch(() => null);
+  let res: Response | undefined;
+  let winner = 0; // id of the call whose answer we use: its body is still being read, so it must not be aborted
+  let last503: Response | undefined;
+  launch();
+  while (inflight.size > 0 && !res && Date.now() < deadline) {
+    const hedge = new Promise<"hedge">((resolve) => setTimeout(() => resolve("hedge"), Math.min(HEDGE_MS, Math.max(0, deadline - Date.now()))));
+    const got = await Promise.race([...inflight.values(), hedge]);
+    if (got === "hedge") {
+      if (launched < MAX_TRIES && deadline - Date.now() > 4_000) launch(); // still silent: add a second call, keep the first running
+      continue;
+    }
+    const [id, r] = got;
+    inflight.delete(id);
+    if (r && r.status !== 503) { res = r; winner = id; break; } // an answer, or an error that retrying would not fix
+    if (r) last503 = r;
+    if (launched < MAX_TRIES && deadline - Date.now() > 4_000) launch(); // 503 or network error: try again right away
+  }
+  controllers.forEach((c, id) => { if (id !== winner) c.abort(); }); // stop the calls that lost the race
+  res = res ?? last503;
+  if (!res) return { ok: false, status: 504, error: "Gemini did not answer in time. Try again, or ask a shorter question." };
+  const reply = await res.json().catch(() => null);
 
   if (res.status === 429) {
     // Two different limits look the same. Per-day quota: waiting does not help, retrying burns more quota. Do not retry.
-    const perDay = JSON.stringify(body ?? "").includes("PerDay");
+    const perDay = JSON.stringify(reply ?? "").includes("PerDay");
     return perDay
       ? { ok: false, status: 429, error: "The free daily limit for the AI assistant is used up. It resets tomorrow (Pacific time). The docs pages and search still work." }
       : { ok: false, status: 429, error: "Too many questions in the last minute. Wait about one minute, then ask again." };
@@ -287,12 +344,12 @@ async function callGemini(system: string, knowledgeText: string, input: string):
     return { ok: false, status: 502, error: `Gemini returned an error (HTTP ${res.status}). Try again in a moment.` };
   }
 
-  const text: string | undefined = body?.candidates?.[0]?.content?.parts?.map((p: { text?: string }) => p.text ?? "").join("");
+  const text: string | undefined = reply?.candidates?.[0]?.content?.parts?.map((p: { text?: string }) => p.text ?? "").join("");
   if (!text?.trim()) {
-    const reason = body?.candidates?.[0]?.finishReason ?? body?.promptFeedback?.blockReason ?? "unknown";
+    const reason = reply?.candidates?.[0]?.finishReason ?? reply?.promptFeedback?.blockReason ?? "unknown";
     return { ok: false, status: 502, error: `Gemini returned an empty answer (reason: ${reason}). Try rephrasing the question.` };
   }
 
-  const u = body?.usageMetadata;
+  const u = reply?.usageMetadata;
   return { ok: true, text, usage: { promptTokens: u?.promptTokenCount, outputTokens: u?.candidatesTokenCount, totalTokens: u?.totalTokenCount } };
 }
