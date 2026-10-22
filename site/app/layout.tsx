@@ -4,6 +4,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { getNav, getViPages, SECTIONS, SECTION_VI } from "@/lib/content";
 import Sidebar from "./Sidebar";
 import LangSwitch from "./LangSwitch";
+import ThemeToggle from "./ThemeToggle";
 import Search from "./Search";
 import Mascot from "./Mascot";
 import "./globals.css";
@@ -41,7 +42,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   const viHrefs = viPages.map((p) => "/" + p.slug.join("/").replace(/^vi/, "")).filter((h) => h !== "/"); // english urls that have a Vietnamese copy
 
   return (
-    <html lang="en" className={`${sans.variable} ${mono.variable}`}>
+    <html lang="en" className={`${sans.variable} ${mono.variable}`} suppressHydrationWarning>
+      <head>
+        {/* Apply the saved theme before the first paint so the page does not flash the wrong colours. */}
+        <script dangerouslySetInnerHTML={{ __html: "try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t}catch(e){}" }} />
+      </head>
       <body>
         <header className="topbar">
           <Link href="/" className="brand">
@@ -51,6 +56,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <div className="topbar-right">
             <Search />
             <LangSwitch viHrefs={viHrefs} />
+            <ThemeToggle />
             <span className="community-pill">Community<span className="pill-extra"> project</span></span>
           </div>
         </header>

@@ -1,7 +1,7 @@
 import re
 """Tiny SVG helper for the technology diagrams: same palette everywhere, and text must fit its box."""
-BG, PANEL, PANEL2 = "#282C35", "#30353F", "#3A3F4A"
-LINE, DIM, WHITE, TEXT, MUTED = "#969698", "#5B616D", "#F2F2F3", "#D9DADC", "#B4B6BC"
+BG, PANEL, PANEL2 = "#171B2E", "#1E2340", "#272D50"
+LINE, DIM, WHITE, TEXT, MUTED = "#8F97BF", "#4A5280", "#F2F2F3", "#D6D9EA", "#B4B9D6"
 CODED, WARN, BLUE, GREEN, RED = "#A6B0FF", "#E3C27A", "#93C3EA", "#9FD3A6", "#E5A3A3"
 FONT = "Helvetica Neue, Arial, sans-serif"
 LANG, TR, MISSING = "en", {}, set()  # LANG = "vi" swaps every drawn string through TR (English string -> Vietnamese)

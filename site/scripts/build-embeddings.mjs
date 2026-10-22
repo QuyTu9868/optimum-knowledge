@@ -41,14 +41,21 @@ function sections() {
 }
 
 async function embed(texts, key) {
-  const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:batchEmbedContents`, {
-    method: "POST",
-    headers: { "content-type": "application/json", "x-goog-api-key": key },
-    signal: AbortSignal.timeout(60_000),
-    body: JSON.stringify({
-      requests: texts.map((t) => ({ model: `models/${MODEL}`, content: { parts: [{ text: t.slice(0, 6000) }] }, taskType: "RETRIEVAL_DOCUMENT", outputDimensionality: DIMS })),
-    }),
-  });
+  // The free tier limits requests per minute (HTTP 429), and the site shares the key with the build. Wait and retry a few times.
+  let res;
+  for (let attempt = 1; attempt <= 6; attempt++) {
+    res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:batchEmbedContents`, {
+      method: "POST",
+      headers: { "content-type": "application/json", "x-goog-api-key": key },
+      signal: AbortSignal.timeout(60_000),
+      body: JSON.stringify({
+        requests: texts.map((t) => ({ model: `models/${MODEL}`, content: { parts: [{ text: t.slice(0, 6000) }] }, taskType: "RETRIEVAL_DOCUMENT", outputDimensionality: DIMS })),
+      }),
+    });
+    if (res.status !== 429 && res.status !== 503) break;
+    console.log(`build-embeddings: HTTP ${res.status}, waiting before retry ${attempt}/6`);
+    await new Promise((r) => setTimeout(r, 20_000 * attempt));
+  }
   if (!res.ok) throw new Error(`embedding request failed: HTTP ${res.status}`);
   const j = await res.json();
   return j.embeddings.map((e) => e.values.map((v) => Math.round(v * 1e4) / 1e4));
