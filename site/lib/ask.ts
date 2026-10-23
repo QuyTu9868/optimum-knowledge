@@ -36,9 +36,11 @@ Rules:
 
 let knowledge: string | null = null; // cached once per server process
 
-// All repo text in one block: llms.txt first, then every Markdown file. Our helper.
-function loadKnowledge(): string {
-  if (knowledge) return knowledge;
+let fileList: string[] | null = null; // cached list of the repo files the assistant may use
+
+// Every Markdown file of the repo (llms.txt first) as paths relative to the content folder. Our helper.
+function listFiles(): string[] {
+  if (fileList) return fileList;
   const files: string[] = [];
   const walk = (dir: string) => {
     for (const name of fs.readdirSync(dir)) {
@@ -50,7 +52,14 @@ function loadKnowledge(): string {
   };
   walk(CONTENT_ROOT);
   files.sort((a, b) => (a === "llms.txt" ? -1 : b === "llms.txt" ? 1 : a.localeCompare(b)));
-  knowledge = files.map((f) => `=== FILE: ${f} ===\n${fs.readFileSync(path.join(CONTENT_ROOT, f), "utf8")}`).join("\n\n");
+  fileList = files;
+  return files;
+}
+
+// All repo text in one block: llms.txt first, then every Markdown file. Our helper.
+function loadKnowledge(): string {
+  if (knowledge) return knowledge;
+  knowledge = listFiles().map((f) => `=== FILE: ${f} ===\n${fs.readFileSync(path.join(CONTENT_ROOT, f), "utf8")}`).join("\n\n");
   return knowledge;
 }
 
@@ -194,6 +203,34 @@ function lineToHtml(line: string): string {
 
 type Source = { n: number; file: string; quote: string }; // our type: one numbered source the model cites
 
+// Finds the real repo line behind a quote. Order: the exact quote in the cited file; the exact quote in any other file (the model
+// sometimes names the wrong file); the line of the cited file that shares most of the quote's words (the model sometimes changes a word).
+// The line shown is always a real line of a real file, never the model's text. Our helper.
+function findLine(rel: string, rawQuote: string): { file: string; line: string } | null {
+  const quote = norm(rawQuote);
+  if (quote.length < 12) return null;
+  const read = (f: string) => fs.readFileSync(path.join(CONTENT_ROOT, f), "utf8").split("\n");
+  const exact = (f: string) => read(f).find((l) => norm(l).includes(quote));
+  const files = listFiles();
+  if (files.includes(rel)) {
+    const hit = exact(rel);
+    if (hit) return { file: rel, line: hit };
+  }
+  for (const f of files) {
+    const hit = f === rel ? undefined : exact(f);
+    if (hit) return { file: f, line: hit };
+  }
+  const words = [...new Set(quote.split(/[^\p{L}\p{N}.]+/u).filter((w) => w.length > 2))];
+  if (words.length < 4 || !files.includes(rel)) return null;
+  let best: { line: string; score: number } | null = null;
+  for (const l of read(rel)) {
+    const text = norm(l);
+    const score = words.filter((w) => text.includes(w)).length / words.length;
+    if (score >= 0.7 && (!best || score > best.score)) best = { line: l, score };
+  }
+  return best ? { file: rel, line: best.line } : null;
+}
+
 // "Sources" list under the answer: for each marker, the real repo line that contains the model's quote.
 // A quote that is not really in the file is never shown as if it were. Our helper.
 function sourcesHtml(sources: Source[], id: string): string {
@@ -206,12 +243,13 @@ function sourcesHtml(sources: Source[], id: string): string {
     const okPath = !rel.startsWith("..") && !path.posix.isAbsolute(rel) && (rel.endsWith(".md") || rel === "llms.txt");
     const full = path.join(CONTENT_ROOT, rel);
     let match = "";
+    let shownFile = rel; // the file that really holds the line (the model may have named another one)
     if (okPath && fs.existsSync(full)) {
-      const quote = norm(s.quote);
-      match = (fs.readFileSync(full, "utf8").split("\n").find((l) => quote.length >= 12 && norm(l).includes(quote)) ?? "");
+      const found = findLine(rel, s.quote);
+      if (found) { match = found.line; shownFile = found.file; }
     }
-    const href = rel === "README.md" ? "/" : "/" + rel.replace(/\.md$/, "");
-    const shown = okPath ? rel : "unknown file";
+    const href = shownFile === "README.md" ? "/" : "/" + shownFile.replace(/\.md$/, "");
+    const shown = okPath ? shownFile : "unknown file";
     items.push(
       `<li id="src-${id}-${s.n}"><span class="src-n">${s.n}</span><div>` +
         (match
