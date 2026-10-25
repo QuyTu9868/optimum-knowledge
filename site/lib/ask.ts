@@ -12,9 +12,9 @@ const MODEL = "gemini-3.5-flash-lite"; // our constant
 const MAX_TRIES = 3; // our constant
 // Tokens the model may spend thinking. Measured 2026-10-16 on 6 test questions: 256 passed 6/6 in ~12 s, 1024 passed 5/6 and 6/6
 // in ~13-15 s, and 0 is rejected by this model (HTTP error). Omitting the setting earlier lost facts phrased differently from the question.
-const THINKING_BUDGET = Number(process.env.THINKING_BUDGET ?? 256); // can be overridden with the THINKING_BUDGET env var
+const THINKING_BUDGET = Number(process.env.THINKING_BUDGET ?? 512); // 2026-10-25: 512 with temperature 0 gave clean Vietnamese in long answers // can be overridden with the THINKING_BUDGET env var
 const TIMEOUT_MS = 28_000; // never leave the user waiting longer than this (the route allows 30 s)
-const HEDGE_MS = 8_000; // a call still silent after this long gets a second parallel call; most answers arrive in 2 to 5 s
+const HEDGE_MS = 11_000; // a call still silent after this long gets a second parallel call; short answers take 2 to 5 s, full explanations 6 to 10 s
 const CONTENT_ROOT = path.join(process.cwd(), "content");
 
 const SYSTEM_PROMPT = `You answer questions about Optimum (getoptimum.xyz) using ONLY the knowledge base text given below. It may be excerpts: the sections that matched the question.
@@ -25,12 +25,13 @@ Rules:
 - Keep each fact's tag exactly as the file has it: [confirmed], [claimed] or [third-party]. Never upgrade a [claimed] fact to a plain statement. This holds in EVERY answer language: write the tag in English inside square brackets, never translate it, never leave it out, and put it before the source marker, for example "... without decoding [claimed] [1]".
 - Only put a tag on a fact if that same line or table row in the file carries that tag. Lines without a tag (summaries, "Most likely reading", notes) get no tag; say "the knowledge base notes" instead, translated into the answer language.
 - Claims listed in unverified.md get no tag: say they have no supporting source yet.
-- Do not write file paths in the answer. Put a marker such as [1], [2] right after each fact (after its tag, if it has one) and describe every marker in "sources": the file path and a short quote. The quote is the first 8 to 14 plain words of the one line that states the fact, copied exactly from that file, stopping before any link or tag. Never a heading or list title, never paraphrased. Several facts may share one marker. Use at most 4 sources.
+- Do not write file paths in the answer. Put a marker such as [1], [2] right after each fact (after its tag, if it has one) and describe every marker in "sources": the file path and a short quote. The quote is the first 8 to 14 plain words of the one line that states the fact, copied exactly from that file, stopping before any link or tag. Never a heading or list title, never paraphrased. Facts that come from different lines need different markers: share a marker only when one single line states both facts. Use at most 8 sources.
 - Set "covered" to true if the text contains information relevant to the question, false if it does not.
 - Reply as JSON only: {"covered": true, "answer": "text with markers", "sources": [{"n": 1, "file": "technology/rlnc.md", "quote": "..."}]}. The answer itself must contain no JSON.
 - If a file lists the topic under "Disputed", give both sides and say it is disputed.
 - If the topic appears in unverified.md, say it has no supporting source yet.
-- Short: at most about 120 words, bullet points welcome.
+- Give the answer itself. Never reply with only a pointer to a page ("see the RLNC page"): the reader must not need to open another page to get the answer.
+- Length follows the question. A narrow factual question (a number, a date, who, yes or no): one to three sentences. A broad question (what is X, how does X work, explain X, compare X and Y, tell me about X): a complete, self-contained explanation of up to about 350 words, in Markdown, laid out like this: one opening sentence that defines the thing (with its tag and marker), then these labelled parts, each label on its own line in bold and followed by 2 to 4 bullets that start with "- ": **How it works**, **What Optimum claims** (benefits and numbers, always attributed to Optimum), **Caveats and open questions** (what is disputed or not yet verified). Translate the labels into the answer language. Leave out a part only when the knowledge base says nothing about it. Each bullet is ONE fact and ends with its tag and then its marker, for example "... [confirmed] [3]". Do not repeat the same fact in two bullets.
 - Reply in the language named under ANSWER LANGUAGE at the end of the input, even though the files are in English: English question, English answer; Vietnamese question, Vietnamese answer (all text in the answer, including the words that introduce each fact).
 - Write normal text with full accents and diacritics for that language. Do not use LaTeX or $...$ math. No em dashes.`;
 
@@ -81,6 +82,9 @@ function loadChunks(): Chunk[] | null {
 const TOP_SECTIONS = 10; // our constant: sections sent per question
 const MAX_CHARS = 16_000; // our constant: cap on the text sent
 const WIDE = { top: 24, chars: 40_000 }; // our constant: second, wider look when the first excerpts did not answer
+const BROAD = { top: 16, chars: 26_000 }; // our constant: "what is X" style questions need more of the page than a narrow one
+// Questions that ask for a whole explanation rather than one fact (English and Vietnamese). Our helper.
+const isBroad = (q: string) => /\b(what is|what are|what's|explain|how does|how do|tell me about|overview|compare|difference)\b|là gì|là sao|giải thích|hoạt động|khác nhau|so sánh|giới thiệu|tổng quan/i.test(q);
 
 const cosine = (a: number[], b: number[]) => {
   let dot = 0, na = 0, nb = 0;
@@ -100,8 +104,8 @@ function lexicalScores(question: string, chunks: Chunk[]): number[] {
 async function retrieve(question: string, key: string, wide = false): Promise<string | null> {
   const chunks = loadChunks();
   if (!chunks?.length) return null;
-  const top = wide ? WIDE.top : TOP_SECTIONS;
-  const cap = wide ? WIDE.chars : MAX_CHARS;
+  const top = wide ? WIDE.top : isBroad(question) ? BROAD.top : TOP_SECTIONS;
+  const cap = wide ? WIDE.chars : isBroad(question) ? BROAD.chars : MAX_CHARS;
   try {
     let scores: number[] | null = null;
     try {
@@ -325,7 +329,7 @@ async function callGemini(system: string, knowledgeText: string, input: string, 
   const body = JSON.stringify({
     systemInstruction: { parts: [{ text: system }] },
     contents: [{ role: "user", parts: [{ text: `${knowledgeText}\n\n${input}` }] }],
-    generationConfig: { temperature: 0.2, thinkingConfig: { thinkingBudget: THINKING_BUDGET }, responseMimeType: "application/json", responseSchema: RESPONSE_SCHEMA },
+    generationConfig: { temperature: Number(process.env.ASK_TEMPERATURE ?? 0) /* 0.2 sometimes produced broken Vietnamese words in long answers */, thinkingConfig: { thinkingBudget: THINKING_BUDGET }, responseMimeType: "application/json", responseSchema: RESPONSE_SCHEMA },
   });
   const controllers = new Map<number, AbortController>();
   const inflight = new Map<number, Promise<[number, Response | null]>>();
