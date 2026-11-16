@@ -25,6 +25,15 @@ In network coding, a malicious node can send a bad coded packet. Because relays 
 - All were fixed in v1.0.2 except F-07 (medium), which was only partly resolved. ([ProbeLab](https://probelab.io/blog/security-audit-report-optimum-gateway/)) [third-party]
 - The audit says the Gateway does not change validator signing logic, beacon state or attestation duties. ([ProbeLab](https://probelab.io/blog/security-audit-report-optimum-gateway/)) [third-party]
 
+## Published advisories after the audit (checked 2026-11-16)
+
+The gateway repo lists two GitHub security advisories in its CHANGELOG and release notes. Details are in [../code/known-issues.md](../code/known-issues.md).
+
+- GHSA-rcrq-vcj2-m787 (medium): a mump2p peer with publish scope could make subscribed gateways allocate far more memory than the message size through an aggregated attestation pack with out-of-range subnet indexes. Fixed in v1.3.3; v1.3.2 and earlier are affected. ([v1.3.3 release notes](https://github.com/getoptimum/optimum-gateway/blob/main/docs/versions/v1.3.3/release_notes.md)) [confirmed]
+- GHSA-gr6w-cqh2-3c5g: with host networking, the read-only telemetry endpoints on 48123 listened on every host IPv4 interface. v1.3.4 adds `telemetry_addr`; the release notes say Optimum never connects to 48123 inbound. ([v1.3.4 release notes](https://github.com/getoptimum/optimum-gateway/blob/main/docs/versions/v1.3.4/release_notes.md)) [confirmed]
+- Dependency and toolchain fixes: Go 1.27.3 build for a certificate-trust issue (CVE-2026-111943, v1.3.3), MPTCP turned off on listeners (CVE-2026-98432, v1.3.4), golang.org/x/net bump (CVE-2026-78661, main, #231). [confirmed]
+- The sources say nothing on whether ProbeLab reviewed these fixes. [confirmed]
+
 ## Not shown to be covered by the audit
 
 The audit phase was July 2026. These surfaces are documented later or in places the sources do not tie to the audit; this page does not claim the audit covers them.

@@ -1,6 +1,6 @@
 ---
 title: Known issues and notable fixes
-last_verified: 2026-10-11
+last_verified: 2026-11-16
 status: confirmed from PRs, commits and CHANGELOG; GitHub issues list not searched
 ---
 
@@ -14,6 +14,10 @@ The issues list could not be read during research, so this file covers PRs, comm
 - **Duplicate notifications (PR #121, 2026-09-09):** adds a 30-second dedup window so re-encodings of the same block from the same source don't trigger repeated stream events. The PR does not mention republishing or latency spikes. ([PR #121](https://github.com/getoptimum/optimum-gateway/pull/121)) [confirmed]
 - **Handshake gating (PR #8, 2026-07-23):** only accepts messages from peers that complete handshake validation. No client-specific behaviour is mentioned. ([PR #8](https://github.com/getoptimum/optimum-gateway/pull/8)) [confirmed]
 - **Health metric (PR #48, v1.0.2):** the consensus client health metric now ticks on outbound relay too, not just inbound gossip. [confirmed]
+- **Memory exhaustion via aggregated attestations (GHSA-rcrq-vcj2-m787, fixed in v1.3.3, medium severity):** a mump2p peer with publish scope could send a pack with out-of-range subnet indexes and make subscribed gateways allocate far more memory than the message size. The gateway now rejects the whole pack if any subnet is outside 0-63. v1.3.2 and earlier are affected. ([v1.3.3 release notes](https://github.com/getoptimum/optimum-gateway/blob/main/docs/versions/v1.3.3/release_notes.md)) [confirmed]
+- **Telemetry exposed on host networking (GHSA-gr6w-cqh2-3c5g, v1.3.4):** with `--network host` or the Helm chart's `hostNetwork`, the read-only telemetry endpoints on 48123 (`/`, `/health`, `/metrics`, `/api/v1/self_info`) listened on every host IPv4 interface. Upgrading alone does not change the bind: set `telemetry_addr: 127.0.0.1`, or with Helm use chart 0.5.0 with v1.3.4. Gateways started with the current Console command publish 48123 on loopback and are not affected. ([v1.3.4 release notes](https://github.com/getoptimum/optimum-gateway/blob/main/docs/versions/v1.3.4/release_notes.md)) [confirmed]
+- **MPTCP (CVE-2026-98432, v1.3.4):** Go 1.24 and later accept MPTCP by default; v1.3.4 turns it off on every gateway listener. The release notes say the complete fix is the host kernel update. [confirmed]
+- **Other fixes since 2026-10-19, by title:** fork digest follows CL traffic, not a subscription (#192); token refresh about every 15 minutes (#184); packer topic index validation (#185); propagation flag for attestations (#179); stream-only gateway follows a fork digest (#217); preserve configured CL peer reconnect addresses (#219); advertise minimum custody and no data availability to CL peers (#222); attribute CL peer disconnects and goodbyes by client (#223); reply to ping with own metadata sequence number (#224); docs say a load balancer cannot front the mesh port (#227); golang.org/x/net bump for CVE-2026-78661 (#231). Open PRs were not checked. [confirmed]
 - Others by title: telemetry data race (#10), TLS concern in the stream service (#84), slot-gating Hermes beacon fanout (#135), recording publisher first-seen time (#161), accepting gossip blocks up to the compressed size limit (#162). [confirmed]
 
 ## Audit

@@ -1,6 +1,6 @@
 ---
 title: Repos and Gateway releases
-last_verified: 2026-10-20
+last_verified: 2026-11-16
 status: confirmed from git history and CHANGELOG
 lang: vi
 translation_of: code/releases.md
@@ -46,7 +46,11 @@ Ngày ghi ở đây là ngày commit của từng tag. ([tags](https://github.co
 | v1.2.1 | 2026-09-09 | Cửa sổ chống trùng (dedup) 30 giây cho khối được mã hóa lại (#121) |
 | v1.3.0 | 2026-09-10 | Quyền publish lấy từ JWT scope (#123, #126); Subscribe hai chiều có làm mới token (#120) |
 | v1.3.1 | 2026-09-14 | Tự đăng ký bằng một join key dùng chung toàn org, `ojk_` (#116, docs #129); có từ v1.3.1, giữ lại trong v1.3.2 (xem [../products/console-and-signal.md](../products/console-and-signal.md), [manual v1.3.2 configuration](https://github.com/getoptimum/optimum-gateway/blob/main/docs/versions/v1.3.2/02_configuration.md)) |
-| v1.3.2 | 2026-09-17 | Khối lan truyền ở mọi slot (khung 12 giây của Ethereum); v1.3.0 và v1.3.1 bỏ sót một số slot |
+| v1.3.2 | 2026-09-17 | Khối lan truyền ở mọi slot (khung 12 giây của Ethereum); v1.3.0 và v1.3.1 bỏ sót một số slot. Bị ảnh hưởng bởi GHSA-rcrq-vcj2-m787 |
+| v1.3.3 | 2026-10-27 | Build bằng Go 1.27.3 (sửa lỗi tin cậy chứng chỉ, CVE-2026-111943); sửa lỗi cạn bộ nhớ với aggregated attestation (GHSA-rcrq-vcj2-m787); giữ nguyên fork hiện tại cho tới khi CL dùng fork kế tiếp; không chuyển tiếp attestation khi tắt propagation; `/health` chạy được khi tắt telemetry; token làm mới khoảng mỗi 15 phút |
+| v1.3.4 | 2026-10-30 | Bản hiện hành. Thêm `telemetry_addr` (`OPT_TELEMETRY_ADDR`) cho gateway chạy host networking (GHSA-gr6w-cqh2-3c5g); listener dùng TCP thường, tắt MPTCP (CVE-2026-98432); đăng ký không còn gửi `gateway_http_addr`; Helm chart 0.5.0 |
 
-- CHANGELOG nói v1.3.2 là phiên bản duy nhất còn được hỗ trợ; mọi bản cũ hơn, kể cả v0.0.1-rc1 đến rc12, đều đã bị deprecated (ngừng hỗ trợ). ([CHANGELOG](https://github.com/getoptimum/optimum-gateway/blob/main/docs/CHANGELOG.md)) [confirmed]
+- Tại lần kiểm tra 2026-11-16, CHANGELOG ghi v1.3.4 là CURRENT, còn v1.3.3 và v1.3.2 là supported (khuyến nghị nâng cấp). v1.3.1, v1.3.0 và mọi bản cũ hơn, kể cả v0.0.1-rc1 đến rc12, đã bị deprecated (ngừng hỗ trợ). Phiên bản trước của trang này ghi v1.3.2 là bản duy nhất còn được hỗ trợ. ([CHANGELOG](https://github.com/getoptimum/optimum-gateway/blob/main/docs/CHANGELOG.md), [release notes v1.3.4](https://github.com/getoptimum/optimum-gateway/blob/main/docs/versions/v1.3.4/release_notes.md)) [confirmed]
+- Helm chart 0.5.0 gắn telemetry vào loopback của node, kiểm tra từ bên trong pod và thêm đăng ký bằng join key dùng chung toàn org. Chart cần gateway v1.3.4; image cũ bỏ qua cấu hình loopback của chart. ([release notes v1.3.4](https://github.com/getoptimum/optimum-gateway/blob/main/docs/versions/v1.3.4/release_notes.md)) [confirmed]
+- Commit mới nhất trên `main` thấy được vào 2026-11-16 là #231 (2026-11-13), nâng golang.org/x/net để vá CVE-2026-78661. [confirmed]
 - Các client đồng thuận được hỗ trợ: Prysm, Lighthouse, Nimbus, Teku, Lodestar. Docs lưu ý Nimbus có thể mất vài giờ để ổn định. [confirmed]

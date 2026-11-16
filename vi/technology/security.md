@@ -28,6 +28,15 @@ Trong mã hóa mạng (network coding), một nút độc hại có thể gửi 
 - Tất cả đã được sửa trong v1.0.2, trừ F-07 (medium) mới chỉ được giải quyết một phần. ([ProbeLab](https://probelab.io/blog/security-audit-report-optimum-gateway/)) [third-party]
 - Báo cáo kiểm toán nói Gateway không thay đổi logic ký của validator (nút xác thực), beacon state hay nhiệm vụ attestation (phiếu xác nhận). ([ProbeLab](https://probelab.io/blog/security-audit-report-optimum-gateway/)) [third-party]
 
+## Advisory đã công bố sau kiểm toán (kiểm tra 2026-11-16)
+
+Repo gateway liệt kê hai GitHub security advisory trong CHANGELOG và release notes. Chi tiết ở [../code/known-issues.md](../code/known-issues.md).
+
+- GHSA-rcrq-vcj2-m787 (medium): một peer mump2p có quyền publish có thể khiến các gateway đang subscribe cấp phát bộ nhớ nhiều hơn rất nhiều so với kích thước thông điệp, qua gói aggregated attestation có chỉ số subnet ngoài phạm vi. Sửa ở v1.3.3; v1.3.2 trở về trước bị ảnh hưởng. ([release notes v1.3.3](https://github.com/getoptimum/optimum-gateway/blob/main/docs/versions/v1.3.3/release_notes.md)) [confirmed]
+- GHSA-gr6w-cqh2-3c5g: với host networking, các endpoint telemetry chỉ-đọc trên 48123 lắng nghe trên mọi interface IPv4 của host. v1.3.4 thêm `telemetry_addr`; release notes nói Optimum không bao giờ kết nối inbound tới 48123. ([release notes v1.3.4](https://github.com/getoptimum/optimum-gateway/blob/main/docs/versions/v1.3.4/release_notes.md)) [confirmed]
+- Sửa lỗi phụ thuộc và toolchain: build Go 1.27.3 cho lỗi tin cậy chứng chỉ (CVE-2026-111943, v1.3.3), tắt MPTCP trên listener (CVE-2026-98432, v1.3.4), nâng golang.org/x/net (CVE-2026-78661, main, #231). [confirmed]
+- Các nguồn không nói ProbeLab có rà soát các bản sửa này hay không. [confirmed]
+
 ## Chưa có căn cứ cho thấy kiểm toán bao phủ (Not shown to be covered by the audit)
 
 Giai đoạn kiểm toán diễn ra vào tháng 7 năm 2026. Những bề mặt dưới đây được ghi nhận muộn hơn hoặc ở những nơi mà các nguồn không gắn với bản kiểm toán; trang này không nói rằng bản kiểm toán bao phủ chúng.

@@ -12,6 +12,16 @@ This page describes what the official docs and gateway manual say as of 2026-10-
 
 Background on what the gateway does is in [../technology/sidecar-gateway.md](../technology/sidecar-gateway.md).
 
+## Update 2026-11-16 (gateway v1.3.4)
+
+Only the gateway repo was rechecked on 2026-11-16. The docs.getoptimum.xyz pages could not be fetched that day, so the claims below that cite them are still as of 2026-10-20 (`last_verified` in the header is unchanged for that reason).
+
+- The current gateway release is v1.3.4 (2026-10-30); v1.3.3 and v1.3.2 are still supported, with upgrade recommended. The sections below cite the v1.3.2 manual, and the manual now also has v1.3.3 and v1.3.4 folders. ([CHANGELOG](https://github.com/getoptimum/optimum-gateway/blob/main/docs/CHANGELOG.md)) [confirmed]
+- Host networking: the release notes say a gateway run with `--network host` (for example from the join-key `docker run` in the v1.3.2 and v1.3.3 docs, or a Console command copied before 29 September 2026) listened with telemetry on every host IPv4 interface. Fix: v1.3.4 plus `telemetry_addr: 127.0.0.1` (`OPT_TELEMETRY_ADDR`). With `-p`, publish `127.0.0.1:48123:48123`. This agrees with the "do not use `--network host`" line under Ports. ([v1.3.4 release notes](https://github.com/getoptimum/optimum-gateway/blob/main/docs/versions/v1.3.4/release_notes.md)) [confirmed]
+- Helm chart 0.5.0 (needs gateway v1.3.4) binds telemetry to node loopback, so the Service no longer exposes 48123 and a PodMonitor needs the "scrape it yourself" setup. It also adds org-wide join-key enrollment, which changes the Kubernetes line below that says a join key needs your own wiring. ([v1.3.4 release notes](https://github.com/getoptimum/optimum-gateway/blob/main/docs/versions/v1.3.4/release_notes.md)) [confirmed]
+- A Prometheus container on Linux can no longer scrape `172.17.0.1:48123` or `host.docker.internal:48123` once telemetry is on loopback; a Prometheus on the host still reaches `localhost:48123`. [confirmed]
+- A load balancer cannot front the mesh port (docs PR #227, 2026-11-12, by title). [confirmed]
+
 ## Requirements
 
 - Needs a host with Docker, placed beside the beacon node; a stream-only gateway can run on any host you control. ([docs: before you begin](https://docs.getoptimum.xyz/start/before-you-begin)) [confirmed]

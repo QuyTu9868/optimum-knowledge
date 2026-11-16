@@ -15,6 +15,16 @@ Trang này mô tả những gì tài liệu chính thức và manual của gatew
 
 Nền tảng về việc gateway làm gì nằm ở [../technology/sidecar-gateway.md](../technology/sidecar-gateway.md).
 
+## Cập nhật 2026-11-16 (gateway v1.3.4)
+
+Ngày 2026-11-16 chỉ kiểm tra lại repo của gateway. Các trang docs.getoptimum.xyz không tải được hôm đó, nên những nội dung bên dưới trích từ docs vẫn là tính đến 2026-10-20 (vì vậy `last_verified` ở phần đầu giữ nguyên).
+
+- Bản gateway hiện hành là v1.3.4 (2026-10-30); v1.3.3 và v1.3.2 vẫn được hỗ trợ, khuyến nghị nâng cấp. Các mục bên dưới trích manual v1.3.2, còn manual giờ có thêm thư mục v1.3.3 và v1.3.4. ([CHANGELOG](https://github.com/getoptimum/optimum-gateway/blob/main/docs/CHANGELOG.md)) [confirmed]
+- Host networking: release notes nói gateway chạy với `--network host` (ví dụ từ lệnh `docker run` dùng join key trong docs v1.3.2 và v1.3.3, hoặc lệnh Console sao chép trước 29/9/2026) lắng nghe telemetry trên mọi interface IPv4 của host. Cách xử lý: v1.3.4 cùng `telemetry_addr: 127.0.0.1` (`OPT_TELEMETRY_ADDR`). Với `-p`, publish `127.0.0.1:48123:48123`. Điều này khớp với dòng "không dùng `--network host`" ở phần Ports. ([release notes v1.3.4](https://github.com/getoptimum/optimum-gateway/blob/main/docs/versions/v1.3.4/release_notes.md)) [confirmed]
+- Helm chart 0.5.0 (cần gateway v1.3.4) gắn telemetry vào loopback của node, nên Service không còn mở 48123, và PodMonitor cần cách "tự scrape". Chart cũng thêm đăng ký bằng join key dùng chung toàn org, thay đổi dòng Kubernetes bên dưới nói join key cần tự nối dây. ([release notes v1.3.4](https://github.com/getoptimum/optimum-gateway/blob/main/docs/versions/v1.3.4/release_notes.md)) [confirmed]
+- Trên Linux, container Prometheus không còn scrape được `172.17.0.1:48123` hay `host.docker.internal:48123` khi telemetry ở loopback; Prometheus chạy trực tiếp trên host vẫn truy cập được `localhost:48123`. [confirmed]
+- Load balancer không đặt trước được cổng mesh (PR docs #227, 2026-11-12, theo tiêu đề). [confirmed]
+
 ## Yêu cầu (Requirements)
 
 - Cần một máy có Docker, đặt cạnh beacon node. Gateway chỉ stream có thể chạy trên bất kỳ máy nào bạn kiểm soát. ([docs: before you begin](https://docs.getoptimum.xyz/start/before-you-begin)) [confirmed]

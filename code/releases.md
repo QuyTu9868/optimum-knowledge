@@ -1,6 +1,6 @@
 ---
 title: Repos and Gateway releases
-last_verified: 2026-10-20
+last_verified: 2026-11-16
 status: confirmed from git history and CHANGELOG
 ---
 
@@ -43,7 +43,11 @@ Dates are the commit dates of each tag. ([tags](https://github.com/getoptimum/op
 | v1.2.1 | 2026-09-09 | 30-second dedup window for re-encoded blocks (#121) |
 | v1.3.0 | 2026-09-10 | Publish rights from JWT scopes (#123, #126); two-way Subscribe with token refresh (#120) |
 | v1.3.1 | 2026-09-14 | Self-enrollment with one org-wide join key, `ojk_` (#116, docs #129); introduced in v1.3.1, carried in v1.3.2 (see [../products/console-and-signal.md](../products/console-and-signal.md), [manual v1.3.2 configuration](https://github.com/getoptimum/optimum-gateway/blob/main/docs/versions/v1.3.2/02_configuration.md)) |
-| v1.3.2 | 2026-09-17 | Blocks propagate every slot; v1.3.0 and v1.3.1 skipped some slots |
+| v1.3.2 | 2026-09-17 | Blocks propagate every slot; v1.3.0 and v1.3.1 skipped some slots. Affected by GHSA-rcrq-vcj2-m787 |
+| v1.3.3 | 2026-10-27 | Built with Go 1.27.3 (certificate-trust fix, CVE-2026-111943); memory-exhaustion fix for aggregated attestations (GHSA-rcrq-vcj2-m787); stays on the current fork until the CL uses the next; no attestations forwarded when propagation is off; `/health` works with telemetry off; token refresh about every 15 minutes |
+| v1.3.4 | 2026-10-30 | Current release. New `telemetry_addr` (`OPT_TELEMETRY_ADDR`) for host-networking gateways (GHSA-gr6w-cqh2-3c5g); listeners use plain TCP, MPTCP off (CVE-2026-98432); registration no longer sends `gateway_http_addr`; Helm chart 0.5.0 |
 
-- The CHANGELOG says v1.3.2 is the only supported version; everything older, including v0.0.1-rc1 to rc12, is deprecated. ([CHANGELOG](https://github.com/getoptimum/optimum-gateway/blob/main/docs/CHANGELOG.md)) [confirmed]
+- As of the 2026-11-16 check, the CHANGELOG lists v1.3.4 as CURRENT, and v1.3.3 and v1.3.2 as supported (upgrade recommended). v1.3.1 and v1.3.0 are deprecated, as is everything older, including v0.0.1-rc1 to rc12. An earlier version of this page said v1.3.2 was the only supported version. ([CHANGELOG](https://github.com/getoptimum/optimum-gateway/blob/main/docs/CHANGELOG.md), [v1.3.4 release notes](https://github.com/getoptimum/optimum-gateway/blob/main/docs/versions/v1.3.4/release_notes.md)) [confirmed]
+- Helm chart 0.5.0 binds telemetry to node loopback, probes it from inside the pod and adds org-wide join-key enrollment. It needs gateway v1.3.4; older images ignore its loopback bind. ([v1.3.4 release notes](https://github.com/getoptimum/optimum-gateway/blob/main/docs/versions/v1.3.4/release_notes.md)) [confirmed]
+- The latest `main` commit seen on 2026-11-16 is #231 (2026-11-13), a bump of golang.org/x/net for CVE-2026-78661. [confirmed]
 - Supported consensus clients: Prysm, Lighthouse, Nimbus, Teku, Lodestar. The docs note Nimbus can take a few hours to settle. [confirmed]
